@@ -200,3 +200,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 //#define NO_ACTION_ONESHOT
 
 //#define DEBUG_MATRIX_SCAN_RATE
+
+#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD

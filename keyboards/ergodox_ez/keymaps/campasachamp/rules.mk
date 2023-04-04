@@ -5,18 +5,19 @@
 
 # Build Options
 BOOTMAGIC_ENABLE 	= no   	# Enable Bootmagic Lite
-MOUSEKEY_ENABLE  	= yes  	# Mouse keys
-EXTRAKEY_ENABLE  	= yes  	# Audio control and System control
-CONSOLE_ENABLE   	= no   	# Console for debug
+CAPS_WORD_ENABLE    = yes
 COMMAND_ENABLE   	= no   	# Commands for debug and configuration
+CONSOLE_ENABLE   	= no   	# Console for debug
 CUSTOM_MATRIX    	= lite 	# Custom matrix file for the ErgoDox EZ
+DEBOUNCE_TYPE 		= sym_eager_pr
+EXTRAKEY_ENABLE  	= yes  	# Audio control and System control
+MOUSEKEY_ENABLE  	= yes  	# Mouse keys
 NKRO_ENABLE      	= yes  	# Enable N-Key Rollover
-UNICODE_ENABLE   	= no   	# Unicode
+RGB_MATRIX_DRIVER 	= IS31FL3731
+RGB_MATRIX_ENABLE 	= no 		# Enable later
 SWAP_HANDS_ENABLE	= no   	# Allow swapping hands of keyboard
 TAP_DANCE_ENABLE 	= yes
-RGB_MATRIX_ENABLE 	= no 		# Enable later
-RGB_MATRIX_DRIVER 	= IS31FL3731
-DEBOUNCE_TYPE 		= sym_eager_pr
+UNICODE_ENABLE   	= no   	# Unicode
 
 # project specific files
 SRC += matrix.c \
