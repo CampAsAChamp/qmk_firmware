@@ -1,8 +1,14 @@
 #include QMK_KEYBOARD_H
 #include "version.h"
+#include "secrets.h"
+
+// ! Unused right now
+enum custom_keycodes {
+    VRSN = SAFE_RANGE,
+};
 
 enum layers {
-    BASE,  // default layer
+    BASE, // default layer
     SYMBOLS,
     MOUSE,
     NUMBERS,
@@ -10,27 +16,26 @@ enum layers {
 };
 
 // Tap Dance declarations
-enum {
+enum td_keycodes {
     TD_DASH,
     TD_PLUS,
     TD_LBRACKET,
     TD_RBRACKET,
     TD_PIPE,
-};
-
-// ! Unused right now
-enum custom_keycodes {
-    VRSN = SAFE_RANGE,
+    TD_COPY,
+    TD_UNDO,
 };
 
 // Tap Dance definitions
 tap_dance_action_t tap_dance_actions[] = {
-    // Tap once for first key code, tap twice for second keycode
-    [TD_DASH] = ACTION_TAP_DANCE_DOUBLE(KC_MINUS, KC_UNDS),
-    [TD_PLUS] = ACTION_TAP_DANCE_DOUBLE(KC_EQUAL, KC_PLUS),
+    // Tap once for first key code tap twice for second keycode
+    [TD_DASH]     = ACTION_TAP_DANCE_DOUBLE(KC_MINUS, KC_UNDS),
+    [TD_PLUS]     = ACTION_TAP_DANCE_DOUBLE(KC_EQUAL, KC_PLUS),
     [TD_LBRACKET] = ACTION_TAP_DANCE_DOUBLE(KC_LEFT_CURLY_BRACE, KC_LEFT_BRACKET),
     [TD_RBRACKET] = ACTION_TAP_DANCE_DOUBLE(KC_RIGHT_CURLY_BRACE, KC_RIGHT_BRACKET),
-    [TD_PIPE] = ACTION_TAP_DANCE_DOUBLE(KC_BACKSLASH, KC_PIPE),
+    [TD_PIPE]     = ACTION_TAP_DANCE_DOUBLE(KC_BACKSLASH, KC_PIPE),
+    [TD_COPY]     = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_C), LGUI(KC_X)),
+    [TD_UNDO]     = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_Z), LGUI(LSFT(KC_Z))),
 };
 
 // clang-format off
@@ -61,7 +66,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_TAB,         KC_Q,     KC_W,     KC_E,           KC_R,           KC_T,     TD(TD_LBRACKET),       TD(TD_RBRACKET),  KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           TD(TD_PIPE),
     MO(SYMBOLS),    KC_A,     KC_S,     KC_D,           KC_F,           KC_G,                                              KC_H,           KC_J,           KC_K,           KC_L,           KC_SEMICOLON,   KC_QUOTE,
     SC_LSPO,        KC_Z,     KC_X,     KC_C,           KC_V,           KC_B,     KC_GRAVE,              CW_TOGG,          KC_N,           KC_M,           KC_COMMA,       KC_DOT,         KC_SLASH,       SC_RSPC,
-    OSM(MOD_LCTL),  KC_TRNS,  KC_TRNS,  OSM(MOD_LALT),  OSM(MOD_LGUI),                                                                     TT(MOUSE),      OSM(MOD_RGUI),  KC_TRNS,        OSM(MOD_RALT),  KC_RGUI,
+    OSM(MOD_LCTL),  KC_TRNS,  KC_TRNS,  OSM(MOD_LALT),  OSM(MOD_LGUI),                                                                     TT(MOUSE),      TD(TD_UNDO),    TD(TD_COPY),    LGUI(KC_V),     LGUI(LSFT(KC_2)),
                                                                                   KC_TRNS,   KC_TRNS,    LALT(KC_SPACE),  LGUI(KC_SPACE),
                                                                                           TG(GAMING),    KC_TRNS, 
                                                                     KC_SPACE, KC_DELETE, TT(NUMBERS),    LGUI(KC_GRAVE), KC_ENTER, KC_BSPC
