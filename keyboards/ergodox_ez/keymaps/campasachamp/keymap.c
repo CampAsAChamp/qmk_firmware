@@ -150,9 +150,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,     KC_CAPS, KC_MINS, KC_UNDS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_LALT,                                         KC_TRNS, KC_TRNS, KC_TRNS,  KC_TRNS, KC_TRNS,
 
-                                               KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS,
-                                                        KC_TRNS,     KC_TRNS,
-                                      KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS, KC_LCTL, KC_LALT
+                                               RGB_TOG, RGB_MODE_PLAIN,     KC_TRNS, KC_TRNS,
+                                                        TOGGLE_LAYER_COLOR,     KC_TRNS,
+                                      KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS, KC_LCTL, KC_LALT
 ),
 /* Keymap 2: Mouse layer
  *
