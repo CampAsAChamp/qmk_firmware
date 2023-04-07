@@ -95,5 +95,5 @@ GRAPHICS
 *.eep binary
 nix/sources.nix linguist-generated=true
 
-# git-crypt
-api.key filter=git-crypt diff=git-crypt
+# git-crypt setup
+*/myapi.key filter=git-crypt diff=git-crypt
