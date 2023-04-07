@@ -4,8 +4,8 @@
 
 #define CAPS_LOCK_STATUS
 
-// #undef RGB_DISABLE_TIMEOUT
-// #define RGB_DISABLE_TIMEOUT 900000 // In miliseconds -- 15 minutes
+#undef RGB_DISABLE_TIMEOUT
+#define RGB_DISABLE_TIMEOUT 900000 // In miliseconds -- 15 minutes
 
 #undef MOUSEKEY_TIME_TO_MAX  
 #define MOUSEKEY_TIME_TO_MAX        30
