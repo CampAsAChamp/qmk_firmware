@@ -52,13 +52,12 @@ static const int IDX_R2 = 21;
 static const int IDX_R3 = 22;
 static const int IDX_R4 = 23;
 
-// ! Unused right now
 enum custom_keycodes {
     VRSN = SAFE_RANGE,
 };
 
 enum layers {
-    BASE, // default layer
+    BASE,      // default layer
     SYMBOLS,
     MOUSE,
     NUMBERS,
@@ -250,7 +249,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                         KC_TRNS,     KC_TRNS,
                                       KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS
 ),
-
 };
 
 //----------------------
@@ -277,6 +275,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 |      |      |------|       |------|      |      |
  *                                 |      |      |      |       |      |      |      |
  *                                 `--------------------'       `--------------------'
+ */
+ /*
 [REPLACE_ME] = LAYOUT_ergodox_pretty(
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
   KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,     KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
@@ -347,6 +347,7 @@ void leader_end_user(void) {
         send_string(M_SYM);
     }
 }
+
 // Runs just one time when the keyboard initializes.
 void keyboard_post_init_user(void) {
     ergodox_led_all_set(255);
@@ -364,22 +365,22 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     uint8_t layer = get_highest_layer(state);
     switch (layer) {
         case BASE:
-            rgb_matrix_set_color_all(97, 0, 255); //Light up all the keys in blue
+            rgb_matrix_set_color_all(97, 0, 255); // Purple
             break;
         case SYMBOLS:
-            rgb_matrix_set_color_all(255, 255, 255); // rest of keys
+            rgb_matrix_set_color_all(255, 255, 255); // White
             ergodox_right_led_1_on();
             break;
         case MOUSE:
-            rgb_matrix_set_color_all(23, 200, 34);
+            rgb_matrix_set_color_all(23, 200, 34); // Green
             ergodox_right_led_2_on();
             break;
         case NUMBERS:
-            rgb_matrix_set_color_all(0, 0, 255);
+            rgb_matrix_set_color_all(0, 0, 255); // Blue
             ergodox_right_led_3_on();
             break;
         case GAMING:
-            rgb_matrix_set_color_all(255, 0, 0);
+            rgb_matrix_set_color_all(255, 0, 0); // Red
             ergodox_right_led_1_on();
             ergodox_right_led_3_on();
             break;
