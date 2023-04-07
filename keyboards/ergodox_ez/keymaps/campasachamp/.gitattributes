@@ -1,0 +1,2 @@
+# git-crypt setup
+myotherapi.key filter=git-crypt diff=git-crypt
