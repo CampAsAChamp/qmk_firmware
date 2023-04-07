@@ -11,6 +11,7 @@ CONSOLE_ENABLE   	= no   	         # Console for debug
 CUSTOM_MATRIX    	= lite 	         # Custom matrix file for the ErgoDox EZ
 DEBOUNCE_TYPE 		= sym_eager_pr
 EXTRAKEY_ENABLE  	= yes  	         # Audio control and System control
+LEADER_ENABLE       = yes
 MOUSEKEY_ENABLE  	= yes  	         # Mouse keys
 NKRO_ENABLE      	= yes  	         # Enable N-Key Rollover
 RGB_MATRIX_DRIVER 	= IS31FL3731

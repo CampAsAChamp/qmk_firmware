@@ -152,7 +152,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                                RGB_TOG, RGB_MODE_PLAIN,     KC_TRNS, KC_TRNS,
                                                         TOGGLE_LAYER_COLOR,     KC_TRNS,
-                                      KC_TRNS, KC_TRNS, KC_TRNS,      KC_TRNS, KC_LCTL, KC_LALT
+                                      QK_LEAD, KC_TRNS, KC_TRNS,      KC_TRNS, KC_LCTL, KC_LALT
 ),
 /* Keymap 2: Mouse layer
  *
@@ -302,6 +302,51 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
+void leader_start_user(void) {
+    // Do something when the leader key is pressed
+}
+
+void leader_end_user(void) {
+    if (leader_sequence_one_key(KC_C)) {
+        send_string(USERNAME);
+    }
+    else if (leader_sequence_two_keys(KC_N, KC_P)) {
+        send_string(P_EMAIL);
+    } 
+    else if (leader_sequence_two_keys(KC_N, KC_W)) {
+        send_string(W_EMAIL);
+    } 
+    else if (leader_sequence_two_keys(KC_N, KC_U)) {
+        send_string(S_EMAIL);
+    }
+    else if (leader_sequence_one_key(KC_V)) {
+        send_string(V);
+    }
+    else if (leader_sequence_one_key(KC_1)) {
+        send_string(MEGA);
+    }
+    else if (leader_sequence_one_key(KC_4)) {
+        send_string(FOUR);
+    }
+    else if (leader_sequence_two_keys(KC_4, KC_T)) {
+        send_string(FOUR_CAPS);
+    }
+    else if (leader_sequence_two_keys(KC_4, KC_4)) {
+        send_string(FOUR_SYM);
+    }
+    else if (leader_sequence_one_key(KC_3)) {
+        send_string(PHONE_NUM);
+    }
+    else if (leader_sequence_two_keys(KC_3, KC_TAB)) {
+        send_string(PHONE_NUM_TAB);
+    }
+    else if (leader_sequence_two_keys(KC_M, KC_P)) {
+        send_string(M);
+    }
+    else if (leader_sequence_three_keys(KC_M, KC_P, KC_P)) {
+        send_string(M_SYM);
+    }
+}
 // Runs just one time when the keyboard initializes.
 void keyboard_post_init_user(void) {
     ergodox_led_all_set(255);
