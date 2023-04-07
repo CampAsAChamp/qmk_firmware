@@ -110,7 +110,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  *                                 | Space|Backsp|------|       |------|  Tab   |Enter |
  *                                 |      |ace   | End  |       | PgDn |        |      |
  *                                 `--------------------'       `----------------------'
- */ 
+ */
 [BASE] = LAYOUT_ergodox_pretty(
     KC_ESCAPE,      KC_1,     KC_2,     KC_3,           KC_4,           KC_5,     TD(TD_DASH),           TD(TD_PLUS),      KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_BSPC,
     KC_TAB,         KC_Q,     KC_W,     KC_E,           KC_R,           KC_T,     TD(TD_LBRACKET),       TD(TD_RBRACKET),  KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           TD(TD_PIPE),
@@ -283,9 +283,9 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 // Runs just one time when the keyboard initializes.
 void keyboard_post_init_user(void) {
-#ifdef RGBLIGHT_COLOR_LAYER_0
-    rgblight_setrgb(RGBLIGHT_COLOR_LAYER_0);
-#endif
+    ergodox_led_all_set(255);
+    rgb_matrix_set_color_all(97, 0, 255); //Light up all the keys in purple
+
 };
 
 // Runs whenever there is a layer state change.
@@ -297,57 +297,25 @@ layer_state_t layer_state_set_user(layer_state_t state) {
 
     uint8_t layer = get_highest_layer(state);
     switch (layer) {
-        case 0:
-#ifdef RGBLIGHT_COLOR_LAYER_0
-            rgblight_setrgb(RGBLIGHT_COLOR_LAYER_0);
-#endif
+        case BASE:
+            rgb_matrix_set_color_all(97, 0, 255); //Light up all the keys in blue
             break;
-        case 1:
+        case SYMBOLS:
+            rgb_matrix_set_color_all(255, 255, 255); // rest of keys
             ergodox_right_led_1_on();
-#ifdef RGBLIGHT_COLOR_LAYER_1
-            rgblight_setrgb(RGBLIGHT_COLOR_LAYER_1);
-#endif
             break;
-        case 2:
+        case MOUSE:
+            rgb_matrix_set_color_all(23, 200, 34);
             ergodox_right_led_2_on();
-#ifdef RGBLIGHT_COLOR_LAYER_2
-            rgblight_setrgb(RGBLIGHT_COLOR_LAYER_2);
-#endif
             break;
-        case 3:
+        case NUMBERS:
+            rgb_matrix_set_color_all(0, 0, 255);
             ergodox_right_led_3_on();
-#ifdef RGBLIGHT_COLOR_LAYER_3
-            rgblight_setrgb(RGBLIGHT_COLOR_LAYER_3);
-#endif
             break;
-        case 4:
-            ergodox_right_led_1_on();
-            ergodox_right_led_2_on();
-#ifdef RGBLIGHT_COLOR_LAYER_4
-            rgblight_setrgb(RGBLIGHT_COLOR_LAYER_4);
-#endif
-            break;
-        case 5:
+        case GAMING:
+            rgb_matrix_set_color_all(255, 0, 0);
             ergodox_right_led_1_on();
             ergodox_right_led_3_on();
-#ifdef RGBLIGHT_COLOR_LAYER_5
-            rgblight_setrgb(RGBLIGHT_COLOR_LAYER_5);
-#endif
-            break;
-        case 6:
-            ergodox_right_led_2_on();
-            ergodox_right_led_3_on();
-#ifdef RGBLIGHT_COLOR_LAYER_6
-            rgblight_setrgb(RGBLIGHT_COLOR_LAYER_6);
-#endif
-            break;
-        case 7:
-            ergodox_right_led_1_on();
-            ergodox_right_led_2_on();
-            ergodox_right_led_3_on();
-#ifdef RGBLIGHT_COLOR_LAYER_7
-            rgblight_setrgb(RGBLIGHT_COLOR_LAYER_7);
-#endif
             break;
         default:
             break;
