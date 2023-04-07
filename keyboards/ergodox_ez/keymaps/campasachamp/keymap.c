@@ -302,8 +302,19 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     return true;
 }
 
+static bool is_leader_key_pressed = false;
+
 void leader_start_user(void) {
-    // Do something when the leader key is pressed
+    is_leader_key_pressed = true;
+
+    ergodox_right_led_1_on();
+    ergodox_right_led_2_on();
+    ergodox_right_led_3_on();
+
+    rgb_matrix_set_color_all(255, 149, 0);    // Orange
+    rgb_matrix_set_color(IDX_C, 0, 162, 255); // Light Blue
+    rgb_matrix_set_color(IDX_V, 0, 162, 255); // Light Blue
+    rgb_matrix_set_color(IDX_1, 0, 162, 255); // Light Blue
 }
 
 void leader_end_user(void) {
@@ -346,18 +357,28 @@ void leader_end_user(void) {
     else if (leader_sequence_three_keys(KC_M, KC_P, KC_P)) {
         send_string(M_SYM);
     }
+
+    // Set RGB back to the base layers
+    is_leader_key_pressed = false;
+    rgb_matrix_set_color_all(97, 0, 255); // Purple
+    ergodox_right_led_1_off();
+    ergodox_right_led_2_off();
+    ergodox_right_led_3_off();
 }
 
 // Runs just one time when the keyboard initializes.
 void keyboard_post_init_user(void) {
     ergodox_led_all_set(255);
     rgb_matrix_set_color_all(97, 0, 255); //Light up all the keys in purple
-
 };
 
 // Runs whenever there is a layer state change.
 layer_state_t layer_state_set_user(layer_state_t state) {
-    ergodox_board_led_off();
+    // Don't change layer color back to base if the leader key was pressed
+    if (is_leader_key_pressed)
+        return state;
+
+    // ergodox_board_led_off();
     ergodox_right_led_1_off();
     ergodox_right_led_2_off();
     ergodox_right_led_3_off();
