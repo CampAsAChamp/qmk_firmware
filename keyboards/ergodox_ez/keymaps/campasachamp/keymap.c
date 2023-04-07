@@ -311,10 +311,10 @@ void leader_start_user(void) {
     ergodox_right_led_2_on();
     ergodox_right_led_3_on();
 
-    rgb_matrix_set_color_all(255, 149, 0);    // Orange
-    rgb_matrix_set_color(IDX_C, 0, 162, 255); // Light Blue
-    rgb_matrix_set_color(IDX_V, 0, 162, 255); // Light Blue
-    rgb_matrix_set_color(IDX_1, 0, 162, 255); // Light Blue
+    rgb_matrix_set_color_all(255, 255, 255);  // White
+    rgb_matrix_set_color(IDX_C, 255, 0, 0);   // Light Blue
+    rgb_matrix_set_color(IDX_V, 255, 0, 0);   // Light Blue
+    rgb_matrix_set_color(IDX_1, 255, 0, 0);   // Light Blue
 }
 
 void leader_end_user(void) {
@@ -389,7 +389,7 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             rgb_matrix_set_color_all(97, 0, 255); // Purple
             break;
         case SYMBOLS:
-            rgb_matrix_set_color_all(255, 255, 255); // White
+            rgb_matrix_set_color_all(255, 149, 0); // Orange
             ergodox_right_led_1_on();
             break;
         case MOUSE:
