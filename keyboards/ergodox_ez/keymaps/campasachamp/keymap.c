@@ -312,9 +312,23 @@ void leader_start_user(void) {
     ergodox_right_led_3_on();
 
     rgb_matrix_set_color_all(255, 255, 255);  // White
-    rgb_matrix_set_color(IDX_C, 255, 0, 0);   // Light Blue
-    rgb_matrix_set_color(IDX_V, 255, 0, 0);   // Light Blue
-    rgb_matrix_set_color(IDX_1, 255, 0, 0);   // Light Blue
+    
+    // One taps
+    rgb_matrix_set_color(IDX_C, 255, 0, 0);   // Red
+    rgb_matrix_set_color(IDX_V, 255, 0, 0);   // Red
+    rgb_matrix_set_color(IDX_1, 255, 0, 0);   // Red
+
+    // Starters taps
+    rgb_matrix_set_color(IDX_M, 0, 255, 0);   // Blue
+    rgb_matrix_set_color(IDX_N, 0, 255, 0);   // Blue
+    rgb_matrix_set_color(IDX_3, 0, 255, 0);   // Blue
+    rgb_matrix_set_color(IDX_4, 0, 255, 0);   // Blue
+
+    // Additional taps
+    rgb_matrix_set_color(IDX_T, 0, 0, 255);   // Blue
+    rgb_matrix_set_color(IDX_P, 0, 0, 255);   // Blue
+    rgb_matrix_set_color(IDX_W, 0, 0, 255);   // Blue
+    rgb_matrix_set_color(IDX_U, 0, 0, 255);   // Blue
 }
 
 void leader_end_user(void) {
