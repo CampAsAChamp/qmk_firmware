@@ -7,14 +7,36 @@
 #undef RGB_DISABLE_TIMEOUT
 #define RGB_DISABLE_TIMEOUT 900000 // In miliseconds -- 15 minutes
 
+
+// Mouse Accelaration Mode
+// #undef MOUSEKEY_TIME_TO_MAX  
+// #define MOUSEKEY_TIME_TO_MAX 30
+
+// #undef MOUSEKEY_WHEEL_DELAY
+// #define MOUSEKEY_WHEEL_DELAY 0
+
+// #undef MOUSEKEY_WHEEL_TIME_TO_MAX
+// #define MOUSEKEY_WHEEL_TIME_TO_MAX  40
+
+// #undef MOUSEKEY_WHEEL_INTERVAL
+// #define MOUSEKEY_WHEEL_INTERVAL 160
+
+// #undef MOUSEKEY_WHEEL_MAX_SPEED
+// #define MOUSEKEY_WHEEL_MAX_SPEED 16
+
+
 // Mouse Constant Speed Mode
 #define MK_3_SPEED
 #define MK_MOMENTARY_ACCEL
 #define MK_W_INTERVAL_UNMOD 80
 
 
-#undef MOUSEKEY_WHEEL_TIME_TO_MAX
-#define MOUSEKEY_WHEEL_TIME_TO_MAX  0
+// Mouse Kinectic Mode
+// #define MK_KINETIC_SPEED
+
+
+// Mouse Inertia Mode
+// #define MOUSEKEY_INERTIA
 
 #define LEADER_NO_TIMEOUT
 // #define LEADER_TIMEOUT 300 // 2 seconds
