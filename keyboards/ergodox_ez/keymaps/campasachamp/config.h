@@ -7,8 +7,11 @@
 #undef RGB_DISABLE_TIMEOUT
 #define RGB_DISABLE_TIMEOUT 900000 // In miliseconds -- 15 minutes
 
-#undef MOUSEKEY_TIME_TO_MAX  
-#define MOUSEKEY_TIME_TO_MAX 30
+// Mouse Constant Speed Mode
+#define MK_3_SPEED
+#define MK_MOMENTARY_ACCEL
+#define MK_W_INTERVAL_UNMOD 80
+
 
 #undef MOUSEKEY_WHEEL_TIME_TO_MAX
 #define MOUSEKEY_WHEEL_TIME_TO_MAX  0
