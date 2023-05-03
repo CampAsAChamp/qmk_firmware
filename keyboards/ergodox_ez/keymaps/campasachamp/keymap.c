@@ -146,7 +146,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * |--------+------+------+------+------+------|      |           |      |------+------+------+------+------+--------|
  * | BkSp   |   A  |   S  |   D  |   F  |   G  |------|           |------|   H  |   J  |   K  |   L  |; / L2|' / Cmd |
  * |--------+------+------+------+------+------| Hyper|           | Meh  |------+------+------+------+------+--------|
- * | LShift |Z/Ctrl|   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  |//Ctrl| RShift |
+ * | LShift |   Z  |   X  |   C  |   V  |   B  |      |           |      |   N  |   M  |   ,  |   .  | Ctrl| RShift |
  * `--------+------+------+------+------+-------------'           `-------------+------+------+------+------+--------'
  *   |Grv/L1|  '"  |AltShf| Left | Right|                                       |  Up  | Down |   [  |   ]  | ~L1  |
  *   `----------------------------------'                                       `----------------------------------'
@@ -162,7 +162,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_ESCAPE,      KC_1,     KC_2,     KC_3,           KC_4,           KC_5,     TD(TD_DASH),           TD(TD_PLUS),      KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_BSPC,
     KC_TAB,         KC_Q,     KC_W,     KC_E,           KC_R,           KC_T,     TD(TD_LBRACKET),       TD(TD_RBRACKET),  KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           TD(TD_PIPE),
     MO(SYMBOLS),    KC_A,     KC_S,     KC_D,           KC_F,           KC_G,                                              KC_H,           KC_J,           KC_K,           KC_L,           KC_SEMICOLON,   KC_QUOTE,
-    SC_LSPO,        KC_Z,     KC_X,     KC_C,           KC_V,           KC_B,     KC_GRAVE,              CW_TOGG,          KC_N,           KC_M,           KC_COMMA,       KC_DOT,         KC_SLASH,       SC_RSPC,
+    KC_LSFT,        KC_Z,     KC_X,     KC_C,           KC_V,           KC_B,     KC_GRAVE,              CW_TOGG,          KC_N,           KC_M,           KC_COMMA,       KC_DOT,         KC_SLASH,       KC_RSFT,
     OSM(MOD_LCTL),  KC_TRNS,  KC_TRNS,  OSM(MOD_LALT),  OSM(MOD_LGUI),                                                                     TT(MOUSE),      TD(TD_UNDO),    TD(TD_COPY),    LGUI(KC_V),     LGUI(LSFT(KC_2)),
                                                                                   KC_TRNS,   KC_TRNS,    LALT(KC_SPACE),  LGUI(KC_SPACE),
                                                                                           TG(GAMING),    KC_TRNS, 
