@@ -2,6 +2,11 @@
 #include "version.h"
 #include "secrets.h"
 
+// State Variables
+static bool is_leader_key_pressed = false;
+bool is_cmd_tab_active = false;
+uint16_t cmd_tab_timer = 0;
+
 // RGB Matrix Indexes
 static const int IDX_1 = 28;
 static const int IDX_2 = 27;
@@ -54,6 +59,7 @@ static const int IDX_R4 = 23;
 
 enum custom_keycodes {
     VRSN = SAFE_RANGE,
+    CMD_TAB,
 };
 
 enum layers {
@@ -199,7 +205,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                                RGB_TOG, RGB_MODE_PLAIN,     KC_TRNS, KC_TRNS,
                                                         TOGGLE_LAYER_COLOR,     KC_TRNS,
-                                      QK_LEAD, KC_TRNS, KC_TRNS,      KC_TRNS, KC_LCTL, KC_LALT
+                                      QK_LEAD, KC_TRNS, KC_TRNS,      KC_TRNS, KC_LCTL, CMD_TAB
 ),
 /* Keymap 2: Mouse layer
  *
@@ -340,17 +346,38 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 // clang-format on
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    if (record->event.pressed) {
-        switch (keycode) {
-            case VRSN:
-                SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
-                return false;
+  switch (keycode) { // This will do most of the grunt work with the keycodes.
+    case CMD_TAB:
+        if (record->event.pressed) 
+        {
+            if (!is_cmd_tab_active) 
+            {
+                is_cmd_tab_active = true;
+                register_code(KC_LCMD);
+            }
+            cmd_tab_timer = timer_read();
+            register_code(KC_TAB);
+        } 
+        else 
+        {
+            unregister_code(KC_TAB);
         }
-    }
-    return true;
+        break;
+    case VRSN:
+        SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
+        return false;
+  }
+  return true;
 }
 
-static bool is_leader_key_pressed = false;
+void matrix_scan_user(void) {
+    if (is_cmd_tab_active) {
+        if (timer_elapsed(cmd_tab_timer) > 1000) {
+            unregister_code(KC_LCMD);
+            is_cmd_tab_active = false;
+        }
+    }
+}
 
 void leader_start_user(void) {
     is_leader_key_pressed = true;
