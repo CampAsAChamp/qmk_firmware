@@ -170,9 +170,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     MO(SYMBOLS),    KC_A,     KC_S,     KC_D,           KC_F,           KC_G,                                              KC_H,           KC_J,           KC_K,           KC_L,           KC_SEMICOLON,   KC_QUOTE,
     KC_LSFT,        KC_Z,     KC_X,     KC_C,           KC_V,           KC_B,     KC_GRAVE,              CW_TOGG,          KC_N,           KC_M,           KC_COMMA,       KC_DOT,         KC_SLASH,       KC_RSFT,
     OSM(MOD_LCTL),  KC_TRNS,  KC_TRNS,  OSM(MOD_LALT),  OSM(MOD_LGUI),                                                                     TT(MOUSE),      TD(TD_UNDO),    TD(TD_COPY),    LGUI(KC_V),     CMD_TAB,
-                                                                                  KC_TRNS,   KC_TRNS,    LALT(KC_SPACE),  LGUI(KC_SPACE),
-                                                                                          TG(GAMING),     LGUI(LSFT(KC_2)), 
-                                                                    KC_SPACE, KC_DELETE, TT(NUMBERS),    LGUI(KC_GRAVE), KC_ENTER, KC_BSPC
+                                                                   LGUI(KC_SPACE), LALT(KC_SPACE),      TG(GAMING), TT(NUMBERS),          
+                                                                                 LGUI(LSFT(KC_2)),       KC_TRNS,
+                                                              KC_SPACE, KC_DELETE, LGUI(KC_GRAVE),       KC_TRNS, KC_ENTER, KC_BSPC
 
  ),
 /* Keymap 1: Symbol Layer
