@@ -483,14 +483,56 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             break;
         case MOUSE:
             rgb_matrix_set_color_all(23, 200, 34); // Green
+
+            // Orange for the keys that are actually changed
+            rgb_matrix_set_color(IDX_1, 255, 149, 0);
+            rgb_matrix_set_color(IDX_2, 255, 149, 0);
+            rgb_matrix_set_color(IDX_W, 255, 149, 0);
+            rgb_matrix_set_color(IDX_E, 255, 149, 0);
+            rgb_matrix_set_color(IDX_R, 255, 149, 0);
+            rgb_matrix_set_color(IDX_A, 255, 149, 0);
+            rgb_matrix_set_color(IDX_S, 255, 149, 0);
+            rgb_matrix_set_color(IDX_D, 255, 149, 0);
+            rgb_matrix_set_color(IDX_F, 255, 149, 0);
+            rgb_matrix_set_color(IDX_G, 255, 149, 0);
+            rgb_matrix_set_color(IDX_L4, 255, 149, 0);
+
+            rgb_matrix_set_color(IDX_U, 255, 149, 0);
+            rgb_matrix_set_color(IDX_I, 255, 149, 0);
+            rgb_matrix_set_color(IDX_O, 255, 149, 0);
+            rgb_matrix_set_color(IDX_H, 255, 149, 0);
+            rgb_matrix_set_color(IDX_J, 255, 149, 0);
+            rgb_matrix_set_color(IDX_K, 255, 149, 0);
+            rgb_matrix_set_color(IDX_L, 255, 149, 0);
+            rgb_matrix_set_color(IDX_Colon, 255, 149, 0);
+            
             ergodox_right_led_2_on();
             break;
         case NUMBERS:
             rgb_matrix_set_color_all(0, 0, 255); // Blue
+
+            // Orange for the number keys
+            rgb_matrix_set_color(IDX_U, 255, 149, 0);
+            rgb_matrix_set_color(IDX_I, 255, 149, 0);
+            rgb_matrix_set_color(IDX_O, 255, 149, 0);
+            rgb_matrix_set_color(IDX_P, 23, 200, 34);
+            rgb_matrix_set_color(IDX_J, 255, 149, 0);
+            rgb_matrix_set_color(IDX_K, 255, 149, 0);
+            rgb_matrix_set_color(IDX_L, 255, 149, 0);
+            rgb_matrix_set_color(IDX_Colon, 23, 200, 34);
+            rgb_matrix_set_color(IDX_M, 255, 149, 0);
+            rgb_matrix_set_color(IDX_Period, 255, 149, 0);
+            rgb_matrix_set_color(IDX_Comma, 255, 149, 0);
+            rgb_matrix_set_color(IDX_F_Slash, 23, 200, 34);
+            rgb_matrix_set_color(IDX_R1, 255, 149, 0);
+            rgb_matrix_set_color(IDX_R2, 23, 200, 34);
+            rgb_matrix_set_color(IDX_R3, 23, 200, 34);
+            rgb_matrix_set_color(IDX_R4, 23, 200, 34);
             ergodox_right_led_3_on();
             break;
         case GAMING:
             rgb_matrix_set_color_all(255, 0, 0); // Red
+            rgb_matrix_set_color(IDX_L4, 255, 255, 255); // White
             ergodox_right_led_1_on();
             ergodox_right_led_3_on();
             break;
