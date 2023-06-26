@@ -60,6 +60,7 @@ static const int IDX_R4 = 23;
 enum custom_keycodes {
     VRSN = SAFE_RANGE,
     CMD_TAB,
+    COLON_EQUAL,
 };
 
 enum layers {
@@ -199,7 +200,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [SYMBOLS] = LAYOUT_ergodox_pretty(
   VRSN,    KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F11,      KC_F12, KC_F6,   KC_F7,   KC_F8,   KC_F9,     KC_F10,  TO(BASE),
   _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______, _______,     _______, _______, KC_HOME, KC_UP,   KC_END,   _______, _______,
-  _______, KC_VOLD, KC_VOLU, _______, _______, _______,                       _______, KC_LEFT, KC_DOWN, KC_RIGHT, _______, _______,
+  _______, KC_VOLD, KC_VOLU, _______, _______, _______,                       _______, KC_LEFT, KC_DOWN, KC_RIGHT, COLON_EQUAL, _______,
   _______, _______, _______, _______, _______, _______, _______,     KC_CAPS, KC_MINS, KC_UNDS, _______, _______,  _______, _______,
   _______, _______, _______, _______, KC_LALT,                                         _______, _______, _______,  _______, _______,
 
@@ -345,8 +346,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 */
 // clang-format on
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-
-    switch (keycode) { // This will do most of the grunt work with the keycodes.
+    // This will do most of the grunt work with the keycodes.
+    switch (keycode) { 
         case KC_ESC:
             if (get_oneshot_mods() != 0)
             {
@@ -372,6 +373,11 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         case VRSN:
             SEND_STRING(QMK_KEYBOARD "/" QMK_KEYMAP " @ " QMK_VERSION);
             return false;
+        case COLON_EQUAL:
+            if (record->event.pressed) 
+                SEND_STRING(":=");
+                
+            break;
     }
     return true;
 }
