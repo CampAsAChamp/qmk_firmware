@@ -206,7 +206,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                                RGB_TOG, RGB_MODE_PLAIN,     _______, _______,
                                                         TOGGLE_LAYER_COLOR,     _______,
-                                      _______, QK_LEAD, _______,      _______, KC_LCTL, KC_DELETE
+                                      _______, _______, QK_LEAD,      _______, _______, KC_DELETE
 ),
 /* Keymap 2: Mouse layer
  *
