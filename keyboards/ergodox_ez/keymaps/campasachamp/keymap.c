@@ -1,6 +1,7 @@
 #include QMK_KEYBOARD_H
+
+#include "../../../../shared/secrets.h"
 #include "version.h"
-#include "secrets.h"
 
 // State Variables
 static bool is_leader_key_pressed = false;
