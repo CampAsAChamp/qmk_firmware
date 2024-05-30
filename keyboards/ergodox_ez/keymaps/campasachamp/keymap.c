@@ -84,20 +84,15 @@ enum td_keycodes {
 };
 
 void dance_l_bracket (tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1) {
-        // Left Parenthese -- (
-        register_code(KC_LSFT);
-        tap_code(KC_9);
-        unregister_code(KC_LSFT);
-    } else if (state->count == 2) {
+     if (state->count == 1) {
         // Left Curly Bracket -- {
         register_code(KC_LSFT);
         tap_code(KC_LEFT_BRACKET);
         unregister_code(KC_LSFT);
-    } else if (state->count == 3) {
+    } else if (state->count == 2) {
         // Left Square Bracket -- [
         tap_code(KC_LEFT_BRACKET);
-    } else if (state->count == 4) {
+    } else if (state->count == 3) {
         // Left Angle Bracket -- <
         register_code(KC_LSFT);
         tap_code(KC_COMMA);
@@ -109,19 +104,14 @@ void dance_l_bracket (tap_dance_state_t *state, void *user_data) {
 
 void dance_r_bracket (tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
-        // Right Parenthese -- )
-        register_code(KC_LSFT);
-        tap_code(KC_0);
-        unregister_code(KC_LSFT);
-    } else if (state->count == 2) {
         // Right Curly Bracket -- }
         register_code(KC_LSFT);
         tap_code(KC_RIGHT_BRACKET);
         unregister_code(KC_LSFT);
-    } else if (state->count == 3) {
+    } else if (state->count == 2) {
         // Right Square Bracket -- ]
         tap_code(KC_RIGHT_BRACKET);
-    } else if (state->count == 4) {
+    } else if (state->count == 3) {
         // Right Angle Bracket -- >
         register_code(KC_LSFT);
         tap_code(KC_DOT);
@@ -170,7 +160,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     KC_ESCAPE,      KC_1,     KC_2,     KC_3,           KC_4,           KC_5,     KC_MINUS,              KC_EQUAL,         KC_6,           KC_7,           KC_8,           KC_9,           KC_0,           KC_BSPC,
     KC_TAB,         KC_Q,     KC_W,     KC_E,           KC_R,           KC_T,     TD(TD_LBRACKET),       TD(TD_RBRACKET),  KC_Y,           KC_U,           KC_I,           KC_O,           KC_P,           TD(TD_PIPE),
     MO(SYMBOLS),    KC_A,     KC_S,     KC_D,           KC_F,           KC_G,                                              KC_H,           KC_J,           KC_K,           KC_L,           KC_SEMICOLON,   KC_QUOTE,
-    KC_LSFT,        KC_Z,     KC_X,     KC_C,           KC_V,           KC_B,     KC_GRAVE,              CW_TOGG,          KC_N,           KC_M,           KC_COMMA,       KC_DOT,         KC_SLASH,       KC_RSFT,
+    SC_LSPO,        KC_Z,     KC_X,     KC_C,           KC_V,           KC_B,     KC_GRAVE,              CW_TOGG,          KC_N,           KC_M,           KC_COMMA,       KC_DOT,         KC_SLASH,       SC_LSPO,
     KC_LCTL,  _______,  _______,  KC_LALT,  KC_LGUI,                                                                     TT(MOUSE),      TD(TD_UNDO),    TD(TD_COPY),    LGUI(KC_V),     LGUI(KC_GRAVE),
                                                                    LGUI(KC_SPACE), LALT(KC_SPACE),      TG(GAMING), TT(NUMBERS),          
                                                                                  LGUI(LSFT(KC_2)),       _______,
