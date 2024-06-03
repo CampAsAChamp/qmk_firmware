@@ -444,11 +444,11 @@ layer_state_t layer_state_set_user(layer_state_t state) {
             rgb_matrix_set_color_all(255, 0, 0); // Red
             rgb_matrix_set_color(IDX_L4, 255, 255, 255); // White
             ergodox_right_led_1_on();
-            ergodox_right_led_3_on();
+            ergodox_right_led_2_on();
             break;
         case MEDIA:
             rgb_matrix_set_color_all(64, 224, 208); // Orange
-            ergodox_right_led_2_on();
+            ergodox_right_led_1_on();
             ergodox_right_led_3_on();
             break;
         default:
