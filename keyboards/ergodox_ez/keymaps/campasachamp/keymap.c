@@ -254,24 +254,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // This will do most of the grunt work with the keycodes.
     switch (keycode) { 
         case KC_ESC:
-            if (get_oneshot_mods() != 0)
-            {
+            if (get_oneshot_mods() != 0){
                 clear_oneshot_mods();
             }
             break;
         case CMD_TAB:
-            if (record->event.pressed) 
-            {
-                if (!is_cmd_tab_active) 
-                {
+            if (record->event.pressed){
+                if (!is_cmd_tab_active){
                     is_cmd_tab_active = true;
                     register_code(KC_LEFT_CTRL);
                 }
                 cmd_tab_timer = timer_read();
                 register_code(KC_TAB);
             } 
-            else 
-            {
+            else {
                 unregister_code(KC_TAB);
             }
             break;
@@ -287,7 +283,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 void matrix_scan_user(void) {
     if (is_cmd_tab_active) {
         if (timer_elapsed(cmd_tab_timer) > 1000) {
-            unregister_code(KC_LCMD);
+            unregister_code(KC_LEFT_CTRL);
             is_cmd_tab_active = false;
         }
     }
