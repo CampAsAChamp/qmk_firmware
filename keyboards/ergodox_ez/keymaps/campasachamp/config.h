@@ -2,7 +2,7 @@
 
 #define ORYX_CONFIGURATOR
 
-#define CAPS_LOCK_STATUS
+// #define CAPS_LOCK_STATUS
 
 #undef RGB_DISABLE_TIMEOUT
 #define RGB_DISABLE_TIMEOUT 900000 // In miliseconds -- 15 minutes
