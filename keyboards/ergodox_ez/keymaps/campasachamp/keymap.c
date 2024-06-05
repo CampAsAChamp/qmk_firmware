@@ -3,11 +3,6 @@
 #include "../../../../shared/secrets.h"
 #include "version.h"
 
-// State Variables
-static bool is_leader_key_pressed = false;
-bool is_cmd_tab_active = false;
-uint16_t cmd_tab_timer = 0;
-
 // RGB Matrix Indexes
 static const int IDX_1 = 28;
 static const int IDX_2 = 27;
@@ -83,6 +78,11 @@ enum td_keycodes {
     TD_UNDO,
 };
 
+// State Variables
+static bool is_leader_key_pressed = false;
+bool is_cmd_tab_active = false;
+uint16_t cmd_tab_timer = 0;
+
 void dance_l_bracket (tap_dance_state_t *state, void *user_data) {
      if (state->count == 1) {
         // Left Curly Bracket -- {
@@ -134,7 +134,6 @@ tap_dance_action_t tap_dance_actions[] = {
 };
 
 // clang-format off
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
@@ -208,15 +207,15 @@ _______, _______, _______, _______,  _______,                                   
 ),
 
 [GAMING] = LAYOUT_ergodox_pretty(
-_______, _______, _______, _______,  _______, _______, _______,      _______, _______, _______, _______, _______, _______     , TO(BASE),
-_______, _______, _______, _______,  _______, _______, _______,      _______, _______, _______, _______, _______, _______     , _______ ,
-_______,    KC_A,    KC_S,    KC_D,     KC_F, _______,                        _______, KC_J   , KC_K   , KC_L   , KC_SEMICOLON, _______ ,
-KC_LSFT, _______, _______, _______,  _______, _______, _______,      _______, _______, _______, _______, _______, _______     , KC_RSFT ,
-_______, _______, _______, XXXXXXX, KC_SPACE,                                          _______, _______, _______, _______     , _______ ,
+_______, _______, _______, _______,  _______, _______,     _______,      _______, _______, _______, _______, _______, _______     , TO(BASE),
+_______, _______, _______, _______,  _______, _______,     _______,      _______, _______, _______, _______, _______, _______     , _______ ,
+_______,    KC_A,    KC_S,    KC_D,     KC_F, _______,                            _______, KC_J   , KC_K   , KC_L   , KC_SEMICOLON, _______ ,
+KC_LSFT, _______, _______, _______,  _______, _______, MO(SYMBOLS),      _______, _______, _______, _______, _______, _______     , KC_RSFT ,
+KC_LCMD, KC_LOPT, KC_LCTL, XXXXXXX, KC_SPACE,                                              _______, KC_LEFT, KC_UP  , KC_DOWN     , KC_RIGHT,
 
-                                              _______, _______,      _______, XXXXXXX,
-                                                       _______,      _______,
-                                     _______, _______, _______,      _______, _______, _______
+                                              _______,     _______,      _______, XXXXXXX,
+                                                           _______,      _______,
+                                     _______, _______,     _______,      _______, _______, _______
 ),
 
 [MEDIA] = LAYOUT_ergodox_pretty(
