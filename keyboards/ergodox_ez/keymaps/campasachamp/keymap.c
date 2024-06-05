@@ -163,7 +163,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   QK_GESC,         KC_1,         KC_2,         KC_3,         KC_4,           KC_5,         KC_MINUS,      KC_EQUAL            , KC_6       , KC_7        , KC_8        , KC_9        , KC_0                , KC_BSPC    ,
    KC_TAB,         KC_Q,         KC_W,         KC_E,         KC_R,           KC_T,  TD(TD_LBRACKET),      TD(TD_RBRACKET)     , KC_Y       , KC_U        , KC_I        , KC_O        , KC_P                , TD(TD_PIPE),
 MO(MEDIA), LCMD_T(KC_A), LALT_T(KC_S), LCTL_T(KC_D), LSFT_T(KC_F),           KC_G,                                              KC_H       , RSFT_T(KC_J), RCTL_T(KC_K), LALT_T(KC_L), LCMD_T(KC_SEMICOLON), KC_QUOTE   ,
-  SC_LSPO,         KC_Z,         KC_X,         KC_C,         KC_V,           KC_B,   LCTL(KC_SPACE),      CW_TOGG             , KC_N       , KC_M        , KC_COMMA    , KC_DOT      , KC_SLASH            , SC_LSPO    ,
+  SC_LSPO,         KC_Z,         KC_X,         KC_C,         KC_V,           KC_B,   LCTL(KC_SPACE),      CW_TOGG             , KC_N       , KC_M        , KC_COMMA    , KC_DOT      , KC_SLASH            , SC_RSPC    ,
   KC_LCTL,      _______,      _______, OSM(KC_LCTL),  MO(SYMBOLS),                                                                           TT(MOUSE)   , _______     , _______     , _______             , KC_LCMD    ,
 
                                                                    LALT(KC_SPACE), LCTL(LSFT(KC_1)),      TG(GAMING)          , TT(NUMBERS),
