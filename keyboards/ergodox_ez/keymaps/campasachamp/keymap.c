@@ -179,7 +179,7 @@ LCTL(KC_GRV),      KC_F1,      KC_F2,      KC_F3,      KC_F4,   KC_F5,  KC_F11, 
 
                                                               _______, _______,      _______, _______,
                                                                        _______,      _______,
-                                                     _______, _______, QK_LEAD,      _______, _______, KC_DELETE
+                                                     _______, _______, QK_LEAD,      _______, LCTL(KC_ENTER), KC_DELETE
 ),
 
 [MOUSE] = LAYOUT_ergodox_pretty(
