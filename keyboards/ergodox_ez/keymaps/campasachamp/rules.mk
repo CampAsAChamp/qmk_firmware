@@ -24,6 +24,9 @@ UNICODE_ENABLE   	= no   	         # Unicode
 # project specific files
 SRC += matrix.c \
 	   led_i2c.c
+	   
+SRC += features/sentence_case.c
+
 QUANTUM_LIB_SRC += i2c_master.c
 
 # Disable unsupported hardware

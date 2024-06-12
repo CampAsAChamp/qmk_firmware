@@ -2,6 +2,8 @@
 
 #include "../../../../shared/secrets.h"
 #include "version.h"
+#include "features/sentence_case.h"
+
 
 // RGB Matrix Indexes
 static const int IDX_1 = 28;
@@ -250,6 +252,10 @@ _______, _______, _______, _______, KC_SPACE,                                   
 */
 // clang-format on
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+
+    // Activate auto sentence case
+      if (!process_sentence_case(keycode, record)) { return false; }
+
     // This will do most of the grunt work with the keycodes.
     switch (keycode) { 
         case KC_ESC:
