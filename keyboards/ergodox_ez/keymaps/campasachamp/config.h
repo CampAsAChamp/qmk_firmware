@@ -42,7 +42,10 @@
 // #define LEADER_TIMEOUT 300 // 2 seconds
 // #define LEADER_PER_KEY_TIMING
 
-#define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
+
+// For home row mods
+#define TAPPING_TERM 200
+#define PERMISSIVE_HOLD
 
 // Remove RGB animations to save firmware space
 #undef ENABLE_RGB_MATRIX_ALPHAS_MODS
