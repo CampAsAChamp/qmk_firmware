@@ -1,5 +1,6 @@
 #pragma once
 
+// Needed for turning on the 3 layer LEDs
 #define ORYX_CONFIGURATOR
 
 // #define CAPS_LOCK_STATUS
@@ -9,17 +10,17 @@
 
 
 // Mouse Accelaration Mode
-// #undef MOUSEKEY_TIME_TO_MAX  
-// #define MOUSEKEY_TIME_TO_MAX 30
+#undef MOUSEKEY_TIME_TO_MAX  
+#define MOUSEKEY_TIME_TO_MAX 30
 
 // #undef MOUSEKEY_WHEEL_DELAY
 // #define MOUSEKEY_WHEEL_DELAY 0
 
-#undef MOUSEKEY_WHEEL_MAX_SPEED
-#define MOUSEKEY_WHEEL_MAX_SPEED 1
+// #undef MOUSEKEY_WHEEL_MAX_SPEED
+// #define MOUSEKEY_WHEEL_MAX_SPEED 8
 
 #undef MOUSEKEY_WHEEL_TIME_TO_MAX
-#define MOUSEKEY_WHEEL_TIME_TO_MAX 0
+#define MOUSEKEY_WHEEL_TIME_TO_MAX 1
 
 #undef MOUSEKEY_WHEEL_INTERVAL
 #define MOUSEKEY_WHEEL_INTERVAL 100 
@@ -42,6 +43,7 @@
 // #define LEADER_TIMEOUT 300 // 2 seconds
 // #define LEADER_PER_KEY_TIMING
 
+// #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
 
 // For home row mods
 #define TAPPING_TERM 200
