@@ -48,6 +48,7 @@
 // For home row mods
 #define TAPPING_TERM 200
 #define PERMISSIVE_HOLD
+// #define HOLD_ON_OTHER_KEY_PRESS
 
 // Remove RGB animations to save firmware space
 #undef ENABLE_RGB_MATRIX_ALPHAS_MODS
