@@ -1,5 +1,6 @@
 #include QMK_KEYBOARD_H
 
+#include "features/sentence_case.h"
 #include "../../../../../shared/secrets.h"
 
 enum layers {
@@ -89,10 +90,14 @@ void leader_end_user(void){
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record)
 {
+    // Activate auto sentence case
+    if (!process_sentence_case(keycode, record)) { 
+        return false; 
+    }
+
     // Detect the activation of both Shifts
     if ((get_mods() & MOD_MASK_SHIFT) == MOD_MASK_SHIFT) {
-        // Toggle Caps_lock values
-        tap_code(KC_CAPS);
+        tap_code(KC_CAPS);  // Toggle Caps_lock values
     }
 
     switch (keycode) { // This will do most of the grunt work with the keycodes.
