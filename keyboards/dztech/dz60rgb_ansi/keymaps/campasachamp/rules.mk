@@ -22,4 +22,3 @@ RGB_MATRIX_ENABLE = yes        # Use RGB matrix
 RGBLIGHT_ENABLE = no           # Enable keyboard RGB underglow
 
 SRC += features/sentence_case.c
-SRC += features/achordion.c
