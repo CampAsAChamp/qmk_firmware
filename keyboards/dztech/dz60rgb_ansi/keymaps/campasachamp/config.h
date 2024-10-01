@@ -39,6 +39,6 @@
 // #define BOTH_SHIFTS_TURNS_ON_CAPS_WORD
 
 // For home row mods
-#define TAPPING_TERM 150
+#define TAPPING_TERM 185
 #define PERMISSIVE_HOLD
 // #define HOLD_ON_OTHER_KEY_PRESS
