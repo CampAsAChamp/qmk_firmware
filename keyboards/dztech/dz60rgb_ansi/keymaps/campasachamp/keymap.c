@@ -122,7 +122,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
 
 void matrix_scan_user(void) { // The very important timer.
   if (is_alt_tab_active) {
-    if (timer_elapsed(alt_tab_timer) > 1000) {
+    if (timer_elapsed(alt_tab_timer) > 750) {
       unregister_code(KC_LCTL);
       is_alt_tab_active = false;
     }
