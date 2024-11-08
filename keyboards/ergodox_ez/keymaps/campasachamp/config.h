@@ -3,6 +3,8 @@
 // Needed for turning on the 3 layer LEDs
 #define ORYX_CONFIGURATOR
 
+#define ONESHOT_TIMEOUT 5000  /* Time (in ms) before the one shot key is released */
+
 // #define CAPS_LOCK_STATUS
 
 #undef RGB_DISABLE_TIMEOUT
