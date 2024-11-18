@@ -88,14 +88,20 @@ uint16_t cmd_tab_timer = 0;
 
 void dance_l_bracket (tap_dance_state_t *state, void *user_data) {
      if (state->count == 1) {
+        // Left parenthesis -- (
+        register_code(KC_LSFT);
+        tap_code(KC_9);
+        unregister_code(KC_LSFT);
+    } else if (state->count == 2) {
         // Left Curly Bracket -- {
         register_code(KC_LSFT);
         tap_code(KC_LEFT_BRACKET);
         unregister_code(KC_LSFT);
-    } else if (state->count == 2) {
+    } else if (state->count == 3) {
         // Left Square Bracket -- [
         tap_code(KC_LEFT_BRACKET);
-    } else if (state->count == 3) {
+    } else if (state->count == 4) {
+    
         // Left Angle Bracket -- <
         register_code(KC_LSFT);
         tap_code(KC_COMMA);
@@ -107,14 +113,19 @@ void dance_l_bracket (tap_dance_state_t *state, void *user_data) {
 
 void dance_r_bracket (tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
+        // Right parenthesis -- )
+        register_code(KC_LSFT);
+        tap_code(KC_0);
+        unregister_code(KC_LSFT);
+    } else if (state->count == 2) {
         // Right Curly Bracket -- }
         register_code(KC_LSFT);
         tap_code(KC_RIGHT_BRACKET);
         unregister_code(KC_LSFT);
-    } else if (state->count == 2) {
+    } else if (state->count == 3) {
         // Right Square Bracket -- ]
         tap_code(KC_RIGHT_BRACKET);
-    } else if (state->count == 3) {
+    } else if (state->count == 4) {
         // Right Angle Bracket -- >
         register_code(KC_LSFT);
         tap_code(KC_DOT);
@@ -178,7 +189,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   QK_GESC,         KC_1,         KC_2,         KC_3,         KC_4,           KC_5,         KC_MINUS,      KC_EQUAL            , KC_6       , KC_7        , KC_8        , KC_9        , KC_0                , KC_BSPC    ,
   KC_TAB,         KC_Q,         KC_W,         KC_E,         KC_R,           KC_T,  TD(TD_LBRACKET),      TD(TD_RBRACKET)     , KC_Y       , KC_U        , KC_I        , KC_O        , KC_P                , TD(TD_PIPE),
   QK_GESC, LCMD_T(KC_A), LALT_T(KC_S), LCTL_T(KC_D), LSFT_T(KC_F),           KC_G,                                              KC_H       , RSFT_T(KC_J), LCTL_T(KC_K), LALT_T(KC_L), LCMD_T(KC_SEMICOLON), KC_QUOTE   ,
-  KC_LSFT,         KC_Z,         KC_X,         LT(MEDIA, KC_C),         KC_V,           KC_B,   LCTL(KC_SPACE),      TD_CAPS         , KC_N       , KC_M        , LT(MEDIA, KC_COMMA)    , KC_DOT      , KC_SLASH            , KC_RSFT    ,
+  KC_LSFT,         KC_Z,         KC_X,         LT(MEDIA, KC_C),         KC_V,           KC_B,   LCTL(KC_SPACE),      TD(TD_CAPS)         , KC_N       , KC_M        , LT(MEDIA, KC_COMMA)    , KC_DOT      , KC_SLASH            , KC_RSFT    ,
   KC_MEH,       KC_HYPR,      _______, OSM(MOD_LCTL),  MO(SYMBOLS),                                                                           TT(MOUSE)   , KC_LCMD     , _______     , _______             , OSM(MOD_RCTL)    ,
 
                                                                    LALT(KC_SPACE), LCTL(LSFT(KC_1)),      TG(GAMING)          , TT(NUMBERS),
@@ -190,7 +201,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      LCTL(KC_GRV),      KC_F1,      KC_F2,      KC_F3,      KC_F4,   KC_F5,  KC_F11,      KC_F12 , KC_F6         , KC_F7    , KC_F8  , KC_F9   , KC_F10        , TO(BASE),
      CMD_TAB, LCTL(KC_Q), LCTL(KC_W),    _______,    _______, KC_LBRC, _______,      _______, KC_RBRC       , KC_HOME  , KC_UP  , KC_END  , _______       , _______ ,
      _______,    _______,    _______,    _______,    _______, KC_LCBR,                        KC_RCBR       , KC_LEFT  , KC_DOWN, KC_RIGHT, _______       , KC_GRAVE,
-     _______, LCTL(KC_Z), LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), _______, KC_CAPS,      TD(TD_CAPS), KC_MINS       , KC_UNDS  , _______, _______ , LCTL(KC_SLASH), _______ ,
+     _______, LCTL(KC_Z), LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), _______, KC_CAPS,      TD(TD_CAPS), KC_MINS       , KC_UNDS  , _______, _______ , _______, _______ ,
      _______,    _______,    _______,    _______,    _______,                                                 _______  , _______, _______ , _______       , _______ ,
 
                                                               _______, _______,      _______, _______       ,
