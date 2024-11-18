@@ -55,7 +55,7 @@ static const int IDX_R3 = 22;
 static const int IDX_R4 = 23;
 
 enum custom_keycodes {
-    CMD_TAB = SAFE_RANGE,
+    ALT_TAB = SAFE_RANGE,
     COLON_EQUAL,
 };
 
@@ -82,8 +82,8 @@ enum td_keycodes {
 
 // State Variables
 static bool is_leader_key_pressed = false;
-bool is_cmd_tab_active = false;
-uint16_t cmd_tab_timer = 0;
+bool is_alt_tab_active = false;
+uint16_t alt_tab_timer = 0;
 
 void dance_l_bracket (tap_dance_state_t *state, void *user_data) {
      if (state->count == 1) {
@@ -198,7 +198,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [SYMBOLS] = LAYOUT_ergodox_pretty(
      LCTL(KC_GRV),      KC_F1,      KC_F2,      KC_F3,      KC_F4,   KC_F5,  KC_F11,      KC_F12 , KC_F6         , KC_F7    , KC_F8  , KC_F9   , KC_F10        , TO(BASE),
-     CMD_TAB, LCTL(KC_Q), LCTL(KC_W),    _______,    _______, KC_LBRC, _______,      _______, KC_RBRC       , KC_HOME  , KC_UP  , KC_END  , _______       , _______ ,
+     ALT_TAB, LCTL(KC_Q), LCTL(KC_W),    _______,    _______, KC_LBRC, _______,      _______, KC_RBRC       , KC_HOME  , KC_UP  , KC_END  , _______       , _______ ,
      _______,    _______,    _______,    _______,    _______, KC_LCBR,                        KC_RCBR       , KC_LEFT  , KC_DOWN, KC_RIGHT, _______       , KC_GRAVE,
      _______, LCTL(KC_Z), LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), _______, KC_CAPS,      TD(TD_CAPS), KC_MINS       , KC_UNDS  , _______, _______ , _______, _______ ,
      _______,    _______,    _______,    _______,    _______,                                                 _______  , _______, _______ , _______       , _______ ,
@@ -274,6 +274,7 @@ _______, _______, _______, _______, _______,                                    
                                       _______, _______, _______,     _______, _______, _______
 ),
 */
+
 // clang-format on
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
@@ -289,19 +290,20 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 clear_oneshot_mods();
             }
             break;
-        case CMD_TAB:
+        case ALT_TAB:
             if (record->event.pressed){
-                if (!is_cmd_tab_active){
-                    is_cmd_tab_active = true;
+                if (!is_alt_tab_active){
+                    is_alt_tab_active = true;
                     register_code(KC_LEFT_CTRL);
                 }
-                cmd_tab_timer = timer_read();
+                // alt_tab_timer = timer_read();
                 register_code(KC_TAB);
             } 
             else {
                 unregister_code(KC_TAB);
             }
             break;
+            return false;
         case COLON_EQUAL:
             if (record->event.pressed) 
                 SEND_STRING(":=");
@@ -312,12 +314,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void matrix_scan_user(void) {
-    if (is_cmd_tab_active) {
-        if (timer_elapsed(cmd_tab_timer) > 750) {
-            unregister_code(KC_LEFT_CTRL);
-            is_cmd_tab_active = false;
-        }
-    }
+    // if (is_alt_tab_active) {
+    //     if (timer_elapsed(alt_tab_timer) > 750) {
+    //         unregister_code(KC_LEFT_CTRL);
+    //         is_alt_tab_active = false;
+    //     }
+    // }
 }
 
 void leader_start_user(void) {
@@ -404,9 +406,16 @@ void keyboard_post_init_user(void) {
 
 // Runs whenever there is a layer state change.
 layer_state_t layer_state_set_user(layer_state_t state) {
+    if (is_alt_tab_active) {
+        unregister_code(KC_LEFT_CTRL);
+        is_alt_tab_active = false;
+    }
+   
     // Don't change layer color back to base if the leader key was pressed
     if (is_leader_key_pressed)
         return state;
+
+   
 
     // ergodox_board_led_off();
     ergodox_right_led_1_off();
