@@ -1,6 +1,5 @@
 #include QMK_KEYBOARD_H
 
-// #include "version.h"
 #include "features/sentence_case.h"
 #include "../../../../shared/secrets.h"
 
@@ -186,7 +185,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
 
 [BASE] = LAYOUT_ergodox_pretty(
-  QK_GESC,         KC_1,         KC_2,         KC_3,         KC_4,           KC_5,         KC_MINUS,      KC_EQUAL            , KC_6       , KC_7        , KC_8        , KC_9        , KC_0                , KC_BSPC    ,
+  KC_MINUS,         KC_1,         KC_2,         KC_3,         KC_4,           KC_5,         _______,      _______            , KC_6       , KC_7        , KC_8        , KC_9        , KC_0                , KC_EQUAL    ,
   KC_TAB,         KC_Q,         KC_W,         KC_E,         KC_R,           KC_T,  TD(TD_LBRACKET),      TD(TD_RBRACKET)     , KC_Y       , KC_U        , KC_I        , KC_O        , KC_P                , TD(TD_PIPE),
   QK_GESC, LCMD_T(KC_A), LALT_T(KC_S), LCTL_T(KC_D), LSFT_T(KC_F),           KC_G,                                              KC_H       , RSFT_T(KC_J), LCTL_T(KC_K), LALT_T(KC_L), LCMD_T(KC_SEMICOLON), KC_QUOTE   ,
   KC_LSFT,         KC_Z,         KC_X,         LT(MEDIA, KC_C),         KC_V,           KC_B,   LCTL(KC_SPACE),      TD(TD_CAPS)         , KC_N       , KC_M        , LT(MEDIA, KC_COMMA)    , KC_DOT      , KC_SLASH            , KC_RSFT    ,
@@ -246,11 +245,11 @@ KC_LCTL, KC_LALT, KC_LWIN, XXXXXXX, KC_SPACE,                                   
 ),
 
 [MEDIA] = LAYOUT_ergodox_pretty(
-_______,   KC_F1,   KC_F2,   KC_F3,    KC_F4,   KC_F5,             KC_F11,      KC_F12 , KC_F6  , KC_F7  , KC_F8  , KC_F9  , KC_F10 , TO(BASE),
-_______, KC_MPRV, KC_MPLY, KC_MNXT,  _______, KC_LBRC,            _______,      _______, KC_RBRC, _______, _______, _______, _______, _______ ,
-_______, KC_VOLD, _______, KC_VOLU,  _______, KC_LCBR,                                   KC_RCBR, _______, _______, _______, _______, _______ ,
+_______, _______,   _______,   _______,    _______,   _______,             _______,      _______ , _______  , _______  , _______  , _______  , _______ , TO(BASE),
+_______, _______, KC_MPRV, KC_MPLY,  KC_MNXT, _______,            _______,      _______, _______, _______, _______, _______, _______, _______ ,
+_______, _______, KC_VOLD, _______,  KC_VOLU, _______,                                   _______, _______, _______, _______, _______, _______ ,
 _______, _______, _______, _______,  _______, _______,            _______,      _______, _______, _______, _______, _______, _______, _______ ,
-_______, _______, _______, _______, KC_SPACE,                                                     _______, _______, _______, _______, _______ ,
+_______, _______, _______, _______, _______,                                                     _______, _______, _______, _______, _______ ,
 
                                               RGB_TOG,     RGB_MODE_PLAIN,      _______, _______,
                                                        TOGGLE_LAYER_COLOR,      _______,
