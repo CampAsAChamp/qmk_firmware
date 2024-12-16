@@ -57,6 +57,9 @@ static const int IDX_R4 = 23;
 #define MY_HYPER S(G(C(KC_LALT)))
 #define MY_MEH S(G(KC_LALT))
 
+#define MY_HYPER_X MT(MOD_LSFT | MOD_LGUI | MOD_LCTL | MOD_LALT, KC_X)
+#define MY_MEH_Z MT(MOD_LSFT | MOD_LGUI | MOD_LALT, KC_Z)
+
 enum custom_keycodes {
     SUPER_ALT_TAB = SAFE_RANGE,
     COLON_EQUAL,
@@ -191,8 +194,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_MINUS,         KC_1,         KC_2,         KC_3,         KC_4,           KC_5,         _______,      _______            , KC_6       , KC_7        , KC_8        , KC_9        , KC_0                , KC_EQUAL    ,
   KC_TAB,         KC_Q,         KC_W,         KC_E,         KC_R,           KC_T,  TD(TD_LBRACKET),      TD(TD_RBRACKET)     , KC_Y       , KC_U        , KC_I        , KC_O        , KC_P                , TD(TD_PIPE),
   LT(MEDIA, KC_ESC), LCMD_T(KC_A), LALT_T(KC_S), LCTL_T(KC_D), LSFT_T(KC_F),           KC_G,                                              KC_H       , RSFT_T(KC_J), LCTL_T(KC_K), LALT_T(KC_L), LCMD_T(KC_SEMICOLON), KC_QUOTE   ,
-  TD(TD_CAPS) ,         KC_Z,         KC_X,         LT(MEDIA, KC_C),         KC_V,           KC_B,   LCTL(KC_SPACE),      TD(TD_CAPS)         , KC_N       , KC_M        , KC_COMMA    , KC_DOT      , KC_SLASH            , TD(TD_CAPS)     ,
-  MY_MEH,       MY_HYPER,      _______, OSM(MOD_LCTL),  MO(SYMBOLS),                                                                           TT(MOUSE)   , KC_LCMD     , _______     , _______             , OSM(MOD_RCTL)    ,
+  TD(TD_CAPS) ,         MY_MEH_Z,         MY_HYPER_X,         LT(MEDIA, KC_C),         KC_V,           KC_B,   LCTL(KC_SPACE),      TD(TD_CAPS)         , KC_N       , KC_M        , KC_COMMA    , KC_DOT      , KC_SLASH            , TD(TD_CAPS)     ,
+  _______,       _______,      _______, OSM(MOD_LCTL),  MO(SYMBOLS),                                                                           TT(MOUSE)   , KC_LCMD     , _______     , _______             , OSM(MOD_RCTL)    ,
 
                                                                    LALT(KC_SPACE), LCTL(LSFT(KC_1)),      TG(GAMING)          , TT(NUMBERS),
                                                                                    LCTL(LSFT(KC_2)),      _______             ,
@@ -208,7 +211,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
                                                               _______, _______,      _______, _______       ,
                                                                        _______,      _______,
-                                                     _______, _______, QK_LEAD,      _______, LCTL(KC_ENTER), KC_DELETE
+                                                     _______, _______, QK_LEAD,      _______, LCTL(KC_ENTER), LALT(KC_BSPC)
 ),
 
 [MOUSE] = LAYOUT_ergodox_pretty(
