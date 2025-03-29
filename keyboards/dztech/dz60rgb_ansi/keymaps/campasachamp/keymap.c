@@ -1,6 +1,6 @@
 #include QMK_KEYBOARD_H
 
-#include "features/sentence_case.h"
+#include "../../../../../users/campasachamp/features/sentence_case.h"
 
 enum layers {
     BASE_LAYER,
