@@ -1,0 +1,4 @@
+#ifndef CAMP_AS_A_CHAMP_CONFIG_H
+#define CAMP_AS_A_CHAMP_CONFIG_H
+
+#endif
