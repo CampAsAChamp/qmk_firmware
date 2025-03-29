@@ -1,5 +1,4 @@
 SRC += campasachamp.c
-
 SRC += features/sentence_case.c
 
 # CAPS_WORD_ENABLE    = yes

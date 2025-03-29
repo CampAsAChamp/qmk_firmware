@@ -49,7 +49,6 @@ void dance_l_bracket (tap_dance_state_t *state, void *user_data) {
         // Left Square Bracket -- [
         tap_code(KC_LEFT_BRACKET);
     } else if (state->count == 4) {
-    
         // Left Angle Bracket -- <
         register_code(KC_LSFT);
         tap_code(KC_COMMA);
