@@ -3,8 +3,6 @@
 
 #include "quantum.h"
 
-void my_custom_function(void);
-
 void dance_caps (tap_dance_state_t *state, void *user_data);
 
 void dance_l_bracket (tap_dance_state_t *state, void *user_data);

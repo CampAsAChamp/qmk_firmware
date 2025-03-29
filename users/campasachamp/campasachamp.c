@@ -1,9 +1,5 @@
 #include "campasachamp.h"
 
-void my_custom_function(void) {
-    
-}
-
 void dance_caps (tap_dance_state_t *state, void *user_data) {
     if (state->count == 1) {
         set_oneshot_mods(MOD_BIT(KC_LSFT));
