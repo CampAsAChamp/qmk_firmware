@@ -3,12 +3,6 @@
 #include "./key_indexes.h"
 #include "../../../users/campasachamp/features/sentence_case.h"
 
-#define MY_HYPER S(G(C(KC_LALT)))
-#define MY_MEH S(G(KC_LALT))
-
-#define MY_HYPER_X MT(MOD_LSFT | MOD_LGUI | MOD_LCTL | MOD_LALT, KC_X)
-#define MY_MEH_Z MT(MOD_LSFT | MOD_LGUI | MOD_LALT, KC_Z)
-
 enum custom_keycodes {
     SUPER_ALT_TAB = SAFE_RANGE,
     COLON_EQUAL,
