@@ -1,23 +1,7 @@
 #include QMK_KEYBOARD_H
 
+#include "../../../../../users/campasachamp/campasachamp.h"
 #include "../../../../../users/campasachamp/features/sentence_case.h"
-
-enum layers {
-    BASE_LAYER,
-    FN_LAYER,
-    CAPS_LAYER,
-    RGB_LAYER,
-    MOUSE_LAYER
-};
-
-bool is_alt_tab_active = false; // ADD this near the beginning of keymap.c
-uint16_t alt_tab_timer = 0;     // we will be using them soon.
-
-enum custom_keycodes {          // Make sure have the awesome keycode ready
-  ALT_TAB = SAFE_RANGE,
-};
-
-
 
 // Notes
 /*
@@ -30,6 +14,16 @@ enum custom_keycodes {          // Make sure have the awesome keycode ready
     Mac:    [L_Ctrl] [L_Alt/Option] [L_Cmd] [     ] [R_Cmd] [Leader] [Fn] [R_Alt/Option]
 */
 
+enum layers {
+    BASE_LAYER,
+    FN_LAYER,
+    CAPS_LAYER,
+    RGB_LAYER,
+    MOUSE_LAYER
+};
+
+bool is_alt_tab_active = false; // ADD this near the beginning of keymap.c
+uint16_t alt_tab_timer = 0;     // we will be using them soon.
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record)
 {
@@ -44,7 +38,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
     }
 
     switch (keycode) { // This will do most of the grunt work with the keycodes.
-        case ALT_TAB:
+        case SUPER_ALT_TAB:
         if (record->event.pressed) {
             if (!is_alt_tab_active) {
                 is_alt_tab_active = true;
@@ -82,7 +76,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [FN_LAYER] = LAYOUT_60_ansi(
         LCTL(KC_GRV), KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, KC_F12, KC_DEL,
-        ALT_TAB, LCTL(KC_Q), LCTL(KC_W), LCTL(KC_E), LCTL(KC_R), KC_LBRC, KC_RBRC, KC_HOME, KC_UP, KC_END, KC_PSCR, KC_PGUP, KC_PGDN, _______,
+        SUPER_ALT_TAB, LCTL(KC_Q), LCTL(KC_W), LCTL(KC_E), LCTL(KC_R), KC_LBRC, KC_RBRC, KC_HOME, KC_UP, KC_END, KC_PSCR, KC_PGUP, KC_PGDN, _______,
         _______, _______, _______, _______, _______, KC_LCBR, KC_RCBR, KC_LEFT, KC_DOWN, KC_RGHT, _______, KC_GRAVE, LCTL(KC_ENT),
         _______, LCTL(KC_Z), LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), LCTL(KC_B), KC_MINS, KC_UNDS, LCTL(KC_COMM), _______, LCTL(KC_SLASH), _______,
         _______, _______, _______, LCTL(KC_SPC), _______, _______, _______, _______),

@@ -20,3 +20,4 @@ NKRO_ENABLE = yes           # Enable N-Key Rollover
 NO_USB_STARTUP_CHECK = no      # Disable initialization only when usb is plugged in
 RGB_MATRIX_ENABLE = yes        # Use RGB matrix
 RGBLIGHT_ENABLE = no           # Enable keyboard RGB underglow
+TAP_DANCE_ENABLE = yes
