@@ -20,6 +20,10 @@ RGB_MATRIX_ENABLE   = yes
 SWAP_HANDS_ENABLE	= no   	         # Allow swapping hands of keyboard
 TAP_DANCE_ENABLE 	= yes
 UNICODE_ENABLE   	= no   	         # Unicode
+# Disable unsupported hardware
+AUDIO_SUPPORTED = no
+BACKLIGHT_SUPPORTED = no
+MOUSE_SHARED_EP = no
 
 # project specific files
 SRC += matrix.c \
@@ -28,11 +32,5 @@ SRC += matrix.c \
 SRC += features/sentence_case.c
 
 QUANTUM_LIB_SRC += i2c_master.c
-
-# Disable unsupported hardware
-AUDIO_SUPPORTED = no
-BACKLIGHT_SUPPORTED = no
-
-MOUSE_SHARED_EP = no
 
 DEFAULT_FOLDER = ergodox_ez/base
