@@ -1,0 +1,2 @@
+# git-crypt setup
+secrets.h filter=git-crypt diff=git-crypt
