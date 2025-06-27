@@ -26,8 +26,9 @@ BACKLIGHT_SUPPORTED = no
 MOUSE_SHARED_EP = no
 
 # project specific files
-SRC += matrix.c \
-	   led_i2c.c
+SRC += matrix.c
+
+I2C_DRIVER_REQUIRED = yes
 
 # INTROSPECTION_KEYMAP_C = campasachamp.c	   
 
