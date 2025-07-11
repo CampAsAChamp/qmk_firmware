@@ -1,18 +1,21 @@
 #pragma once
 
-// Needed for turning on the 3 layer LEDs
+// Needed for turning on the 3 layer LEDs and the RGB matrix
 #define ORYX_CONFIGURATOR
 
-#define ONESHOT_TIMEOUT 5000  /* Time (in ms) before the one shot key is released */
+#define ONESHOT_TIMEOUT 5000 /* Time (in ms) before the one shot key is released */
 
-// #define CAPS_LOCK_STATUS
+#define CAPS_LOCK_STATUS
+#define RGBLIGHT_SLEEP
+
+#undef RGB_MATRIX_TIMEOUT
+#define RGB_MATRIX_TIMEOUT 900000
 
 #undef RGB_DISABLE_TIMEOUT
 #define RGB_DISABLE_TIMEOUT 900000 // In miliseconds -- 15 minutes
 
-
 // Mouse Accelaration Mode
-#undef MOUSEKEY_TIME_TO_MAX  
+#undef MOUSEKEY_TIME_TO_MAX
 #define MOUSEKEY_TIME_TO_MAX 30
 
 // #undef MOUSEKEY_WHEEL_DELAY
@@ -25,18 +28,15 @@
 #define MOUSEKEY_WHEEL_TIME_TO_MAX 1
 
 #undef MOUSEKEY_WHEEL_INTERVAL
-#define MOUSEKEY_WHEEL_INTERVAL 100 
-
+#define MOUSEKEY_WHEEL_INTERVAL 100
 
 // Mouse Constant Speed Mode
 // #define MK_3_SPEED
 // #define MK_MOMENTARY_ACCEL
 // #define MK_W_INTERVAL_UNMOD 80
 
-
 // Mouse Kinectic Mode
 // #define MK_KINETIC_SPEED
-
 
 // Mouse Inertia Mode
 // #define MOUSEKEY_INERTIA
@@ -82,10 +82,8 @@
 #undef ENABLE_RGB_MATRIX_PIXEL_FRACTAL
 #undef ENABLE_RGB_MATRIX_PIXEL_FLOW
 #undef ENABLE_RGB_MATRIX_PIXEL_RAIN
-
 #undef ENABLE_RGB_MATRIX_TYPING_HEATMAP
 #undef ENABLE_RGB_MATRIX_DIGITAL_RAIN
-
 #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_SIMPLE
 #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE
 #undef ENABLE_RGB_MATRIX_SOLID_REACTIVE_WIDE
