@@ -8,9 +8,11 @@
 
 #define MY_HYPER_X MT(MOD_LSFT | MOD_LGUI | MOD_LCTL | MOD_LALT, KC_X)
 #define MY_MEH_Z MT(MOD_LSFT | MOD_LGUI | MOD_LALT, KC_Z)
+#define MY_HYPER_DOT MT(MOD_LSFT | MOD_LGUI | MOD_LCTL | MOD_LALT, KC_DOT)
 
 enum layers {
     BASE, // default layer
+    SHORTCUTS,
     SYMBOLS,
     MEDIA,
     NUMBERS,
@@ -134,15 +136,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   KC_MINUS,         KC_1,         KC_2,         KC_3,         KC_4,           KC_5,         _______,      _______            , KC_6       , KC_7        , KC_8        , KC_9        , KC_0                , KC_EQUAL    ,
   KC_TAB,         KC_Q,         KC_W,         KC_E,         KC_R,           KC_T,  _______,      _______     , KC_Y       , KC_U        , KC_I        , KC_O        , KC_P                , TD(TD_PIPE),
   LT(MEDIA, KC_ESC), LCMD_T(KC_A), LALT_T(KC_S), LCTL_T(KC_D), LSFT_T(KC_F),           KC_G,                                              KC_H       , RSFT_T(KC_J), LCTL_T(KC_K), LALT_T(KC_L), LCMD_T(KC_SEMICOLON), KC_QUOTE   ,
-  TD(TD_CAPS) ,         MY_MEH_Z,         MY_HYPER_X,          KC_C,        KC_V,           KC_B,   LCTL(KC_SPACE),      TD(TD_CAPS)         , KC_N       , KC_M        , KC_COMMA    , KC_DOT      , MT(MOD_RCTL, KC_SLASH)            , TD(TD_CAPS)     ,
-  TOGGLE_LAYER_COLOR,       _______,      KC_LPRN, KC_RPRN,  MO(SYMBOLS),                                                                           TT(MOUSE)   , KC_LCBR     , KC_RCBR     , KC_LBRC             , KC_RBRC    ,
+  TD(TD_CAPS) ,         MY_MEH_Z,         MY_HYPER_X,          LT(SYMBOLS, KC_C),        KC_V,           KC_B,   LCTL(KC_SPACE),      TD(TD_CAPS)         , KC_N       , KC_M        , LT(SYMBOLS, KC_COMMA)    , MY_HYPER_DOT      , MT(MOD_RCTL, KC_SLASH)            , TD(TD_CAPS)     ,
+  TOGGLE_LAYER_COLOR,       _______,      _______, _______,  MO(SHORTCUTS),                                                                           TT(MOUSE)   , _______     , _______     , _______             , _______    ,
 
                                                                    LALT(KC_SPACE), LCTL(LSFT(KC_1)),      TG(GAMING)          , TT(NUMBERS),
                                                                                    LCTL(LSFT(KC_2)),      _______             ,
                                                          KC_SPACE,      KC_DELETE, LCTL(LSFT(KC_5)),      LCMD(LCTL(KC_SPACE)), KC_ENTER   , KC_BSPC
 ),
 
-[SYMBOLS] = LAYOUT_ergodox_pretty(
+[SHORTCUTS] = LAYOUT_ergodox_pretty(
      LCTL(KC_GRV),      KC_F1,      KC_F2,      KC_F3,      KC_F4,   KC_F5,  KC_F11,      KC_F12 , KC_F6         , KC_F7    , KC_F8  , KC_F9   , KC_F10        , TO(BASE),
      SUPER_ALT_TAB, LCTL(KC_Q), LCTL(KC_W),    _______,    _______, KC_LBRC, _______,      _______, KC_RBRC       , KC_HOME  , KC_UP  , KC_END  , _______       , _______ ,
      LCTL(KC_GRV),    _______,    _______,    _______,    _______, KC_LCBR,                        KC_RCBR       , KC_LEFT  , KC_DOWN, KC_RIGHT, _______       , KC_GRAVE,
@@ -152,6 +154,18 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                                                               _______, _______,      _______, _______       ,
                                                                        _______,      _______,
                                                      _______, _______, QK_LEAD,      _______, LCTL(KC_ENTER), LALT(KC_BSPC)
+),
+
+[SYMBOLS] = LAYOUT_ergodox_pretty(
+  _______, _______, _______, _______, _______, _______, _______,     _______, _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, KC_LCBR, KC_RCBR, _______, _______,     _______, _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, KC_LPRN, KC_RPRN, _______,                       _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, KC_LBRC, KC_RBRC, _______, _______,     _______, _______, _______, _______, _______, _______, _______,
+  _______, _______, _______, _______, _______,                                         _______, _______, _______, _______, _______,
+
+                                               _______, _______,     _______, _______,
+                                                        _______,     _______,
+                                      _______, _______, _______,     _______, _______, _______
 ),
 
 [MEDIA] = LAYOUT_ergodox_pretty(
@@ -432,6 +446,10 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     switch (layer) {
         case BASE:
             // rgb_matrix_set_color_all(97, 0, 255); // Purple
+            break;
+        case SHORTCUTS:
+            // rgb_matrix_set_color_all(255, 149, 0); // Orange
+            ergodox_right_led_1_on();
             break;
         case SYMBOLS:
             // rgb_matrix_set_color_all(255, 149, 0); // Orange
