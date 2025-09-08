@@ -6,6 +6,7 @@
 # Build Options
 BOOTMAGIC_ENABLE 	= no   	         # Enable Bootmagic Lite
 CAPS_WORD_ENABLE    = yes
+COMBO_ENABLE        = yes            # Enable combos
 COMMAND_ENABLE   	= no   	         # Commands for debug and configuration
 CONSOLE_ENABLE   	= no   	         # Console for debug
 CUSTOM_MATRIX    	= lite 	         # Custom matrix file for the ErgoDox EZ

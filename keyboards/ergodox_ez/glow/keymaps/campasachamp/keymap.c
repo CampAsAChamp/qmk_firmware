@@ -103,6 +103,11 @@ tap_dance_action_t tap_dance_actions[] = {
     [TD_DASH] = ACTION_TAP_DANCE_DOUBLE(KC_MINUS, KC_UNDS), [TD_PLUS] = ACTION_TAP_DANCE_DOUBLE(KC_EQUAL, KC_PLUS), [TD_LBRACKET] = ACTION_TAP_DANCE_FN(dance_l_bracket), [TD_RBRACKET] = ACTION_TAP_DANCE_FN(dance_r_bracket), [TD_PIPE] = ACTION_TAP_DANCE_DOUBLE(KC_BACKSLASH, KC_PIPE), [TD_COPY] = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_C), LGUI(KC_X)), [TD_UNDO] = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_Z), LGUI(LSFT(KC_Z))), [TD_CAPS] = ACTION_TAP_DANCE_FN(dance_caps),
 };
 
+const uint16_t PROGMEM HOMEROW_APP_ACTIVATION[] = {KC_E, KC_I, COMBO_END};
+combo_t key_combos[] = {
+    COMBO(HOMEROW_APP_ACTIVATION, HYPR(KC_ENTER)) // Pressing E + I together sends Hyper + Enter,
+};
+
 // State Variables
 static bool is_leader_key_pressed = false;
 bool        is_alt_tab_active     = false;
