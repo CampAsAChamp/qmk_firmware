@@ -282,70 +282,231 @@ extern rgb_config_t rgb_matrix_config;
 //   rgb_matrix_enable();
 // }
 
-const uint8_t PROGMEM ledmap[][RGB_MATRIX_LED_COUNT][3] = {
-    // BASE layer (0) - All keys lit with base color
-    [0] = { {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255}, {188,255,255} },
+// Old ledmap array removed - now using enum-based approach with set_layer_keys()
 
-    // SHORTCUTS layer (1) - Only non-transparent keys lit
-    [1] = { {131,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,255}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {131,255,255}, {131,255,255}, {131,255,255}, {0,245,245}, {0,245,245}, {131,255,255}, {131,255,255}, {131,255,255}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245} },
-
-    // SYMBOLS layer (2) - Only non-transparent keys lit
-    [2] = { {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245} },
-
-    // MEDIA layer (3) - Only non-transparent keys lit
-    [3] = { {131,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {41,255,255}, {41,255,255}, {41,255,255}, {131,255,255}, {131,255,255}, {131,255,255}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {131,255,255}, {131,255,255}, {131,255,255}, {0,245,245}, {0,245,245}, {131,255,255}, {131,255,255}, {131,255,255}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245} },
-
-    // NUMBERS layer (4) - Only non-transparent keys lit
-    [4] = { {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,0,255}, {0,245,245}, {0,245,245}, {0,245,245} },
-
-    // MOUSE layer (5) - Only non-transparent keys lit
-    [5] = { {34,215,193}, {34,215,193}, {34,215,193}, {34,215,193}, {34,215,193}, {34,215,193}, {34,215,193}, {34,215,193}, {34,215,193}, {34,215,193}, {34,215,193}, {34,215,193}, {34,215,193}, {34,215,193}, {34,215,193}, {34,215,193}, {34,215,193}, {34,215,193}, {34,215,193}, {34,215,193}, {34,215,193}, {34,215,193}, {34,215,193}, {34,215,193}, {34,215,193}, {34,215,193}, {34,215,193}, {34,215,193}, {34,215,193}, {34,215,193}, {34,215,193}, {34,215,193}, {34,215,193}, {34,215,193}, {34,215,193}, {34,215,193}, {34,215,193}, {34,215,193}, {34,215,193}, {34,215,193}, {34,215,193}, {34,215,193}, {34,215,193}, {34,215,193}, {34,215,193}, {34,215,193}, {34,215,193}, {34,215,193} },
-
-    // GAMING layer (6) - Only non-transparent keys lit
-    [6] = { {255,255,0}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {255,255,0}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245}, {0,245,245} },
-
-};
-
-void set_layer_color(int layer) {
-  for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
-    HSV hsv = {
-      .h = pgm_read_byte(&ledmap[layer][i][0]),
-      .s = pgm_read_byte(&ledmap[layer][i][1]),
-      .v = pgm_read_byte(&ledmap[layer][i][2]),
-    };
+// Helper function to set LED color for a specific key using key index enum
+void set_key_color(int key_index, uint8_t h, uint8_t s, uint8_t v) {
+    HSV hsv = { .h = h, .s = s, .v = v };
     if (!hsv.h && !hsv.s && !hsv.v) {
-        rgb_matrix_set_color( i, 0, 0, 0 );
+        rgb_matrix_set_color(key_index, 0, 0, 0);
     } else {
-        RGB rgb = hsv_to_rgb( hsv );
+        RGB rgb = hsv_to_rgb(hsv);
         float f = (float)rgb_matrix_config.hsv.v / UINT8_MAX;
-        rgb_matrix_set_color( i, f * rgb.r, f * rgb.g, f * rgb.b );
+        rgb_matrix_set_color(key_index, f * rgb.r, f * rgb.g, f * rgb.b);
     }
-  }
 }
+
+// Helper function to set all LEDs to a base color
+void set_all_keys_color(uint8_t h, uint8_t s, uint8_t v) {
+    for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
+        set_key_color(i, h, s, v);
+    }
+}
+
+// Helper function to set specific keys for each layer
+void set_layer_keys(int layer) {
+    switch (layer) {
+        case BASE: // Layer 0 - All keys lit
+            set_all_keys_color(188, 255, 255);
+            break;
+
+        case SHORTCUTS: // Layer 1 - Function keys and shortcuts
+            set_all_keys_color(0, 245, 245); // Dim all first
+            // Function keys (F1-F12)
+            set_key_color(IDX_1, 41, 255, 255);
+            set_key_color(IDX_2, 41, 255, 255);
+            set_key_color(IDX_3, 41, 255, 255);
+            set_key_color(IDX_4, 41, 255, 255);
+            set_key_color(IDX_5, 41, 255, 255);
+            set_key_color(IDX_6, 41, 255, 255);
+            set_key_color(IDX_7, 41, 255, 255);
+            set_key_color(IDX_8, 41, 255, 255);
+            set_key_color(IDX_9, 41, 255, 255);
+            set_key_color(IDX_0, 41, 255, 255);
+            // Shortcut keys
+            set_key_color(IDX_Q, 131, 255, 255);
+            set_key_color(IDX_W, 131, 255, 255);
+            set_key_color(IDX_E, 131, 255, 255);
+            set_key_color(IDX_R, 131, 255, 255);
+            set_key_color(IDX_T, 131, 255, 255);
+            set_key_color(IDX_Y, 131, 255, 255);
+            set_key_color(IDX_U, 131, 255, 255);
+            set_key_color(IDX_I, 131, 255, 255);
+            set_key_color(IDX_O, 131, 255, 255);
+            set_key_color(IDX_P, 131, 255, 255);
+            set_key_color(IDX_A, 131, 255, 255);
+            set_key_color(IDX_S, 131, 255, 255);
+            set_key_color(IDX_D, 131, 255, 255);
+            set_key_color(IDX_F, 131, 255, 255);
+            set_key_color(IDX_G, 131, 255, 255);
+            set_key_color(IDX_H, 131, 255, 255);
+            set_key_color(IDX_J, 131, 255, 255);
+            set_key_color(IDX_K, 131, 255, 255);
+            set_key_color(IDX_L, 131, 255, 255);
+            set_key_color(IDX_Colon, 131, 255, 255);
+            set_key_color(IDX_Z, 131, 255, 255);
+            set_key_color(IDX_X, 131, 255, 255);
+            set_key_color(IDX_C, 131, 255, 255);
+            set_key_color(IDX_V, 131, 255, 255);
+            set_key_color(IDX_B, 131, 255, 255);
+            set_key_color(IDX_N, 131, 255, 255);
+            set_key_color(IDX_M, 131, 255, 255);
+            set_key_color(IDX_Comma, 131, 255, 255);
+            set_key_color(IDX_Period, 131, 255, 255);
+            set_key_color(IDX_F_Slash, 131, 255, 255);
+            break;
+
+        case SYMBOLS: // Layer 2 - Only bracket/parenthesis keys
+            set_all_keys_color(0, 245, 245); // Dim all first
+            // Symbol keys (brackets, parentheses)
+            set_key_color(IDX_Q, 0, 245, 245);
+            set_key_color(IDX_W, 0, 245, 245);
+            set_key_color(IDX_E, 0, 245, 245);
+            set_key_color(IDX_R, 0, 245, 245);
+            set_key_color(IDX_T, 0, 245, 245);
+            set_key_color(IDX_Y, 0, 245, 245);
+            set_key_color(IDX_U, 0, 245, 245);
+            set_key_color(IDX_I, 0, 245, 245);
+            set_key_color(IDX_O, 0, 245, 245);
+            set_key_color(IDX_P, 0, 245, 245);
+            set_key_color(IDX_A, 0, 245, 245);
+            set_key_color(IDX_S, 0, 245, 245);
+            set_key_color(IDX_D, 0, 245, 245);
+            set_key_color(IDX_F, 0, 245, 245);
+            set_key_color(IDX_G, 0, 245, 245);
+            set_key_color(IDX_H, 0, 245, 245);
+            set_key_color(IDX_J, 0, 245, 245);
+            set_key_color(IDX_K, 0, 245, 245);
+            set_key_color(IDX_L, 0, 245, 245);
+            set_key_color(IDX_Colon, 0, 245, 245);
+            set_key_color(IDX_Z, 0, 245, 245);
+            set_key_color(IDX_X, 0, 245, 245);
+            set_key_color(IDX_C, 0, 245, 245);
+            set_key_color(IDX_V, 0, 245, 245);
+            set_key_color(IDX_B, 0, 245, 245);
+            set_key_color(IDX_N, 0, 245, 245);
+            set_key_color(IDX_M, 0, 245, 245);
+            set_key_color(IDX_Comma, 0, 245, 245);
+            set_key_color(IDX_Period, 0, 245, 245);
+            set_key_color(IDX_F_Slash, 0, 245, 245);
+            break;
+
+        case MEDIA: // Layer 3 - Media controls and function keys
+            set_all_keys_color(0, 245, 245); // Dim all first
+            // Function keys (F1-F12)
+            set_key_color(IDX_1, 41, 255, 255);
+            set_key_color(IDX_2, 41, 255, 255);
+            set_key_color(IDX_3, 41, 255, 255);
+            set_key_color(IDX_4, 41, 255, 255);
+            set_key_color(IDX_5, 41, 255, 255);
+            set_key_color(IDX_6, 41, 255, 255);
+            set_key_color(IDX_7, 41, 255, 255);
+            set_key_color(IDX_8, 41, 255, 255);
+            set_key_color(IDX_9, 41, 255, 255);
+            set_key_color(IDX_0, 41, 255, 255);
+            // Media control keys
+            set_key_color(IDX_Q, 131, 255, 255);
+            set_key_color(IDX_W, 131, 255, 255);
+            set_key_color(IDX_E, 131, 255, 255);
+            set_key_color(IDX_R, 131, 255, 255);
+            set_key_color(IDX_T, 131, 255, 255);
+            set_key_color(IDX_Y, 131, 255, 255);
+            set_key_color(IDX_U, 131, 255, 255);
+            set_key_color(IDX_I, 131, 255, 255);
+            set_key_color(IDX_O, 131, 255, 255);
+            set_key_color(IDX_P, 131, 255, 255);
+            set_key_color(IDX_A, 131, 255, 255);
+            set_key_color(IDX_S, 131, 255, 255);
+            set_key_color(IDX_D, 131, 255, 255);
+            set_key_color(IDX_F, 131, 255, 255);
+            set_key_color(IDX_G, 131, 255, 255);
+            set_key_color(IDX_H, 131, 255, 255);
+            set_key_color(IDX_J, 131, 255, 255);
+            set_key_color(IDX_K, 131, 255, 255);
+            set_key_color(IDX_L, 131, 255, 255);
+            set_key_color(IDX_Colon, 131, 255, 255);
+            set_key_color(IDX_Z, 131, 255, 255);
+            set_key_color(IDX_X, 131, 255, 255);
+            set_key_color(IDX_C, 131, 255, 255);
+            set_key_color(IDX_V, 131, 255, 255);
+            set_key_color(IDX_B, 131, 255, 255);
+            set_key_color(IDX_N, 131, 255, 255);
+            set_key_color(IDX_M, 131, 255, 255);
+            set_key_color(IDX_Comma, 131, 255, 255);
+            set_key_color(IDX_Period, 131, 255, 255);
+            set_key_color(IDX_F_Slash, 131, 255, 255);
+            break;
+
+        case NUMBERS: // Layer 4 - Number pad and navigation
+            set_all_keys_color(0, 245, 245); // Dim all first
+            // Number keys
+            set_key_color(IDX_U, 0, 0, 255);
+            set_key_color(IDX_I, 0, 0, 255);
+            set_key_color(IDX_O, 0, 0, 255);
+            set_key_color(IDX_J, 0, 0, 255);
+            set_key_color(IDX_K, 0, 0, 255);
+            set_key_color(IDX_L, 0, 0, 255);
+            set_key_color(IDX_M, 0, 0, 255);
+            set_key_color(IDX_Comma, 0, 0, 255);
+            set_key_color(IDX_Period, 0, 0, 255);
+            set_key_color(IDX_F_Slash, 0, 0, 255);
+            // Special keys
+            set_key_color(IDX_P, 0, 0, 255);
+            set_key_color(IDX_Colon, 0, 0, 255);
+            set_key_color(IDX_R1, 0, 0, 255);
+            set_key_color(IDX_R2, 0, 0, 255);
+            set_key_color(IDX_R3, 0, 0, 255);
+            set_key_color(IDX_R4, 0, 0, 255);
+            break;
+
+        case MOUSE: // Layer 5 - Mouse controls
+            set_all_keys_color(34, 215, 193);
+            break;
+
+        case GAMING: // Layer 6 - Gaming layout
+            set_all_keys_color(0, 245, 245); // Dim all first
+            // Gaming keys
+            set_key_color(IDX_1, 255, 255, 0);
+            set_key_color(IDX_A, 255, 255, 0);
+            set_key_color(IDX_S, 255, 255, 0);
+            set_key_color(IDX_D, 255, 255, 0);
+            set_key_color(IDX_F, 255, 255, 0);
+            set_key_color(IDX_J, 255, 255, 0);
+            set_key_color(IDX_K, 255, 255, 0);
+            set_key_color(IDX_L, 255, 255, 0);
+            set_key_color(IDX_Colon, 255, 255, 0);
+            break;
+
+        default:
+            break;
+    }
+}
+
+// Old set_layer_color function removed - now using enum-based set_layer_keys()
 
 bool rgb_matrix_indicators_user(void) {
   if (keyboard_config.disable_layer_led) { return false; }
   switch (biton32(layer_state)) {
-    case 0:
-      set_layer_color(0);
+    case BASE:
+      set_layer_keys(BASE);
       break;
-    case 1:
-      set_layer_color(1);
+    case SHORTCUTS:
+      set_layer_keys(SHORTCUTS);
       break;
-    case 2:
-      set_layer_color(2);
+    case SYMBOLS:
+      set_layer_keys(SYMBOLS);
       break;
-    case 3:
-      set_layer_color(3);
+    case MEDIA:
+      set_layer_keys(MEDIA);
       break;
-    case 4:
-      set_layer_color(4);
+    case NUMBERS:
+      set_layer_keys(NUMBERS);
       break;
-    case 5:
-      set_layer_color(5);
+    case MOUSE:
+      set_layer_keys(MOUSE);
       break;
-    case 6:
-      set_layer_color(6);
+    case GAMING:
+      set_layer_keys(GAMING);
       break;
    default:
     if (rgb_matrix_get_flags() == LED_FLAG_NONE)
