@@ -138,9 +138,9 @@ tap_dance_action_t tap_dance_actions[] = {
 
 };
 
-const uint16_t PROGMEM HOMEROW_APP_ACTIVATION[] = {KC_E, KC_I, COMBO_END};
+const uint16_t PROGMEM HOMEROW_APP_ACTIVATION[] = {KC_G, KC_H, COMBO_END};
 combo_t key_combos[] = {
-    COMBO(HOMEROW_APP_ACTIVATION, HYPR(KC_ENTER)) // Pressing E + I together sends Hyper + Enter,
+    COMBO(HOMEROW_APP_ACTIVATION, HYPR(KC_ENTER)) // Pressing G + H together sends Hyper + Enter,
 };
 
 // State Variables
