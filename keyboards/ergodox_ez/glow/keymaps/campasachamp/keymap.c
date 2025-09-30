@@ -297,7 +297,6 @@ bool rgb_matrix_indicators_user(void) {
             rgb_matrix_set_color(IDX_H, 255, 149, 0); // Orange
             rgb_matrix_set_color(IDX_L4, 255, 0, 0); // Red
             rgb_matrix_set_color(IDX_R1, 255, 0, 0); // Red
-
             break;
 
         case SHORTCUTS:
@@ -337,7 +336,6 @@ bool rgb_matrix_indicators_user(void) {
             // Pink for the underscore and dash
             rgb_matrix_set_color(IDX_N, 255, 0, 255); // Pink
             rgb_matrix_set_color(IDX_M, 255, 0, 255); // Pink
-
             break;
 
         case SYMBOLS:
