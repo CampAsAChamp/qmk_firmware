@@ -144,7 +144,6 @@ combo_t key_combos[] = {
 };
 
 // State Variables
-static bool is_leader_key_pressed = false;
 bool        is_alt_tab_active     = false;
 uint16_t    alt_tab_timer         = 0;
 
@@ -276,243 +275,87 @@ KC_LCTL, KC_LALT, KC_LWIN, XXXXXXX, KC_SPACE,                                   
 ),
 */
 
-extern rgb_config_t rgb_matrix_config;
+// Runs just one time when the keyboard initializes.
+void keyboard_post_init_user(void) {
+    rgb_matrix_enable();
+    rgb_matrix_set_color_all(97, 0, 255); // Light up all the keys in purple
+};
 
-// void keyboard_post_init_user(void) {
-//   rgb_matrix_enable();
-// }
+bool rgb_matrix_indicators_user(void) {
+    if (keyboard_config.disable_layer_led) { return false; }
 
-// Old ledmap array removed - now using enum-based approach with set_layer_keys()
-
-// Helper function to set LED color for a specific key using key index enum
-void set_key_color(int key_index, uint8_t h, uint8_t s, uint8_t v) {
-    HSV hsv = { .h = h, .s = s, .v = v };
-    if (!hsv.h && !hsv.s && !hsv.v) {
-        rgb_matrix_set_color(key_index, 0, 0, 0);
-    } else {
-        RGB rgb = hsv_to_rgb(hsv);
-        float f = (float)rgb_matrix_config.hsv.v / UINT8_MAX;
-        rgb_matrix_set_color(key_index, f * rgb.r, f * rgb.g, f * rgb.b);
-    }
-}
-
-// Helper function to set all LEDs to a base color
-void set_all_keys_color(uint8_t h, uint8_t s, uint8_t v) {
-    for (int i = 0; i < RGB_MATRIX_LED_COUNT; i++) {
-        set_key_color(i, h, s, v);
-    }
-}
-
-// Helper function to set specific keys for each layer
-void set_layer_keys(int layer) {
-    switch (layer) {
-        case BASE: // Layer 0 - All keys lit
-            set_all_keys_color(188, 255, 255);
+    switch (biton32(layer_state)) {
+        case BASE:
+            rgb_matrix_set_color_all(97, 0, 255); // Purple
             break;
 
-        case SHORTCUTS: // Layer 1 - Function keys and shortcuts
-            set_all_keys_color(0, 245, 245); // Dim all first
-            // Function keys (F1-F12)
-            set_key_color(IDX_1, 41, 255, 255);
-            set_key_color(IDX_2, 41, 255, 255);
-            set_key_color(IDX_3, 41, 255, 255);
-            set_key_color(IDX_4, 41, 255, 255);
-            set_key_color(IDX_5, 41, 255, 255);
-            set_key_color(IDX_6, 41, 255, 255);
-            set_key_color(IDX_7, 41, 255, 255);
-            set_key_color(IDX_8, 41, 255, 255);
-            set_key_color(IDX_9, 41, 255, 255);
-            set_key_color(IDX_0, 41, 255, 255);
-            // Shortcut keys
-            set_key_color(IDX_Q, 131, 255, 255);
-            set_key_color(IDX_W, 131, 255, 255);
-            set_key_color(IDX_E, 131, 255, 255);
-            set_key_color(IDX_R, 131, 255, 255);
-            set_key_color(IDX_T, 131, 255, 255);
-            set_key_color(IDX_Y, 131, 255, 255);
-            set_key_color(IDX_U, 131, 255, 255);
-            set_key_color(IDX_I, 131, 255, 255);
-            set_key_color(IDX_O, 131, 255, 255);
-            set_key_color(IDX_P, 131, 255, 255);
-            set_key_color(IDX_A, 131, 255, 255);
-            set_key_color(IDX_S, 131, 255, 255);
-            set_key_color(IDX_D, 131, 255, 255);
-            set_key_color(IDX_F, 131, 255, 255);
-            set_key_color(IDX_G, 131, 255, 255);
-            set_key_color(IDX_H, 131, 255, 255);
-            set_key_color(IDX_J, 131, 255, 255);
-            set_key_color(IDX_K, 131, 255, 255);
-            set_key_color(IDX_L, 131, 255, 255);
-            set_key_color(IDX_Colon, 131, 255, 255);
-            set_key_color(IDX_Z, 131, 255, 255);
-            set_key_color(IDX_X, 131, 255, 255);
-            set_key_color(IDX_C, 131, 255, 255);
-            set_key_color(IDX_V, 131, 255, 255);
-            set_key_color(IDX_B, 131, 255, 255);
-            set_key_color(IDX_N, 131, 255, 255);
-            set_key_color(IDX_M, 131, 255, 255);
-            set_key_color(IDX_Comma, 131, 255, 255);
-            set_key_color(IDX_Period, 131, 255, 255);
-            set_key_color(IDX_F_Slash, 131, 255, 255);
+        case SHORTCUTS:
+            rgb_matrix_set_color_all(255, 149, 0); // Orange
             break;
 
-        case SYMBOLS: // Layer 2 - Only bracket/parenthesis keys
-            set_all_keys_color(0, 245, 245); // Dim all first
-            // Symbol keys (brackets, parentheses)
-            set_key_color(IDX_Q, 0, 245, 245);
-            set_key_color(IDX_W, 0, 245, 245);
-            set_key_color(IDX_E, 0, 245, 245);
-            set_key_color(IDX_R, 0, 245, 245);
-            set_key_color(IDX_T, 0, 245, 245);
-            set_key_color(IDX_Y, 0, 245, 245);
-            set_key_color(IDX_U, 0, 245, 245);
-            set_key_color(IDX_I, 0, 245, 245);
-            set_key_color(IDX_O, 0, 245, 245);
-            set_key_color(IDX_P, 0, 245, 245);
-            set_key_color(IDX_A, 0, 245, 245);
-            set_key_color(IDX_S, 0, 245, 245);
-            set_key_color(IDX_D, 0, 245, 245);
-            set_key_color(IDX_F, 0, 245, 245);
-            set_key_color(IDX_G, 0, 245, 245);
-            set_key_color(IDX_H, 0, 245, 245);
-            set_key_color(IDX_J, 0, 245, 245);
-            set_key_color(IDX_K, 0, 245, 245);
-            set_key_color(IDX_L, 0, 245, 245);
-            set_key_color(IDX_Colon, 0, 245, 245);
-            set_key_color(IDX_Z, 0, 245, 245);
-            set_key_color(IDX_X, 0, 245, 245);
-            set_key_color(IDX_C, 0, 245, 245);
-            set_key_color(IDX_V, 0, 245, 245);
-            set_key_color(IDX_B, 0, 245, 245);
-            set_key_color(IDX_N, 0, 245, 245);
-            set_key_color(IDX_M, 0, 245, 245);
-            set_key_color(IDX_Comma, 0, 245, 245);
-            set_key_color(IDX_Period, 0, 245, 245);
-            set_key_color(IDX_F_Slash, 0, 245, 245);
+        case SYMBOLS:
+            rgb_matrix_set_color_all(255, 149, 0); // Orange
             break;
 
-        case MEDIA: // Layer 3 - Media controls and function keys
-            set_all_keys_color(0, 245, 245); // Dim all first
-            // Function keys (F1-F12)
-            set_key_color(IDX_1, 41, 255, 255);
-            set_key_color(IDX_2, 41, 255, 255);
-            set_key_color(IDX_3, 41, 255, 255);
-            set_key_color(IDX_4, 41, 255, 255);
-            set_key_color(IDX_5, 41, 255, 255);
-            set_key_color(IDX_6, 41, 255, 255);
-            set_key_color(IDX_7, 41, 255, 255);
-            set_key_color(IDX_8, 41, 255, 255);
-            set_key_color(IDX_9, 41, 255, 255);
-            set_key_color(IDX_0, 41, 255, 255);
-            // Media control keys
-            set_key_color(IDX_Q, 131, 255, 255);
-            set_key_color(IDX_W, 131, 255, 255);
-            set_key_color(IDX_E, 131, 255, 255);
-            set_key_color(IDX_R, 131, 255, 255);
-            set_key_color(IDX_T, 131, 255, 255);
-            set_key_color(IDX_Y, 131, 255, 255);
-            set_key_color(IDX_U, 131, 255, 255);
-            set_key_color(IDX_I, 131, 255, 255);
-            set_key_color(IDX_O, 131, 255, 255);
-            set_key_color(IDX_P, 131, 255, 255);
-            set_key_color(IDX_A, 131, 255, 255);
-            set_key_color(IDX_S, 131, 255, 255);
-            set_key_color(IDX_D, 131, 255, 255);
-            set_key_color(IDX_F, 131, 255, 255);
-            set_key_color(IDX_G, 131, 255, 255);
-            set_key_color(IDX_H, 131, 255, 255);
-            set_key_color(IDX_J, 131, 255, 255);
-            set_key_color(IDX_K, 131, 255, 255);
-            set_key_color(IDX_L, 131, 255, 255);
-            set_key_color(IDX_Colon, 131, 255, 255);
-            set_key_color(IDX_Z, 131, 255, 255);
-            set_key_color(IDX_X, 131, 255, 255);
-            set_key_color(IDX_C, 131, 255, 255);
-            set_key_color(IDX_V, 131, 255, 255);
-            set_key_color(IDX_B, 131, 255, 255);
-            set_key_color(IDX_N, 131, 255, 255);
-            set_key_color(IDX_M, 131, 255, 255);
-            set_key_color(IDX_Comma, 131, 255, 255);
-            set_key_color(IDX_Period, 131, 255, 255);
-            set_key_color(IDX_F_Slash, 131, 255, 255);
+        case MEDIA:
+            rgb_matrix_set_color_all(23, 200, 34); // Green
             break;
 
-        case NUMBERS: // Layer 4 - Number pad and navigation
-            set_all_keys_color(0, 245, 245); // Dim all first
-            // Number keys
-            set_key_color(IDX_U, 0, 0, 255);
-            set_key_color(IDX_I, 0, 0, 255);
-            set_key_color(IDX_O, 0, 0, 255);
-            set_key_color(IDX_J, 0, 0, 255);
-            set_key_color(IDX_K, 0, 0, 255);
-            set_key_color(IDX_L, 0, 0, 255);
-            set_key_color(IDX_M, 0, 0, 255);
-            set_key_color(IDX_Comma, 0, 0, 255);
-            set_key_color(IDX_Period, 0, 0, 255);
-            set_key_color(IDX_F_Slash, 0, 0, 255);
-            // Special keys
-            set_key_color(IDX_P, 0, 0, 255);
-            set_key_color(IDX_Colon, 0, 0, 255);
-            set_key_color(IDX_R1, 0, 0, 255);
-            set_key_color(IDX_R2, 0, 0, 255);
-            set_key_color(IDX_R3, 0, 0, 255);
-            set_key_color(IDX_R4, 0, 0, 255);
+        case NUMBERS:
+            // Orange for the number keys
+            rgb_matrix_set_color(IDX_U, 255, 149, 0);
+            rgb_matrix_set_color(IDX_I, 255, 149, 0);
+            rgb_matrix_set_color(IDX_O, 255, 149, 0);
+            rgb_matrix_set_color(IDX_P, 23, 200, 34);
+            rgb_matrix_set_color(IDX_J, 255, 149, 0);
+            rgb_matrix_set_color(IDX_K, 255, 149, 0);
+            rgb_matrix_set_color(IDX_L, 255, 149, 0);
+            rgb_matrix_set_color(IDX_Colon, 23, 200, 34);
+            rgb_matrix_set_color(IDX_M, 255, 149, 0);
+            rgb_matrix_set_color(IDX_Period, 255, 149, 0);
+            rgb_matrix_set_color(IDX_Comma, 255, 149, 0);
+            rgb_matrix_set_color(IDX_F_Slash, 23, 200, 34);
+            rgb_matrix_set_color(IDX_R1, 255, 149, 0);
+            rgb_matrix_set_color(IDX_R2, 23, 200, 34);
+            rgb_matrix_set_color(IDX_R3, 23, 200, 34);
+            rgb_matrix_set_color(IDX_R4, 23, 200, 34);        
             break;
 
-        case MOUSE: // Layer 5 - Mouse controls
-            set_all_keys_color(34, 215, 193);
+        case MOUSE:
+            // Orange for the keys that are actually changed
+            rgb_matrix_set_color(IDX_1, 255, 149, 0);
+            rgb_matrix_set_color(IDX_2, 255, 149, 0);
+            rgb_matrix_set_color(IDX_W, 255, 149, 0);
+            rgb_matrix_set_color(IDX_E, 255, 149, 0);
+            rgb_matrix_set_color(IDX_R, 255, 149, 0);
+            rgb_matrix_set_color(IDX_A, 255, 149, 0);
+            rgb_matrix_set_color(IDX_S, 255, 149, 0);
+            rgb_matrix_set_color(IDX_D, 255, 149, 0);
+            rgb_matrix_set_color(IDX_F, 255, 149, 0);
+            rgb_matrix_set_color(IDX_G, 255, 149, 0);
+            rgb_matrix_set_color(IDX_L4, 255, 149, 0);
+
+            rgb_matrix_set_color(IDX_U, 255, 149, 0);
+            rgb_matrix_set_color(IDX_I, 255, 149, 0);
+            rgb_matrix_set_color(IDX_O, 255, 149, 0);
+            rgb_matrix_set_color(IDX_H, 255, 149, 0);
+            rgb_matrix_set_color(IDX_J, 255, 149, 0);
+            rgb_matrix_set_color(IDX_K, 255, 149, 0);
+            rgb_matrix_set_color(IDX_L, 255, 149, 0);
+            rgb_matrix_set_color(IDX_Colon, 255, 149, 0);
             break;
 
-        case GAMING: // Layer 6 - Gaming layout
-            set_all_keys_color(0, 245, 245); // Dim all first
-            // Gaming keys
-            set_key_color(IDX_1, 255, 255, 0);
-            set_key_color(IDX_A, 255, 255, 0);
-            set_key_color(IDX_S, 255, 255, 0);
-            set_key_color(IDX_D, 255, 255, 0);
-            set_key_color(IDX_F, 255, 255, 0);
-            set_key_color(IDX_J, 255, 255, 0);
-            set_key_color(IDX_K, 255, 255, 0);
-            set_key_color(IDX_L, 255, 255, 0);
-            set_key_color(IDX_Colon, 255, 255, 0);
+        case GAMING:
+            rgb_matrix_set_color_all(255, 255, 0);       // Red
+            rgb_matrix_set_color(IDX_L4, 255, 255, 255); // White
             break;
 
         default:
+            if (rgb_matrix_get_flags() == LED_FLAG_NONE)
+                rgb_matrix_set_color_all(0, 0, 0);
             break;
     }
-}
 
-// Old set_layer_color function removed - now using enum-based set_layer_keys()
-
-bool rgb_matrix_indicators_user(void) {
-  if (keyboard_config.disable_layer_led) { return false; }
-  switch (biton32(layer_state)) {
-    case BASE:
-      set_layer_keys(BASE);
-      break;
-    case SHORTCUTS:
-      set_layer_keys(SHORTCUTS);
-      break;
-    case SYMBOLS:
-      set_layer_keys(SYMBOLS);
-      break;
-    case MEDIA:
-      set_layer_keys(MEDIA);
-      break;
-    case NUMBERS:
-      set_layer_keys(NUMBERS);
-      break;
-    case MOUSE:
-      set_layer_keys(MOUSE);
-      break;
-    case GAMING:
-      set_layer_keys(GAMING);
-      break;
-   default:
-    if (rgb_matrix_get_flags() == LED_FLAG_NONE)
-      rgb_matrix_set_color_all(0, 0, 0);
-    break;
-  }
   return true;
 }
 
@@ -526,214 +369,46 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // This will do most of the grunt work with the keycodes.
     switch (keycode) {
         case RGB_SLD:
-            if (record->event.pressed) {
+            if (record->event.pressed)
                 rgblight_mode(1);
-            }
+
             return false;
-            // case KC_ESC:
-            //     if (get_oneshot_mods() != 0) {
-            //         clear_oneshot_mods();
-            //     }
-            //     break;
-            // case SUPER_ALT_TAB:
-            //     if (record->event.pressed) {
-            //         if (!is_alt_tab_active) {
-            //             is_alt_tab_active = true;
-            //             register_code(KC_LEFT_CTRL);
-            //         }
-            //         // alt_tab_timer = timer_read();
-            //         register_code(KC_TAB);
-            //     } else {
-            //         unregister_code(KC_TAB);
-            //     }
-            //     break;
-            //     return false;
-            // case COLON_EQUAL:
-            //     if (record->event.pressed) {
-            //         SEND_STRING(":=");
-            //     }
-            //     break;
+        case KC_ESC:
+            if (get_oneshot_mods() != 0)
+                clear_oneshot_mods();
+
+            break;
+        case SUPER_ALT_TAB:
+            if (record->event.pressed) {
+                if (!is_alt_tab_active) {
+                    is_alt_tab_active = true;
+                    register_code(KC_LEFT_CTRL);
+                }
+
+                alt_tab_timer = timer_read();
+                register_code(KC_TAB);
+            } 
+            else
+                unregister_code(KC_TAB);
+
+            break;
+            return false;
+        case COLON_EQUAL:
+            if (record->event.pressed)
+                SEND_STRING(":=");
+            break;
     }
     return true;
 }
 
 void matrix_scan_user(void) {
-    // if (is_alt_tab_active) {
-    //     if (timer_elapsed(alt_tab_timer) > 750) {
-    //         unregister_code(KC_LEFT_CTRL);
-    //         is_alt_tab_active = false;
-    //     }
-    // }
-}
-
-void leader_start_user(void) {
-    is_leader_key_pressed = true;
-
-    ergodox_right_led_1_on();
-    ergodox_right_led_2_on();
-    ergodox_right_led_3_on();
-
-    rgb_matrix_set_color_all(255, 255, 255); // White
-
-    // One taps
-    rgb_matrix_set_color(IDX_C, 255, 0, 0); // Red
-    rgb_matrix_set_color(IDX_V, 255, 0, 0); // Red
-    rgb_matrix_set_color(IDX_1, 255, 0, 0); // Red
-
-    // Starters taps
-    rgb_matrix_set_color(IDX_M, 0, 255, 0); // Blue
-    rgb_matrix_set_color(IDX_N, 0, 255, 0); // Blue
-    rgb_matrix_set_color(IDX_3, 0, 255, 0); // Blue
-    rgb_matrix_set_color(IDX_4, 0, 255, 0); // Blue
-
-    // Additional taps
-    rgb_matrix_set_color(IDX_T, 0, 0, 255); // Blue
-    rgb_matrix_set_color(IDX_P, 0, 0, 255); // Blue
-    rgb_matrix_set_color(IDX_W, 0, 0, 255); // Blue
-    rgb_matrix_set_color(IDX_U, 0, 0, 255); // Blue
-}
-
-// Runs just one time when the keyboard initializes.
-void keyboard_post_init_user(void) {
-    rgb_matrix_enable();
-    // ergodox_led_all_set(255);
-    // rgblight_setrgb(0x00, 0x00, 0xFF);
-    // rgb_matrix_set_color_all(97, 0, 255); // Light up all the keys in purple
-};
-
-// uint8_t layer_state_set_user(uint8_t state) {
-//     uint8_t layer = biton(state);
-//     ergodox_board_led_off();
-//     ergodox_right_led_1_off();
-//     ergodox_right_led_2_off();
-//     ergodox_right_led_3_off();
-//     switch (layer) {
-//         case 1:
-//             ergodox_right_led_1_on();
-//             break;
-//         case 2:
-//             ergodox_right_led_2_on();
-//             break;
-//         case 3:
-//             ergodox_right_led_3_on();
-//             break;
-//         case 4:
-//             ergodox_right_led_1_on();
-//             ergodox_right_led_2_on();
-//             break;
-//         case 5:
-//             ergodox_right_led_1_on();
-//             ergodox_right_led_3_on();
-//             break;
-//         case 6:
-//             ergodox_right_led_2_on();
-//             ergodox_right_led_3_on();
-//             break;
-//         case 7:
-//             ergodox_right_led_1_on();
-//             ergodox_right_led_2_on();
-//             ergodox_right_led_3_on();
-//             break;
-//         default:
-//             break;
-//     }
-//     return state;
-// };
-
-// Runs whenever there is a layer state change.
-layer_state_t layer_state_set_user(layer_state_t state) {
-    // if (is_alt_tab_active) {
-    //     unregister_code(KC_LEFT_CTRL);
-    //     is_alt_tab_active = false;
-    // }
-
-    // // Don't change layer color back to base if the leader key was pressed
-    // if (is_leader_key_pressed) return state;
-
-    ergodox_board_led_off();
-    ergodox_right_led_1_off();
-    ergodox_right_led_2_off();
-    ergodox_right_led_3_off();
-
-    uint8_t layer = get_highest_layer(state);
-    switch (layer) {
-        case BASE:
-            // rgb_matrix_set_color_all(97, 0, 255); // Purple
-            break;
-        case SHORTCUTS:
-            // rgb_matrix_set_color_all(255, 149, 0); // Orange
-            ergodox_right_led_1_on();
-            break;
-        case SYMBOLS:
-            // rgb_matrix_set_color_all(255, 149, 0); // Orange
-            ergodox_right_led_1_on();
-            break;
-        case MOUSE:
-            // rgb_matrix_set_color_all(23, 200, 34); // Green
-
-            // Orange for the keys that are actually changed
-            // rgb_matrix_set_color(IDX_1, 255, 149, 0);
-            // rgb_matrix_set_color(IDX_2, 255, 149, 0);
-            // rgb_matrix_set_color(IDX_W, 255, 149, 0);
-            // rgb_matrix_set_color(IDX_E, 255, 149, 0);
-            // rgb_matrix_set_color(IDX_R, 255, 149, 0);
-            // rgb_matrix_set_color(IDX_A, 255, 149, 0);
-            // rgb_matrix_set_color(IDX_S, 255, 149, 0);
-            // rgb_matrix_set_color(IDX_D, 255, 149, 0);
-            // rgb_matrix_set_color(IDX_F, 255, 149, 0);
-            // rgb_matrix_set_color(IDX_G, 255, 149, 0);
-            // rgb_matrix_set_color(IDX_L4, 255, 149, 0);
-
-            // rgb_matrix_set_color(IDX_U, 255, 149, 0);
-            // rgb_matrix_set_color(IDX_I, 255, 149, 0);
-            // rgb_matrix_set_color(IDX_O, 255, 149, 0);
-            // rgb_matrix_set_color(IDX_H, 255, 149, 0);
-            // rgb_matrix_set_color(IDX_J, 255, 149, 0);
-            // rgb_matrix_set_color(IDX_K, 255, 149, 0);
-            // rgb_matrix_set_color(IDX_L, 255, 149, 0);
-            // rgb_matrix_set_color(IDX_Colon, 255, 149, 0);
-
-            ergodox_right_led_2_on();
-            break;
-        case NUMBERS:
-            // rgb_matrix_set_color_all(0, 0, 255); // Blue
-
-            // Orange for the number keys
-            // rgb_matrix_set_color(IDX_U, 255, 149, 0);
-            // rgb_matrix_set_color(IDX_I, 255, 149, 0);
-            // rgb_matrix_set_color(IDX_O, 255, 149, 0);
-            // rgb_matrix_set_color(IDX_P, 23, 200, 34);
-            // rgb_matrix_set_color(IDX_J, 255, 149, 0);
-            // rgb_matrix_set_color(IDX_K, 255, 149, 0);
-            // rgb_matrix_set_color(IDX_L, 255, 149, 0);
-            // rgb_matrix_set_color(IDX_Colon, 23, 200, 34);
-            // rgb_matrix_set_color(IDX_M, 255, 149, 0);
-            // rgb_matrix_set_color(IDX_Period, 255, 149, 0);
-            // rgb_matrix_set_color(IDX_Comma, 255, 149, 0);
-            // rgb_matrix_set_color(IDX_F_Slash, 23, 200, 34);
-            // rgb_matrix_set_color(IDX_R1, 255, 149, 0);
-            // rgb_matrix_set_color(IDX_R2, 23, 200, 34);
-            // rgb_matrix_set_color(IDX_R3, 23, 200, 34);
-            // rgb_matrix_set_color(IDX_R4, 23, 200, 34);
-            ergodox_right_led_3_on();
-            break;
-        case GAMING:
-            // rgb_matrix_set_color_all(255, 255, 0);       // Red
-            // rgb_matrix_set_color(IDX_L4, 255, 255, 255); // White
-            ergodox_right_led_1_on();
-            ergodox_right_led_2_on();
-            break;
-        case MEDIA:
-            // rgb_matrix_set_color_all(64, 224, 208); // Orange
-            ergodox_right_led_1_on();
-            ergodox_right_led_3_on();
-            break;
-        default:
-            break;
+    if (is_alt_tab_active) {
+        if (timer_elapsed(alt_tab_timer) > 750) {
+            unregister_code(KC_LEFT_CTRL);
+            is_alt_tab_active = false;
+        }
     }
-
-    return state;
-};
+}
 
 /* Return an integer that corresponds to what kind of tap dance should be executed.
  *
