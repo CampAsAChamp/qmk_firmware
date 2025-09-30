@@ -185,14 +185,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [SHORTCUTS] = LAYOUT_ergodox_pretty(
      LCTL(KC_GRV),      KC_F1,      KC_F2,      KC_F3,      KC_F4,   KC_F5,  KC_F11,      KC_F12 , KC_F6         , KC_F7    , KC_F8  , KC_F9   , KC_F10        , TO(BASE),
-     SUPER_ALT_TAB, LCTL(KC_Q), LCTL(KC_W),    _______,    _______, KC_LBRC, _______,      _______, KC_RBRC       , KC_HOME  , KC_UP  , KC_END  , _______       , _______ ,
-     LCTL(KC_GRV),    _______,    _______,    _______,    _______, KC_LCBR,                        KC_RCBR       , KC_LEFT  , KC_DOWN, KC_RIGHT, _______       , KC_GRAVE,
-     _______, LCTL(KC_Z), LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), _______, KC_CAPS,      TD(TD_CAPS_BASIC), KC_MINS       , KC_UNDS  , _______, _______ , _______, _______ ,
+     SUPER_ALT_TAB, LCTL(KC_Q), LCTL(KC_W),    _______,    LCTL(KC_R), _______, _______,      _______, _______       , KC_HOME  , KC_UP  , KC_END  , _______       , _______ ,
+     LCTL(KC_GRV),    _______,    _______,    _______,    _______, _______,                        _______       , KC_LEFT  , KC_DOWN, KC_RIGHT, _______       , KC_GRAVE,
+     _______, LCTL(KC_Z), LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), _______, _______,      _______, KC_MINS       , KC_UNDS  , _______, _______ , _______, _______ ,
      _______,    _______,    _______,    _______,    _______,                                                 _______  , _______, _______ , _______       , _______ ,
 
                                                               _______, _______,      _______, _______       ,
                                                                        _______,      _______,
-                                                     _______, _______, QK_LEAD,      _______, LCTL(KC_ENTER), LALT(KC_BSPC)
+                                                     _______, _______, _______,      _______, LCTL(KC_ENTER), LALT(KC_BSPC)
 ),
 
 [SYMBOLS] = LAYOUT_ergodox_pretty(
@@ -223,7 +223,7 @@ _______, _______, _______, _______, _______,                                    
 _______, _______, _______, _______,  _______, _______, _______,      _______, _______, _______, _______ , _______, _______, TO(BASE),
 _______, _______, _______,   KC_UP,  _______, _______, _______,      _______, _______, KC_7   , KC_8    , KC_9   , KC_ASTR, _______ ,
 _______, _______, KC_LEFT, KC_DOWN, KC_RIGHT, _______,                        _______, KC_4   , KC_5    , KC_6   , KC_PLUS, _______ ,
-_______, _______, _______, _______,  _______, _______, _______,      _______, KC_AMPR, KC_1   , KC_2    , KC_3   , KC_BSLS, _______ ,
+_______, _______, _______, _______,  _______, _______, _______,      _______, _______, KC_1   , KC_2    , KC_3   , KC_BSLS, _______ ,
 _______, _______, _______, _______,  _______,                                          KC_0   , KC_COMMA, KC_DOT , KC_EQL , _______ ,
 
                                               _______, _______,      XXXXXXX, _______,
@@ -287,66 +287,136 @@ bool rgb_matrix_indicators_user(void) {
     switch (biton32(layer_state)) {
         case BASE:
             rgb_matrix_set_color_all(97, 0, 255); // Purple
+            rgb_matrix_set_color(IDX_Z, 23, 200, 34); // Green
+            rgb_matrix_set_color(IDX_X, 23, 200, 34); // Green
+            rgb_matrix_set_color(IDX_C, 23, 200, 34); // Green
+            rgb_matrix_set_color(IDX_Comma, 23, 200, 34); // Green
+            rgb_matrix_set_color(IDX_Period, 23, 200, 34); // Green
+            rgb_matrix_set_color(IDX_F_Slash, 23, 200, 34); // Green
+            rgb_matrix_set_color(IDX_G, 255, 149, 0); // Orange
+            rgb_matrix_set_color(IDX_H, 255, 149, 0); // Orange
+            rgb_matrix_set_color(IDX_L4, 255, 0, 0); // Red
+            rgb_matrix_set_color(IDX_R1, 255, 0, 0); // Red
+
             break;
 
         case SHORTCUTS:
-            rgb_matrix_set_color_all(255, 149, 0); // Orange
+            rgb_matrix_set_color_all(0, 0, 0); // Off
+
+            // Red for the number keys
+            rgb_matrix_set_color(IDX_1, 255, 0, 0); // Red
+            rgb_matrix_set_color(IDX_2, 255, 0, 0); // Red
+            rgb_matrix_set_color(IDX_2, 255, 0, 0); // Red
+            rgb_matrix_set_color(IDX_4, 255, 0, 0); // Red
+            rgb_matrix_set_color(IDX_5, 255, 0, 0); // Red
+            rgb_matrix_set_color(IDX_6, 255, 0, 0); // Red
+            rgb_matrix_set_color(IDX_7, 255, 0, 0); // Red
+            rgb_matrix_set_color(IDX_8, 255, 0, 0); // Red
+            rgb_matrix_set_color(IDX_9, 255, 0, 0); // Red
+            rgb_matrix_set_color(IDX_0, 255, 0, 0); // Red
+
+            // Blue for the CMD keys
+            rgb_matrix_set_color(IDX_Q, 0, 0, 255); // Blue
+            rgb_matrix_set_color(IDX_W, 0, 0, 255); // Blue
+            rgb_matrix_set_color(IDX_R, 0, 0, 255); // Blue
+            rgb_matrix_set_color(IDX_Z, 0, 0, 255); // Blue
+            rgb_matrix_set_color(IDX_X, 0, 0, 255); // Blue
+            rgb_matrix_set_color(IDX_C, 0, 0, 255); // Blue
+            rgb_matrix_set_color(IDX_V, 0, 0, 255); // Blue
+
+            // White for the arrow keys
+            rgb_matrix_set_color(IDX_I, 255, 255, 255); // White
+            rgb_matrix_set_color(IDX_J, 255, 255, 255); // White
+            rgb_matrix_set_color(IDX_K, 255, 255, 255); // White
+            rgb_matrix_set_color(IDX_L, 255, 255, 255); // White
+
+            // Orange for home and end
+            rgb_matrix_set_color(IDX_U, 255, 149, 0); // Orange
+            rgb_matrix_set_color(IDX_O, 255, 149, 0); // Orange
+
+            // Pink for the underscore and dash
+            rgb_matrix_set_color(IDX_N, 255, 0, 255); // Pink
+            rgb_matrix_set_color(IDX_M, 255, 0, 255); // Pink
+
             break;
 
         case SYMBOLS:
-            rgb_matrix_set_color_all(255, 149, 0); // Orange
+            rgb_matrix_set_color_all(0, 0, 0); // Off
+            rgb_matrix_set_color(IDX_E, 255, 0, 0); // Red
+            rgb_matrix_set_color(IDX_R, 255, 0, 0); // Red
+            rgb_matrix_set_color(IDX_D, 255, 255, 255); // White
+            rgb_matrix_set_color(IDX_F, 255, 255, 255); // White
+            rgb_matrix_set_color(IDX_C, 0, 0, 255); // Blue
+            rgb_matrix_set_color(IDX_V, 0, 0, 255); // Blue
             break;
 
         case MEDIA:
-            rgb_matrix_set_color_all(23, 200, 34); // Green
+            rgb_matrix_set_color_all(0, 0, 0); // Off
+            rgb_matrix_set_color(IDX_Q, 23, 200, 34); // Green
+            rgb_matrix_set_color(IDX_W, 23, 200, 34); // Green
+            rgb_matrix_set_color(IDX_E, 23, 200, 34); // Green
+            rgb_matrix_set_color(IDX_S, 97, 0, 255); // Purple
+            rgb_matrix_set_color(IDX_D, 97, 0, 255); // Purple
             break;
 
         case NUMBERS:
+            rgb_matrix_set_color_all(0, 0, 0); // Off
+
             // Orange for the number keys
-            rgb_matrix_set_color(IDX_U, 255, 149, 0);
-            rgb_matrix_set_color(IDX_I, 255, 149, 0);
-            rgb_matrix_set_color(IDX_O, 255, 149, 0);
-            rgb_matrix_set_color(IDX_P, 23, 200, 34);
-            rgb_matrix_set_color(IDX_J, 255, 149, 0);
-            rgb_matrix_set_color(IDX_K, 255, 149, 0);
-            rgb_matrix_set_color(IDX_L, 255, 149, 0);
-            rgb_matrix_set_color(IDX_Colon, 23, 200, 34);
-            rgb_matrix_set_color(IDX_M, 255, 149, 0);
-            rgb_matrix_set_color(IDX_Period, 255, 149, 0);
-            rgb_matrix_set_color(IDX_Comma, 255, 149, 0);
-            rgb_matrix_set_color(IDX_F_Slash, 23, 200, 34);
-            rgb_matrix_set_color(IDX_R1, 255, 149, 0);
-            rgb_matrix_set_color(IDX_R2, 23, 200, 34);
-            rgb_matrix_set_color(IDX_R3, 23, 200, 34);
-            rgb_matrix_set_color(IDX_R4, 23, 200, 34);        
+            rgb_matrix_set_color(IDX_U, 255, 149, 0); // Orange
+            rgb_matrix_set_color(IDX_I, 255, 149, 0); // Orange
+            rgb_matrix_set_color(IDX_O, 255, 149, 0); // Orange
+            rgb_matrix_set_color(IDX_J, 255, 149, 0); // Orange
+            rgb_matrix_set_color(IDX_K, 255, 149, 0); // Orange
+            rgb_matrix_set_color(IDX_L, 255, 149, 0); // Orange
+            rgb_matrix_set_color(IDX_M, 255, 149, 0);  // Orange
+            rgb_matrix_set_color(IDX_Comma, 255, 149, 0); // Orange
+            rgb_matrix_set_color(IDX_Period, 255, 149, 0); // Orange
+            rgb_matrix_set_color(IDX_R1, 255, 149, 0); // Orange
+
+            // Red for the number separators
+            rgb_matrix_set_color(IDX_R2, 255, 0, 0); // Red
+            rgb_matrix_set_color(IDX_R3, 255, 0, 0); // Red
+            
+            // Green for the symbols
+            rgb_matrix_set_color(IDX_P, 23, 200, 34);  // Green
+            rgb_matrix_set_color(IDX_Colon, 23, 200, 34); // Green
+            rgb_matrix_set_color(IDX_F_Slash, 23, 200, 34); // Green
+            rgb_matrix_set_color(IDX_R4, 23, 200, 34); // Green
+
+            // White for the arrow keys
+            rgb_matrix_set_color(IDX_E, 255, 255, 255); // White
+            rgb_matrix_set_color(IDX_S, 255, 255, 255); // White
+            rgb_matrix_set_color(IDX_D, 255, 255, 255); // White
+            rgb_matrix_set_color(IDX_F, 255, 255, 255); // White
             break;
 
         case MOUSE:
-            // Orange for the keys that are actually changed
-            rgb_matrix_set_color(IDX_1, 255, 149, 0);
-            rgb_matrix_set_color(IDX_2, 255, 149, 0);
-            rgb_matrix_set_color(IDX_W, 255, 149, 0);
-            rgb_matrix_set_color(IDX_E, 255, 149, 0);
-            rgb_matrix_set_color(IDX_R, 255, 149, 0);
-            rgb_matrix_set_color(IDX_A, 255, 149, 0);
-            rgb_matrix_set_color(IDX_S, 255, 149, 0);
-            rgb_matrix_set_color(IDX_D, 255, 149, 0);
-            rgb_matrix_set_color(IDX_F, 255, 149, 0);
-            rgb_matrix_set_color(IDX_G, 255, 149, 0);
-            rgb_matrix_set_color(IDX_L4, 255, 149, 0);
+            rgb_matrix_set_color_all(0, 0, 0); // Off
 
-            rgb_matrix_set_color(IDX_U, 255, 149, 0);
-            rgb_matrix_set_color(IDX_I, 255, 149, 0);
-            rgb_matrix_set_color(IDX_O, 255, 149, 0);
-            rgb_matrix_set_color(IDX_H, 255, 149, 0);
-            rgb_matrix_set_color(IDX_J, 255, 149, 0);
-            rgb_matrix_set_color(IDX_K, 255, 149, 0);
-            rgb_matrix_set_color(IDX_L, 255, 149, 0);
-            rgb_matrix_set_color(IDX_Colon, 255, 149, 0);
+            // White for the arrow keys
+            rgb_matrix_set_color(IDX_E, 255, 255, 255); // White
+            rgb_matrix_set_color(IDX_S, 255, 255, 255); // White
+            rgb_matrix_set_color(IDX_D, 255, 255, 255); // White
+            rgb_matrix_set_color(IDX_F, 255, 255, 255); // White
+
+            // Green / Yellow / Red for the speeds
+            rgb_matrix_set_color(IDX_1, 255, 0, 0); // Red
+            rgb_matrix_set_color(IDX_2, 255, 255, 0); // Yellow
+            rgb_matrix_set_color(IDX_3, 23, 200, 34);  // Green
+
+            // Blue for the scroll wheel
+            rgb_matrix_set_color(IDX_W, 0, 0, 255); // Blue
+            rgb_matrix_set_color(IDX_R, 0, 0, 255); // Blue
+            rgb_matrix_set_color(IDX_A, 0, 0, 255); // Blue
+            rgb_matrix_set_color(IDX_G, 0, 0, 255); // Blue
+
+            // Purple for the buttons
+            rgb_matrix_set_color(IDX_L4, 97, 0, 255); // Purple
             break;
 
         case GAMING:
-            rgb_matrix_set_color_all(255, 255, 0);       // Red
+            rgb_matrix_set_color_all(0, 0, 255); // Blue
             rgb_matrix_set_color(IDX_L4, 255, 255, 255); // White
             break;
 
