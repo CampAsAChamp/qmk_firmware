@@ -164,7 +164,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [BASE_LAYER] = LAYOUT_60_ansi(
         QK_GESC, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_MINS, KC_EQL, KC_BSPC,
         KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_LBRC, KC_RBRC, KC_BSLS,
-        LT(MEDIA_LAYER, KC_ESC), LCMD_T(KC_A), LALT_T(KC_S), LCTL_T(KC_D), LSFT_T(KC_F), KC_G, KC_H, RSFT_T(KC_J), LCTL_T(KC_K), LOPT_T(KC_L), LCMD_T(KC_SCLN), KC_QUOT, KC_ENT,
+        LT(MEDIA_LAYER, KC_ESC), LCTL_T(KC_A), LALT_T(KC_S), LCMD_T(KC_D), LSFT_T(KC_F), KC_G, KC_H, RSFT_T(KC_J), LCMD_T(KC_K), LOPT_T(KC_L), LCTL_T(KC_SCLN), KC_QUOT, KC_ENT,
         TD(TD_CAPS), MY_MEH_Z, MY_HYPER_X, KC_C, KC_V, KC_B, KC_N, KC_M, LT(SYMBOL_LAYER, KC_COMMA), MY_HYPER_DOT, MT(MOD_RCTL, KC_SLASH), TD(TD_CAPS),
         KC_LALT, KC_LWIN, KC_LCTL, LT(SHORTCUT_LAYER, KC_SPC), MO(MOUSE_LAYER), LT(RGB_LAYER, KC_APP), _______, KC_RCTL),
 
@@ -193,15 +193,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, QK_BOOT,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, RGB_M_P,
-        KC_CAPS, RGB_TOG, RGB_MOD, RGB_HUI, RGB_HUD, RGB_SAI, RGB_SAD, RGB_VAI, RGB_VAD, RGB_SPI, RGB_SPD, KC_CAPS,
+        KC_CAPS, RM_TOGG, RM_NEXT, RM_HUEU, RM_HUED, RM_SATU, RM_SATD, RM_VALU, RM_VALD, RM_SPDU, RM_SPDU, KC_CAPS,
         _______, _______, _______, _______, _______, _______, _______, _______),
 
     [MOUSE_LAYER] = LAYOUT_60_ansi(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, KC_WH_U, KC_MS_U, KC_WH_D, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, KC_MS_L, KC_MS_D, KC_MS_R, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, MS_WHLU, MS_UP, MS_WHLD, _______, _______, _______, _______, _______, _______, _______, _______, QK_BOOT,
+        _______, MS_WHLL, MS_LEFT, MS_DOWN, MS_RGHT, MS_WHLL, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, KC_MS_BTN2, KC_MS_BTN1, _______, _______, _______, _______)
+        _______, _______, MS_BTN2, MS_BTN1, _______, _______, _______, _______)
 };
 
 
