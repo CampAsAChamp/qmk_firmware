@@ -354,9 +354,26 @@ bool rgb_matrix_indicators_user(void) {
 
         case MEDIA:
             rgb_matrix_set_color_all(0, 0, 0); // Off
+            
+            // Blue for number
+            rgb_matrix_set_color(IDX_1, 0, 0, 255); // Blue
+            rgb_matrix_set_color(IDX_2, 0, 0, 255); // Blue
+            rgb_matrix_set_color(IDX_3, 0, 0, 255); // Blue
+            rgb_matrix_set_color(IDX_4, 0, 0, 255); // Blue
+            rgb_matrix_set_color(IDX_5, 0, 0, 255); // Blue
+            rgb_matrix_set_color(IDX_6, 0, 0, 255); // Blue
+            rgb_matrix_set_color(IDX_7, 0, 0, 255); // Blue
+            rgb_matrix_set_color(IDX_8, 0, 0, 255); // Blue
+            rgb_matrix_set_color(IDX_9, 0, 0, 255); // Blue
+            rgb_matrix_set_color(IDX_0, 0, 0, 255); // Blue
+
+            
+            // Green for media controls (prev/play/next)
             rgb_matrix_set_color(IDX_Q, 23, 200, 34); // Green
             rgb_matrix_set_color(IDX_W, 23, 200, 34); // Green
             rgb_matrix_set_color(IDX_E, 23, 200, 34); // Green
+
+            // Purple for volume controls
             rgb_matrix_set_color(IDX_S, 97, 0, 255); // Purple
             rgb_matrix_set_color(IDX_D, 97, 0, 255); // Purple
             break;
