@@ -176,10 +176,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 [BASE] = LAYOUT_ergodox_pretty(
           KC_MINUS,         KC_1,         KC_2,             KC_3,          KC_4,           KC_5,          _______,      _______             , KC_6       , KC_7        , KC_8                , KC_9        , KC_0                 , KC_EQUAL         ,
-            KC_TAB,         KC_Q,         KC_W,             KC_E,          KC_R,           KC_T,          _______,      _______             , KC_Y       , KC_U        , KC_I                , KC_O        , KC_P                 , TD(TD_PIPE)      ,
+            KC_TAB,         KC_Q,         KC_W,             KC_E,          KC_R,           KC_T,          KC_LBRC,      KC_RBRC             , KC_Y       , KC_U        , KC_I                , KC_O        , KC_P                 , TD(TD_PIPE)      ,
   LT(MEDIA,KC_ESC), LCMD_T(KC_A), LALT_T(KC_S),     LCTL_T(KC_D),  LSFT_T(KC_F),           KC_G,                                              KC_H       , RSFT_T(KC_J), LCTL_T(KC_K)        , LALT_T(KC_L), LCMD_T(KC_SEMICOLON) , KC_QUOTE         ,
  TD(TD_CAPS_BASIC),     MY_MEH_Z,   MY_HYPER_X, LT(SYMBOLS,KC_C),          KC_V,           KC_B,   LCTL(KC_SPACE),      _______             , KC_N       , KC_M        , LT(SYMBOLS,KC_COMMA), MY_HYPER_DOT, MT(MOD_RCTL,KC_SLASH), TD(TD_CAPS_BASIC),
-TOGGLE_LAYER_COLOR,      _______,      _______,          _______, MO(SHORTCUTS),                                                                           TT(MOUSE)   , _______             , _______     , _______              , _______          ,
+TOGGLE_LAYER_COLOR,      _______,      _______,          _______, MO(SHORTCUTS),                                                                           TT(MOUSE)   , KC_LEFT             , KC_UP     , KC_DOWN              , KC_RIGHT          ,
 
                                                                                  LALT(KC_SPACE), LCTL(LSFT(KC_1)),      TG(GAMING)          , TT(NUMBERS),
                                                                                                  LCTL(LSFT(KC_2)),      _______             ,
@@ -354,7 +354,7 @@ bool rgb_matrix_indicators_user(void) {
 
         case MEDIA:
             rgb_matrix_set_color_all(0, 0, 0); // Off
-            
+
             // Blue for number
             rgb_matrix_set_color(IDX_1, 0, 0, 255); // Blue
             rgb_matrix_set_color(IDX_2, 0, 0, 255); // Blue
@@ -367,7 +367,7 @@ bool rgb_matrix_indicators_user(void) {
             rgb_matrix_set_color(IDX_9, 0, 0, 255); // Blue
             rgb_matrix_set_color(IDX_0, 0, 0, 255); // Blue
 
-            
+
             // Green for media controls (prev/play/next)
             rgb_matrix_set_color(IDX_Q, 23, 200, 34); // Green
             rgb_matrix_set_color(IDX_W, 23, 200, 34); // Green
@@ -396,7 +396,7 @@ bool rgb_matrix_indicators_user(void) {
             // Red for the number separators
             rgb_matrix_set_color(IDX_R2, 255, 0, 0); // Red
             rgb_matrix_set_color(IDX_R3, 255, 0, 0); // Red
-            
+
             // Green for the symbols
             rgb_matrix_set_color(IDX_P, 23, 200, 34);  // Green
             rgb_matrix_set_color(IDX_Colon, 23, 200, 34); // Green
@@ -476,7 +476,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
                 alt_tab_timer = timer_read();
                 register_code(KC_TAB);
-            } 
+            }
             else
                 unregister_code(KC_TAB);
 
