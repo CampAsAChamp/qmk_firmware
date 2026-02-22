@@ -188,9 +188,9 @@ TOGGLE_LAYER_COLOR,      _______,      _______,          _______, MO(SHORTCUTS),
 
 [SHORTCUTS] = LAYOUT_ergodox_pretty(
  LCTL(KC_GRV),      KC_F1,      KC_F2,      KC_F3,      KC_F4,   KC_F5,  KC_F11,      KC_F12 , KC_F6         , KC_F7        , KC_F8  , KC_F9   , KC_F10 , TO(BASE),
-SUPER_ALT_TAB, LCTL(KC_Q), LCTL(KC_W),    _______, LCTL(KC_R), _______, _______,      _______, _______       , KC_HOME      , KC_UP  , KC_END  , _______, _______ ,
+SUPER_ALT_TAB, LCTL(KC_Q), LCTL(KC_W),    _______, LCTL(KC_R), LCTL(KC_T), _______,      _______, _______       , KC_HOME      , KC_UP  , KC_END  , _______, _______ ,
  LCTL(KC_GRV),    _______,    _______,    _______,    _______, _______,                        _______       , KC_LEFT      , KC_DOWN, KC_RIGHT, _______, KC_GRAVE,
-      _______, LCTL(KC_Z), LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), _______, _______,      _______, KC_MINS       , KC_UNDS      , _______, _______ , _______, _______ ,
+      _______, LCTL(KC_Z), LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), _______, _______,      KC_SLEP, KC_MINS       , KC_UNDS      , _______, _______ , _______, _______ ,
       _______,    _______,    _______,    _______,    _______,                                                 _______      , _______, _______ , _______, _______ ,
 
                                                                _______, _______,      _______, _______       ,
