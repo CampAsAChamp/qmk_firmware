@@ -254,8 +254,8 @@ KC_TILDE, _______, _______, _______,  _______, _______,     _______,      ______
  KC_LCTL, KC_LALT, KC_LWIN, XXXXXXX, KC_SPACE,                                              _______, KC_LEFT, KC_UP  , KC_DOWN     , KC_RIGHT,
 
                                                _______,     _______,      _______, XXXXXXX,
-                                                            _______,      _______,
-                                      LT(SHORTCUTS,KC_SPACE), _______,     _______,      _______, _______, _______
+                                                            _______,      KC_VOLU,
+                                      LT(SHORTCUTS,KC_SPACE), _______,    KC_VOLD,      _______, _______, _______
 )
 };
 
