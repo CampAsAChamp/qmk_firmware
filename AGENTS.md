@@ -31,6 +31,8 @@ Repo shortcut: `qmkfm` (do **not** use `qmk` as a zsh named directory — it sha
 
 After keymap changes, compile the affected keyboard. Toolchain and Homebrew setup: `.cursor/rules/qmk-setup.mdc`.
 
+**Toolchain troubleshooting:** If build fails with `avr-gcc: command not found`, the Homebrew cross-compilers are installed but not on `PATH` (keg-only). Run `qmk doctor`, then `brew link --force avr-gcc@8 arm-none-eabi-binutils arm-none-eabi-gcc@8` and `brew install dos2unix` if needed. Details in `qmk-setup.mdc`.
+
 ## ErgoDox keymap (primary)
 
 Self-contained in `keyboards/ergodox_ez/glow/keymaps/campasachamp/`.

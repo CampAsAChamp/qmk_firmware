@@ -29,19 +29,41 @@ brew install python@3.13
 
 `python@3.13` is listed in ConfigFiles `Dotfiles/Brewfile` next to QMK for this reason.
 
-## Toolchain PATH
+## Toolchain PATH (recurring issue)
 
-AVR/ARM cross-compilers from the QMK tap are **keg-only**. If compile fails with `avr-gcc: command not found`, run once:
+AVR/ARM cross-compilers from the QMK tap are **keg-only** — installed under `/opt/homebrew/opt/…` but not linked into `PATH` by default. This breaks after a fresh `brew install qmk/qmk/qmk`, a `brew upgrade`, or on a new machine.
 
-```bash
-qmk setup
+**Symptom** — compile or flash fails immediately:
+
+```text
+sh: avr-gcc: command not found
+gmake: *** [builddefs/common_rules.mk:214: gccversion] Error 127
 ```
 
-Or ensure these are on `PATH`:
+**Diagnose:**
 
 ```bash
-/opt/homebrew/opt/avr-gcc@8/bin
-/opt/homebrew/opt/arm-none-eabi-gcc@8/bin
+qmk doctor
+```
+
+Look for `Can't find avr-gcc in your path` (and often `arm-none-eabi-gcc`, `dos2unix`).
+
+**Fix (preferred)** — link the keg-only tools once (same as QMK's macOS installer):
+
+```bash
+brew link --force avr-gcc@8
+brew link --force arm-none-eabi-binutils
+brew link --force arm-none-eabi-gcc@8
+brew install dos2unix   # if qmk doctor still complains
+qmk doctor              # should end with "QMK is ready to go"
+```
+
+**Alternative** — run `qmk setup` (may not re-link if packages are already installed; use `brew link` above if doctor still fails).
+
+**Workaround** — add to shell config instead of linking:
+
+```bash
+export PATH="/opt/homebrew/opt/avr-gcc@8/bin:/opt/homebrew/opt/arm-none-eabi-gcc@8/bin:/opt/homebrew/opt/arm-none-eabi-binutils/bin:$PATH"
 ```
 
 ## Common commands
