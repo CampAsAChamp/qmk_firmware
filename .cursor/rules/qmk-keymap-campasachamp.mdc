@@ -1,0 +1,39 @@
+---
+description: campasachamp keymap conventions (ErgoDox + DZ60)
+globs: keyboards/**/keymaps/campasachamp/**
+alwaysApply: false
+---
+
+# campasachamp keymaps
+
+## Which file to edit
+
+| Change | File |
+|--------|------|
+| Layer layout, tap dances, combos, RGB colors, custom keycodes | `keymap.c` |
+| Tapping term, permissive hold, RGB timeouts, animation disables | `config.h` |
+| Enable/disable QMK features (tap dance, combo, leader, etc.) | `rules.mk` |
+| RGB LED index constants (ErgoDox only) | `key_indexes.h` |
+
+## ErgoDox layers
+
+`BASE` → `SHORTCUTS`, `SYMBOLS`, `MEDIA`, `NUMBERS`, `MOUSE`, `GAMING`
+
+Layer access examples in `keymap.c`: `MO(SHORTCUTS)`, `LT(SYMBOLS, …)`, `TT(MOUSE)`, `TG(GAMING)`, `TO(BASE)`.
+
+## RGB (ErgoDox)
+
+Use `IDX_*` constants from `key_indexes.h` in `rgb_matrix_indicators_user`. Do not hardcode LED numbers.
+
+## Tap dance placement
+
+Prefer tap dances on non-letter, infrequently double-tapped keys (punctuation, modifiers, function keys). Avoid letter keys used in common words (e.g. `p` in "pepper"). Good candidates: `z`, `q`, `x`, brackets, comma, period.
+
+## QMK features enabled
+
+ErgoDox: tap dance, combo, leader, caps word, RGB matrix, mouse keys, NKRO.
+DZ60: tap dance, leader, caps word, RGB matrix, mouse keys, NKRO, LTO.
+
+## After changes
+
+Compile the board you edited: `qce` (ErgoDox) or `qcd` (DZ60).

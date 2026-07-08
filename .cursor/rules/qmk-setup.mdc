@@ -1,0 +1,62 @@
+---
+description: QMK CLI, Homebrew toolchain, and shell integration for this fork
+alwaysApply: true
+---
+
+# QMK setup (CampAsAChamp fork)
+
+Personal notes for building and flashing from macOS with Homebrew.
+
+## Shell: repo shortcut vs CLI
+
+The Homebrew **QMK CLI** is the `qmk` command. Do **not** use `qmk` as a zsh named directory — it becomes `alias qmk='cd qmk'`, which breaks `qmk flash`, `qfe`, etc. with `cd: too many arguments`.
+
+In ConfigFiles, the firmware repo shortcut is **`qmkfm`** (`cd qmkfm`, `$qmkfm`, `~qmkfm`). Aliases `qce`, `qfe`, `qcd`, `qfd` call the real CLI.
+
+## Homebrew: keep python@3.13 installed
+
+The `qmk/qmk/qmk` bottle (1.1.8) embeds a venv whose shebang points at `python@3.13`. If that keg is missing, the CLI fails with:
+
+```text
+bad interpreter: .../libexec/bin/python: no such file or directory
+```
+
+Fix:
+
+```bash
+brew install python@3.13
+```
+
+`python@3.13` is listed in ConfigFiles `Dotfiles/Brewfile` next to QMK for this reason.
+
+## Toolchain PATH
+
+AVR/ARM cross-compilers from the QMK tap are **keg-only**. If compile fails with `avr-gcc: command not found`, run once:
+
+```bash
+qmk setup
+```
+
+Or ensure these are on `PATH`:
+
+```bash
+/opt/homebrew/opt/avr-gcc@8/bin
+/opt/homebrew/opt/arm-none-eabi-gcc@8/bin
+```
+
+## Common commands
+
+| Action | Command |
+|--------|---------|
+| cd to repo | `qmkfm` |
+| compile ErgoDox | `qce` |
+| flash ErgoDox | `qfe` |
+| compile DZ60 | `qcd` |
+| flash DZ60 | `qfd` |
+| doctor | `qmk doctor` |
+
+Keymap path: `keyboards/ergodox_ez/glow/keymaps/campasachamp/keymap.c`
+
+## Git submodules
+
+See `qmk-git-submodules.mdc` for `lib/` submodule drift after `git pull`.
