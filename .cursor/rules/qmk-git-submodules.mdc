@@ -1,0 +1,40 @@
+---
+description: QMK firmware — Git submodules, “modified (new commits)”, and how to fix drift
+alwaysApply: true
+---
+
+# QMK Git submodules
+
+Libraries under `lib/` (e.g. `lib/chibios-contrib`) are **submodules**. The parent repo stores one **commit SHA** per submodule, not the library’s files as normal paths.
+
+## What `modified: lib/… (new commits)` means
+
+The submodule directory is checked out at a **different commit** than the one your current QMK revision records—often after `git pull` inside the submodule, a branch switch there, or an incomplete submodule update.
+
+`git submodule status` shows **`+`** in the first column when the checked-out commit does not match the parent’s recorded SHA.
+
+## Default fix (match upstream QMK)
+
+Reset the named submodule to the pin:
+
+```bash
+git submodule update lib/chibios-contrib
+```
+
+After `git pull` in **qmk_firmware**, keep everything aligned:
+
+```bash
+git submodule sync --recursive
+git submodule update --init --recursive
+```
+
+## When you intentionally want a newer submodule
+
+Only if you are forking/customizing QMK: keep the newer checkout, then from the repo root `git add lib/<name>` and commit so the parent records the new SHA.
+
+## Inspect drift
+
+```bash
+git ls-tree HEAD lib/chibios-contrib   # commit parent expects
+cd lib/chibios-contrib && git rev-parse HEAD   # commit checked out
+```
