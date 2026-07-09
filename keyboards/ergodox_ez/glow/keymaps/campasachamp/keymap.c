@@ -449,6 +449,27 @@ bool rgb_matrix_indicators_user(void) {
 }
 
 // clang-format on
+// Make - not turn into _ when CAPS_WORD is on
+bool caps_word_press_user(uint16_t keycode) {
+    switch (keycode) {
+        // Letters: continue Caps Word with shift applied.
+        case KC_A ... KC_Z:
+            add_weak_mods(MOD_BIT(KC_LSFT));
+            return true;
+
+        // Continue Caps Word without shifting (underscore is on TD_DASH double-tap).
+        case KC_1 ... KC_0:
+        case KC_BSPC:
+        case KC_DEL:
+        case KC_UNDS:
+        case KC_MINS:
+            return true;
+
+        default:
+            return false;
+    }
+}
+
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     // // Activate auto sentence case
     // if (!process_sentence_case(keycode, record)) {

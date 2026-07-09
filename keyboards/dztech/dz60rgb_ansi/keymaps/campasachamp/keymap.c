@@ -106,13 +106,13 @@ void dance_r_bracket(tap_dance_state_t *state, void *user_data) {
 
 tap_dance_action_t tap_dance_actions[] = {
     // Tap once for first key code tap twice for second keycode
-    [TD_DASH] = ACTION_TAP_DANCE_DOUBLE(KC_MINUS, KC_UNDS), 
-    [TD_PLUS] = ACTION_TAP_DANCE_DOUBLE(KC_EQUAL, KC_PLUS), 
-    [TD_LBRACKET] = ACTION_TAP_DANCE_FN(dance_l_bracket), 
-    [TD_RBRACKET] = ACTION_TAP_DANCE_FN(dance_r_bracket), 
-    [TD_PIPE] = ACTION_TAP_DANCE_DOUBLE(KC_BACKSLASH, KC_PIPE), 
-    [TD_COPY] = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_C), LGUI(KC_X)), 
-    [TD_UNDO] = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_Z), LGUI(LSFT(KC_Z))), 
+    [TD_DASH] = ACTION_TAP_DANCE_DOUBLE(KC_MINUS, KC_UNDS),
+    [TD_PLUS] = ACTION_TAP_DANCE_DOUBLE(KC_EQUAL, KC_PLUS),
+    [TD_LBRACKET] = ACTION_TAP_DANCE_FN(dance_l_bracket),
+    [TD_RBRACKET] = ACTION_TAP_DANCE_FN(dance_r_bracket),
+    [TD_PIPE] = ACTION_TAP_DANCE_DOUBLE(KC_BACKSLASH, KC_PIPE),
+    [TD_COPY] = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_C), LGUI(KC_X)),
+    [TD_UNDO] = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_Z), LGUI(LSFT(KC_Z))),
     [TD_CAPS] = ACTION_TAP_DANCE_FN(dance_caps),
 };
 
@@ -122,8 +122,8 @@ uint16_t alt_tab_timer = 0;     // we will be using them soon.
 bool process_record_user(uint16_t keycode, keyrecord_t *record)
 {
     // Activate auto sentence case
-    // if (!process_sentence_case(keycode, record)) { 
-    //     return false; 
+    // if (!process_sentence_case(keycode, record)) {
+    //     return false;
     // }
 
     // Detect the activation of both Shifts
@@ -143,7 +143,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record)
         } else {
             unregister_code(KC_TAB);
         }
-        
+
         break;
     }
 
@@ -188,7 +188,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, KC_VOLD, KC_VOLU, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______),
-        
+
     [RGB_LAYER] = LAYOUT_60_ansi(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, QK_BOOT,
@@ -204,6 +204,24 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, MS_BTN2, MS_BTN1, _______, _______, _______, _______)
 };
 
+// Make - not turn into _ when CAPS_WORD is on
+bool caps_word_press_user(uint16_t keycode) {
+    switch (keycode) {
+        case KC_A ... KC_Z:
+            add_weak_mods(MOD_BIT(KC_LSFT));
+            return true;
+
+        case KC_1 ... KC_0:
+        case KC_BSPC:
+        case KC_DEL:
+        case KC_UNDS:
+        case KC_MINS:
+            return true;
+
+        default:
+            return false;
+    }
+}
 
 /*
 BLANK_LAYER_TEMPLATE
