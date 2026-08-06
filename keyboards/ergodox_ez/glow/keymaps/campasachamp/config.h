@@ -1,5 +1,11 @@
 #pragma once
 
+#ifndef KANATA_MODE
+#    define EECONFIG_USER_DATA_SIZE 4
+#    define OS_DETECTION_KEYBOARD_RESET
+#    define OS_DETECTION_SINGLE_REPORT
+#endif
+
 // Needed for turning on the 3 layer LEDs and the RGB matrix
 #define ORYX_CONFIGURATOR
 

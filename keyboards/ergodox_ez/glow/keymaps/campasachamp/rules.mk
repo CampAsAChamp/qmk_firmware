@@ -3,6 +3,15 @@
 # details), include the following define:
 # OPT_DEFS += -DLEFT_LEDS
 
+# Cross-platform: Mode A (default) = OS detection + paired Mac/Win layers.
+# Mode B (Kanata)  = make KANATA_MODE=yes
+KANATA_MODE ?= no
+ifeq ($(KANATA_MODE),yes)
+    OPT_DEFS += -DKANATA_MODE
+else
+    OS_DETECTION_ENABLE = yes
+endif
+
 # Build Options
 BOOTMAGIC_ENABLE 	= no   	         # Enable Bootmagic Lite
 CAPS_WORD_ENABLE    = yes
@@ -31,7 +40,7 @@ SRC += matrix.c
 
 I2C_DRIVER_REQUIRED = yes
 
-# INTROSPECTION_KEYMAP_C = campasachamp.c	   
+# INTROSPECTION_KEYMAP_C = campasachamp.c
 
 QUANTUM_LIB_SRC += i2c_master.c
 

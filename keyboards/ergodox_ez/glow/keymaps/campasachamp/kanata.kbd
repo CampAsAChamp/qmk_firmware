@@ -1,0 +1,67 @@
+;; ErgoDox EZ Glow — Mode B Kanata reference (campasachamp)
+;;
+;; Use with: KANATA_MODE=yes qce  (Win-convention QMK firmware)
+;; Merge into your live Kanata config or (include) this file.
+;;
+;; USB: VID 0x3297 (12951), PID 0x4976 (18806) — ErgoDox EZ Glow
+;;
+;; Mode A (default firmware): do NOT include these rules — Kanata should
+;; exclude the ErgoDox so QMK paired layers handle OS switching.
+
+(defcfg
+  process-unmapped-keys yes
+)
+
+;; ---------------------------------------------------------------------------
+;; Device filter — only remap ErgoDox EZ Glow
+;; Adjust device-name string if kanata list-devices shows a different name.
+;; ---------------------------------------------------------------------------
+
+(defvar
+  ergodox (device-eq "ErgoDox EZ Glow")
+)
+
+;; ---------------------------------------------------------------------------
+;; OS-conditional aliases (Win output from QMK → correct OS behavior)
+;; Apply only when ErgoDox is the source device.
+;; ---------------------------------------------------------------------------
+
+(defalias
+  ;; Word delete: QMK SHORTCUTS thumb sends C-bspc (Mode B firmware)
+  wdel (multi
+         (on-release press-vkey)
+         (if (and ergodox (mac?)) lalt-key (tap-key bspc))
+         (if (and ergodox (not (mac?))) lctl-key (tap-key bspc))
+         (if (not ergodox) (tap-key bspc)))
+
+  ;; App switcher chord — map at layer level in your merged config if needed
+)
+
+;; ---------------------------------------------------------------------------
+;; Example: remap Ctrl+letter → Cmd+letter on Mac for ErgoDox only
+;; Add similar rules for each SHORTCUTS key you use, or use a macro layer.
+;; ---------------------------------------------------------------------------
+
+(defoverrule ergodox-mac-shortcuts
+  (if (and ergodox (mac?))
+    (switch-event
+      (lctl $letter) (cmd $letter) break
+      C-bspc (multi lalt-key (tap-key bspc)) break
+    )
+  )
+)
+
+;; ---------------------------------------------------------------------------
+;; Integration notes
+;; ---------------------------------------------------------------------------
+;;
+;; 1. Run `kanata list-devices` and confirm the ErgoDox device name matches
+;;    `ergodox` above. Update the string if needed.
+;;
+;; 2. Merge with your MacBook defsrc — keep internal keyboard rules separate.
+;;
+;; 3. Home-row mod-tap (LCTL_T on A and ; in Mode B firmware) may need
+;;    additional Kanata rules on Mac to treat Ctrl-hold as Cmd-hold. Test and
+;;    extend defoverrule as needed.
+;;
+;; 4. See CROSS_PLATFORM.md for the full logical-action table and A/B procedure.
