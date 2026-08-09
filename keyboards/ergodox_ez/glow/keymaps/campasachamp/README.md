@@ -47,15 +47,15 @@ In **Mode A** (default flash), BASE / SHORTCUTS / GAMING exist as `_MAC` and `_W
 
 Tapping term: **200 ms** with **permissive hold** (`config.h`).
 
-| Key | Tap | Hold |
-|-----|-----|------|
-| **A** / **;** | Letter | Cmd (Mac) or Ctrl (Win) — primary shortcut modifier |
-| **S** / **L** | Letter | Alt |
-| **D** / **K** | Letter | Ctrl (terminal/editor bindings) |
-| **F** / **J** | Letter | Shift |
-| **Esc** (left pinky) | Esc | MEDIA layer |
+| Key | Tap | Hold (Mac) | Hold (Win) |
+|-----|-----|------------|------------|
+| **A** / **;** | Letter | Ctrl | Win |
+| **S** / **L** | Letter | Alt | Alt |
+| **D** / **K** | Letter | Cmd | Ctrl |
+| **F** / **J** | Letter | Shift | Shift |
+| **Esc** (left pinky) | Esc | MEDIA layer | MEDIA layer |
 
-On Mac, **A** and **;** use `LCMD_T`; on Windows, `LCTL_T`. Same physical keys, OS-appropriate output.
+Mac and Windows use the **opposite** mapping on the same keys: Mac has Ctrl on A/; and Cmd on D/K; Windows has Win on A/; and Ctrl on D/K.
 
 ### Modifier keys on bottom row
 
@@ -197,7 +197,7 @@ Per-layer colors in `rgb_matrix_indicators_user` (LED indices in `key_indexes.h`
 
 | Layer | Visual |
 |-------|--------|
-| **BASE** | Purple base; green on symbol keys (Z X C , . /); orange on G H; red on layer keys |
+| **BASE** | Mac: purple base; Win: blue base; green on symbol keys (Z X C , . /); orange on G H; red on layer keys |
 | **SHORTCUTS** | Red F-row; blue shortcut keys; white/orange/purple accents on nav/edit keys |
 | **SYMBOLS** | Red E/R, white D/F, blue C/V |
 | **MEDIA** | Blue F-row; green transport; purple volume keys |

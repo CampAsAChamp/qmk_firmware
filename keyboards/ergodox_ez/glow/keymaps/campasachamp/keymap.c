@@ -628,7 +628,16 @@ void keyboard_post_init_user(void) {
 
 // Per-layer RGB helpers — LED indices from key_indexes.h
 static void rgb_indicators_base(void) {
+#ifndef KANATA_MODE
+    // Mac: purple base fill; Windows: blue base fill (green/orange/red accents unchanged)
+    if (os_is_mac) {
+        rgb_matrix_set_color_all(97, 0, 255);
+    } else {
+        rgb_matrix_set_color_all(0, 0, 255);
+    }
+#else
     rgb_matrix_set_color_all(97, 0, 255);
+#endif
     rgb_matrix_set_color(IDX_Z, 23, 200, 34);
     rgb_matrix_set_color(IDX_X, 23, 200, 34);
     rgb_matrix_set_color(IDX_C, 23, 200, 34);

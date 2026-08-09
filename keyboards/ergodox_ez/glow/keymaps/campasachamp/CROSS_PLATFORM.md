@@ -116,7 +116,8 @@ Keep Mode A firmware and Mode B Kanata aligned to this table:
 | Close tab | Cmd + W | Ctrl + W | SHORTCUTS — W key |
 | New tab | Cmd + T | Ctrl + T | SHORTCUTS — T key |
 | App switcher | Cmd + Tab | Ctrl + Tab | SHORTCUTS — SUPER_ALT_TAB |
-| Home-row command mod | Cmd (hold) | Ctrl (hold) | A and ; mod-tap on BASE |
+| Home-row outer mod | Ctrl (hold A/;) | Win (hold A/;) | A and ; mod-tap on BASE |
+| Home-row inner mod | Cmd (hold D/K) | Ctrl (hold D/K) | D and K mod-tap on BASE |
 | Spotlight / search | Cmd+Ctrl+Space | Win + S | BASE thumb cluster |
 
 Mode A implements these in paired `_MAC` / `_WIN` layers. Mode B sends Windows chords from QMK; Kanata maps them on Mac.
@@ -154,7 +155,8 @@ Mode A implements these in paired `_MAC` / `_WIN` layers. Mode B sends Windows c
 
 - [ ] USB switch PC → Mac: Mac layers within ~1 s, or MOUSE toggle fixes it
 - [ ] SHORTCUTS + thumb key: word-delete on both OSes
-- [ ] Home-row mod-tap on A: Cmd on Mac, Ctrl on Windows
+- [ ] Home-row Mac: hold A → Ctrl, hold D → Cmd
+- [ ] Home-row Win: hold A → Win, hold D → Ctrl
 - [ ] Long-press OS toggle: clears manual lock, re-syncs
 - [ ] Unplug/replug with manual lock: EEPROM restores last mode
 
