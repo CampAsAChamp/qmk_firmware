@@ -45,7 +45,7 @@
 // Mouse Inertia Mode
 // #define MOUSEKEY_INERTIA
 
-#define LEADER_NO_TIMEOUT
+// #define LEADER_NO_TIMEOUT
 // #define LEADER_TIMEOUT 300 // 2 seconds
 // #define LEADER_PER_KEY_TIMING
 
