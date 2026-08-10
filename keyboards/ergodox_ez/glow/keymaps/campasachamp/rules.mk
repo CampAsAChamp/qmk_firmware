@@ -3,14 +3,8 @@
 # details), include the following define:
 # OPT_DEFS += -DLEFT_LEDS
 
-# Cross-platform: Mode A (default) = OS detection + paired Mac/Win layers.
-# Mode B (Kanata)  = make KANATA_MODE=yes
-KANATA_MODE ?= no
-ifeq ($(KANATA_MODE),yes)
-    OPT_DEFS += -DKANATA_MODE
-else
-    OS_DETECTION_ENABLE = yes
-endif
+# Cross-platform: OS detection + paired Mac/Win layers (see CROSS_PLATFORM.md)
+OS_DETECTION_ENABLE = yes
 
 # Build Options
 BOOTMAGIC_ENABLE 	= no   	         # Enable Bootmagic Lite

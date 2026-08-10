@@ -1,25 +1,20 @@
 /*
  * campasachamp — ErgoDox EZ Glow keymap
  *
- * Layers (Mode A, default flash):
+ * Layers:
  *   BASE_MAC / BASE_WIN     — home row, layer keys, OS-specific command mod-taps
  *   SHORTCUTS_MAC / _WIN    — copy/paste, word-delete, app switcher (LGUI vs LCTL)
  *   SYMBOLS, MEDIA, NUMBERS, MOUSE — shared; TO_HOME returns to active OS base layer
  *   GAMING_MAC / GAMING_WIN — WASD gaming layout with OS-matched shortcut layer
  *
- * Cross-platform: see CROSS_PLATFORM.md. Two build modes (rules.mk):
- *   Mode A (default) — OS_DETECTION_ENABLE, paired _MAC/_WIN layers, manual toggle
- *   Mode B           — make KANATA_MODE=yes; single Win-convention stack; Kanata remaps on Mac
- *
- * Do not enable macOS System Settings Ctrl↔Cmd swap for this keyboard with either mode.
+ * Cross-platform: see CROSS_PLATFORM.md — OS auto-detect, paired _MAC/_WIN layers,
+ * manual toggle on MOUSE layer. Do not enable macOS System Settings Ctrl↔Cmd swap.
  */
 #include QMK_KEYBOARD_H
 
 #include "./key_indexes.h"
-#ifndef KANATA_MODE
-#    include "os_detection.h"
-#    include "eeconfig.h"
-#endif
+#include "os_detection.h"
+#include "eeconfig.h"
 // #include "../../../users/campasachamp/campasachamp.h"
 // #include "../../../users/campasachamp/features/sentence_case.h"
 
@@ -33,21 +28,7 @@
 // Z / X / period: tap = letter, hold = Meh or Hyper (shared across OS modes)
 #define MY_HYPER_DOT MT(MOD_LSFT | MOD_LGUI | MOD_LCTL | MOD_LALT, KC_DOT)
 
-#ifdef KANATA_MODE
-// Mode B: one layer stack, Windows key conventions; Kanata handles Mac on the host.
-#    define TO_HOME TO(BASE)
-enum layers {
-    BASE,
-    SHORTCUTS,
-    SYMBOLS,
-    MEDIA,
-    NUMBERS,
-    MOUSE,
-    GAMING,
-};
-#else
-// Mode A: paired OS layers; shared layers use MY_TO_BASE to land on the active default.
-#    define TO_HOME MY_TO_BASE
+#define TO_HOME MY_TO_BASE
 enum layers {
     BASE_MAC,
     BASE_WIN,
@@ -60,7 +41,6 @@ enum layers {
     GAMING_MAC,
     GAMING_WIN,
 };
-#endif
 
 // Tap Dance index enum declarations
 typedef enum {
@@ -97,10 +77,8 @@ enum custom_keycodes {
     SUPER_ALT_TAB = SAFE_RANGE, // hold modifier + Tab for app switcher (Cmd+Tab Mac, Ctrl+Tab Win)
     RGB_SLD,
     COLON_EQUAL, // types ":=" for Go / assignment-style editing
-#ifndef KANATA_MODE
     MY_OS_TOGGLE, // MOUSE layer: tap = lock Mac/Win, hold = unlock + re-detect
     MY_TO_BASE,   // TO_HOME — jump to BASE_MAC or BASE_WIN based on os_is_mac
-#endif
 };
 
 // State detection helper
@@ -194,7 +172,6 @@ combo_t key_combos[] = {
 bool     is_alt_tab_active = false;
 uint16_t alt_tab_timer     = 0;
 
-#ifndef KANATA_MODE
 // --- Cross-platform OS mode (Mode A only) ---
 // Auto-detect on USB connect/switch; manual_os_locked skips process_detected_host_os_user.
 // EEPROM (config.h EECONFIG_USER_DATA_SIZE) persists manual lock + last OS across power cycles.
@@ -280,13 +257,10 @@ layer_state_t layer_state_set_user(layer_state_t state) {
     }
     return state;
 }
-#endif // KANATA_MODE
 
 // clang-format off
 
-
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-
 
     /*
      * ,--------------------------------------------------.    ,--------------------------------------------------.
@@ -308,145 +282,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      *                                |      |      |  37  |  |  73  |      |      |
      *                                `--------------------'  `--------------------'
      */
-
-#ifdef KANATA_MODE
-// ----- Mode B keymaps: Windows conventions throughout; Kanata remaps on macOS hosts -----
-
-/*
- * BASE — daily typing layer
- * Home-row mods keep modifiers under fingers; outer keys hold tap dances and layer toggles.
- * Symmetric LT(SYMBOLS) on C and comma: brackets without a dedicated symbols layer key.
- */
-[BASE] = LAYOUT_ergodox_pretty(
-  // Top row: standard numbers; outer = keeps both pinkies on familiar -/= keys
-         KC_GRV,         KC_1,         KC_2,             KC_3,          KC_4,           KC_5,          KC_MINUS,     KC_EQUAL            , KC_6       , KC_7        , KC_8                , KC_9        , KC_0                 , KC_EQUAL         ,
-  // QWERTY + [ ] under T/Y: reach brackets while coding without SYMBOLS layer
-            KC_TAB,         KC_Q,         KC_W,             KC_E,          KC_R,           KC_T,          KC_LBRC,      KC_RBRC             , KC_Y       , KC_U        , KC_I                , KC_O        , KC_P                 , TD(TD_PIPE)      ,
-  // Home row: Esc/Media on pinky; A/; = primary OS command mod (Ctrl here, Kanata→Cmd on Mac)
-  // D/K stay Ctrl for terminal/editor habits; F/J = Shift for natural roll-out typing
-  LT(MEDIA,KC_ESC), LCTL_T(KC_A), LALT_T(KC_S),     LCTL_T(KC_D),  LSFT_T(KC_F),           KC_G,                                              KC_H       , RSFT_T(KC_J), LCTL_T(KC_K)        , LALT_T(KC_L), LCTL_T(KC_SEMICOLON) , KC_QUOTE         ,
-  // Z/X/. = Meh/Hyper holds (low double-tap conflict); C/comma = SYMBOLS; B = Ctrl+Space (Spotlight/search)
-  // Outer TD_CAPS: shift/caps-word without a dedicated Caps Lock key
- TD(TD_CAPS_BASIC),     MY_MEH_Z,   MY_HYPER_X, LT(SYMBOLS,KC_C),          KC_V,           KC_B,   LCTL(KC_SPACE),      KC_TILDE             , KC_N       , KC_M        , LT(SYMBOLS,KC_COMMA), MY_HYPER_DOT, MT(MOD_RCTL,KC_SLASH), TD(TD_CAPS_BASIC),
-  // Left: RGB toggle + momentary SHORTCUTS. Right: toggle MOUSE + arrow cluster for one-handed nav
-TOGGLE_LAYER_COLOR,      _______,      _______,          _______, MO(SHORTCUTS),                                                                           TT(MOUSE)   , KC_LEFT             , KC_UP     , KC_DOWN              , KC_RIGHT          ,
-
-  // Thumbs: gaming/numbers toggles; center cluster = Space, word-forward Delete, IDE chords, Win+S search, Enter, Bksp
-                                                                                 LALT(KC_SPACE), LCTL(LSFT(KC_1)),      TG(GAMING)          , TT(NUMBERS),
-                                                                                                 LCTL(LSFT(KC_2)),      _______             ,
-                                                                       KC_SPACE,      KC_DELETE, LCTL(LSFT(KC_5)),      LGUI(KC_S), KC_ENTER   , KC_BSPC
-),
-
-/*
- * SHORTCUTS — momentary layer (hold MO(SHORTCUTS) on base)
- * Left = window/app chords under QWERTY home positions; right = nav + edit row.
- * Thumb LCTL+Bksp = delete previous word (Kanata maps to Opt+Bksp on Mac).
- */
-[SHORTCUTS] = LAYOUT_ergodox_pretty(
-  // F-row + LCTL+` (task switch / window mgmt on Win; Kanata maps on Mac)
- LCTL(KC_GRV),      KC_F1,      KC_F2,      KC_F3,      KC_F4,   KC_F5,  KC_F11,      KC_F12 , KC_F6         , KC_F7        , KC_F8  , KC_F9   , KC_F10 , TO(BASE),
-  // Q/W/R/T column = close tab, close window, reload, new tab — same keys as browser muscle memory
-SUPER_ALT_TAB, LCTL(KC_Q), LCTL(KC_W),    _______, LCTL(KC_R), LCTL(KC_T), _______,      _______, _______       , KC_HOME      , KC_UP  , KC_END  , _______, _______ ,
-  // Arrow cluster on right home area for doc/spreadsheet nav without moving to MOUSE layer
- LCTL(KC_GRV),    _______,    _______,    _______,    _______, _______,                        _______       , KC_LEFT      , KC_DOWN, KC_RIGHT, _______, KC_GRAVE,
-  // Z/X/C/V = undo/cut/copy/paste directly under left hand
-      _______, LCTL(KC_Z), LCTL(KC_X), LCTL(KC_C), LCTL(KC_V), _______, _______,      KC_SLEP, KC_MINS       , KC_UNDS      , _______, _______ , _______, _______ ,
-      _______,    _______,    _______,    _______,    _______,                                                 _______      , _______, _______ , _______, _______ ,
-
-                                                               _______, _______,      _______, _______       ,
-                                                                        _______,      _______,
-  // Right thumb: Enter + word-delete (Ctrl+Bksp Win → Kanata Opt+Bksp Mac)
-                                                      _______, _______, _______,      _______, LCTL(KC_ENTER), LCTL(KC_BSPC)
-),
-
-/*
- * SYMBOLS — hold C or comma on base
- * Bracket pairs sit on the same physical keys as C/V/D/F/comma/period so each finger learns one slot.
- * Row order: {}, (), [], <> — outside-in on the home-row-adjacent keys.
- */
-[SYMBOLS] = LAYOUT_ergodox_pretty(
-_______, _______, _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______, _______, _______,
-_______, _______, _______, KC_LCBR, KC_RCBR, _______, _______,      _______, _______, _______, _______, _______, _______, _______,
-_______, _______, _______, KC_LPRN, KC_RPRN, _______,                        _______, _______, _______, _______, _______, _______,
-_______, _______, _______, KC_LBRC, KC_RBRC, _______, _______,      _______, _______, _______, _______, _______, _______, _______,
-_______, _______, _______, KC_LABK, KC_RABK,                                          _______, _______, _______, _______, _______,
-
-                                             _______, _______,      _______, _______,
-                                                      _______,      _______,
-                                    _______, _______, _______,      _______, _______, _______
-),
-
-/*
- * MEDIA — hold Esc on base (LT(MEDIA,KC_ESC))
- * Playback on left (Q/W/E area); volume on home row; F-keys across top for app-specific media binds.
- */
-[MEDIA] = LAYOUT_ergodox_pretty(
-LCTL(KC_GRV),   KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,             KC_F11,      KC_F12 , KC_F6  , KC_F7  , KC_F8  , KC_F9  , KC_F10 , TO(BASE),
-     _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______,            _______,      _______, _______, _______, _______, _______, _______, _______ ,
-     _______, _______, KC_VOLD, KC_VOLU, _______, _______,                                   _______, _______, _______, _______, _______, _______ ,
-     _______, _______, _______, _______, _______, _______,            _______,      _______, _______, _______, _______, _______, _______, _______ ,
-     _______, _______, _______, _______, _______,                                                     _______, _______, _______, _______, _______ ,
-
-  // Thumb: plain RGB + layer-color toggle — visual feedback without leaving MEDIA
-                                                  _______,     RGB_MODE_PLAIN,      _______, _______,
-                                                           TOGGLE_LAYER_COLOR,      _______,
-                                         _______, _______,            _______,      _______, _______, _______
-),
-
-/*
- * NUMBERS — toggle on base (TT(NUMBERS))
- * Left half = arrow keys (spreadsheet/vim-style); right half = numpad under right-hand home area.
- * XXXXXXX blocks one thumb slot so NUMBERS doesn't accidentally stack with GAMING toggle.
- */
-[NUMBERS] = LAYOUT_ergodox_pretty(
-_______, _______, _______, _______,  _______, _______, _______,      _______, _______, _______, _______ , _______, _______, TO(BASE),
-_______, _______, _______,   KC_UP,  _______, _______, _______,      _______, _______, KC_7   , KC_8    , KC_9   , KC_ASTR, _______ ,
-_______, _______, KC_LEFT, KC_DOWN, KC_RIGHT, _______,                        _______, KC_4   , KC_5    , KC_6   , KC_PLUS, _______ ,
-_______, _______, _______, _______,  _______, _______, _______,      _______, _______, KC_1   , KC_2    , KC_3   , KC_BSLS, _______ ,
-_______, _______, _______, _______,  _______,                                          KC_0   , KC_COMMA, KC_DOT , KC_EQL , _______ ,
-
-                                              _______, _______,      XXXXXXX, _______,
-                                                       _______,      _______,
-                                     _______, _______, _______,      _______, _______, _______
-),
-
-/*
- * MOUSE — toggle on base (TT(MOUSE))
- * ESDF cluster = pointer move (matches gaming WASD muscle memory); speed presets on top row.
- * QK_BOOT top-right: reflash entry without a dedicated boot key on base.
- */
-[MOUSE] = LAYOUT_ergodox_pretty(
-_______, MS_ACL0, MS_ACL1, MS_ACL2, _______, _______, _______,      _______, _______, _______, _______, _______, _______, _______,
-_______, _______, MS_WHLU,   MS_UP, MS_WHLD, _______, _______,      _______, _______, _______, _______, _______, _______, QK_BOOT,
-_______, MS_WHLL, MS_LEFT, MS_DOWN, MS_RGHT, MS_WHLL,                        _______, _______, _______, _______, _______, _______,
-  // Btn4/5 on outer columns = browser back/forward without leaving the layer
-MS_BTN4, _______, _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______, _______, MS_BTN5,
-_______, _______, _______, _______, MS_BTN1,                                          _______, _______, _______, _______, _______,
-
-                                             _______, _______,      _______, _______,
-                                                      _______,      _______,
-                                    MS_BTN2, MS_BTN3, _______,      _______, _______, _______
-),
-
-/*
- * GAMING — toggle on base (TG(GAMING))
- * Strips home-row mods so games get clean key-down events; WASD + space on left, arrows on right.
- * LT(SHORTCUTS,Space) keeps chat/copy shortcuts reachable without leaving the layer.
- */
-[GAMING] = LAYOUT_ergodox_pretty(
-KC_TILDE, _______, _______, _______,  _______, _______,     _______,      _______, _______, _______, _______, _______, _______     , TO(BASE),
- _______, _______, _______, _______,  _______, _______,     _______,      _______, _______, _______, _______, _______, _______     , _______ ,
- LT(MEDIA,KC_ESC),    KC_A,    KC_S,    KC_D,     KC_F, _______,                            _______, KC_J   , KC_K   , KC_L   , KC_SEMICOLON, _______ ,
- KC_LSFT, _______, _______, _______,  _______, _______, MO(SYMBOLS),      _______, _______, _______, _______, _______, _______     , KC_RSFT ,
-  // Bottom-left modifiers in standard gaming positions; space on thumb for jump
- KC_LCTL, KC_LALT, KC_LWIN, XXXXXXX, KC_SPACE,                                              _______, KC_LEFT, KC_UP  , KC_DOWN     , KC_RIGHT,
-
-                                               _______,     _______,      _______, XXXXXXX,
-                                               KC_VOLU,      _______,
-                                      LT(SHORTCUTS,KC_SPACE), _______, KC_VOLD,      _______, _______, _______
-)
-
-#else // KANATA_MODE — Mode A: duplicate BASE / SHORTCUTS / GAMING per OS -----
 
 /*
  * BASE_MAC — Mac default layer (selected by OS detect or manual toggle)
@@ -597,11 +432,7 @@ KC_TILDE, _______, _______, _______,  _______, _______,     _______,      ______
                                       LT(SHORTCUTS_WIN,KC_SPACE), _______, KC_VOLD,      _______, _______, _______
 )
 
-#endif // KANATA_MODE
 };
-
-
-
 
 //----------------------
 // BLANK LAYER TEMPLATE
@@ -622,7 +453,6 @@ KC_TILDE, _______, _______, _______,  _______, _______,     _______,      ______
 
 void keyboard_post_init_user(void) {
     rgb_matrix_enable();
-#ifndef KANATA_MODE
     // Restore manual OS lock from EEPROM, else wait for / run auto-detect
     load_user_config();
     if (user_config.manual_lock) {
@@ -631,23 +461,16 @@ void keyboard_post_init_user(void) {
     } else {
         apply_os_from_detection();
     }
-#else
-    rgb_matrix_set_color_all(97, 0, 255); // Mode B boot color (purple)
-#endif
 }
 
 // Per-layer RGB helpers — LED indices from key_indexes.h
 static void rgb_indicators_base(void) {
-#ifndef KANATA_MODE
     // Mac: purple base fill; Windows: blue base fill (green/orange/red accents unchanged)
     if (os_is_mac) {
         rgb_matrix_set_color_all(97, 0, 255);
     } else {
         rgb_matrix_set_color_all(0, 0, 255);
     }
-#else
-    rgb_matrix_set_color_all(97, 0, 255);
-#endif
     rgb_matrix_set_color(IDX_Z, 23, 200, 34);
     rgb_matrix_set_color(IDX_X, 23, 200, 34);
     rgb_matrix_set_color(IDX_C, 23, 200, 34);
@@ -658,13 +481,11 @@ static void rgb_indicators_base(void) {
     rgb_matrix_set_color(IDX_H, 255, 149, 0);
     rgb_matrix_set_color(IDX_L4, 255, 0, 0);
     rgb_matrix_set_color(IDX_R1, 255, 0, 0);
-#ifndef KANATA_MODE
     // White accent on thumb cluster when manual OS lock is active
     if (manual_os_locked) {
         rgb_matrix_set_color(IDX_R2, 255, 255, 255);
         rgb_matrix_set_color(IDX_R3, 255, 255, 255);
     }
-#endif
 }
 
 static void rgb_indicators_shortcuts(void) {
@@ -703,29 +524,19 @@ static void rgb_indicators_gaming(void) {
 bool rgb_matrix_indicators_user(void) {
     if (keyboard_config.disable_layer_led) { return false; }
 
-#ifndef KANATA_MODE
     // Suppress layer colors briefly after OS detect/toggle flash
     if (os_rgb_active) {
         return true;
     }
-#endif
 
     switch (get_highest_layer(layer_state)) {
-#ifdef KANATA_MODE
-        case BASE:
-#else
         case BASE_MAC:
         case BASE_WIN:
-#endif
             rgb_indicators_base();
             break;
 
-#ifdef KANATA_MODE
-        case SHORTCUTS:
-#else
         case SHORTCUTS_MAC:
         case SHORTCUTS_WIN:
-#endif
             rgb_indicators_shortcuts();
             break;
 
@@ -796,18 +607,12 @@ bool rgb_matrix_indicators_user(void) {
             rgb_matrix_set_color(IDX_A, 0, 0, 255);
             rgb_matrix_set_color(IDX_G, 0, 0, 255);
             rgb_matrix_set_color(IDX_L4, 97, 0, 255);
-#ifndef KANATA_MODE
             // OS toggle key: white = Mac mode, blue = Windows mode
             rgb_matrix_set_color(IDX_R2, os_is_mac ? 255 : 0, os_is_mac ? 255 : 0, os_is_mac ? 255 : 255);
-#endif
             break;
 
-#ifdef KANATA_MODE
-        case GAMING:
-#else
         case GAMING_MAC:
         case GAMING_WIN:
-#endif
             rgb_indicators_gaming();
             break;
 
@@ -843,13 +648,11 @@ bool caps_word_press_user(uint16_t keycode) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-#ifndef KANATA_MODE
     if (IS_QK_LAYER_TAP_TOGGLE(keycode) && QK_LAYER_TAP_TOGGLE_GET_LAYER(keycode) == MOUSE) {
         if (!record->event.pressed) {
             suppress_mouse_layer = false;
         }
     }
-#endif
 
     switch (keycode) {
         case RGB_SLD:
@@ -867,11 +670,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             if (record->event.pressed) {
                 if (!is_alt_tab_active) {
                     is_alt_tab_active = true;
-#ifndef KANATA_MODE
                     register_code(is_mac_os() ? KC_LGUI : KC_LEFT_CTRL);
-#else
-                    register_code(KC_LEFT_CTRL); // Kanata maps to Cmd on Mac
-#endif
                 }
 
                 alt_tab_timer = timer_read();
@@ -881,7 +680,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
             }
 
             return false;
-#ifndef KANATA_MODE
         case MY_TO_BASE:
             // Used by TO_HOME on shared layers (SYMBOLS, MEDIA, NUMBERS)
             if (record->event.pressed) {
@@ -903,7 +701,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
                 }
             }
             return false;
-#endif
         case COLON_EQUAL:
             if (record->event.pressed)
                 SEND_STRING(":=");
@@ -914,21 +711,15 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 }
 
 void matrix_scan_user(void) {
-#ifndef KANATA_MODE
     // End full-keyboard OS flash after ~300 ms
     if (os_rgb_active && timer_elapsed(os_rgb_timer) > 300) {
         os_rgb_active = false;
     }
-#endif
 
     // Release Cmd/Ctrl after SUPER_ALT_TAB idle timeout
     if (is_alt_tab_active) {
         if (timer_elapsed(alt_tab_timer) > 750) {
-#ifndef KANATA_MODE
             unregister_code(is_mac_os() ? KC_LGUI : KC_LEFT_CTRL);
-#else
-            unregister_code(KC_LEFT_CTRL);
-#endif
             is_alt_tab_active = false;
         }
     }

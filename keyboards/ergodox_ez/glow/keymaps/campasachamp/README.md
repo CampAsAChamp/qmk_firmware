@@ -1,6 +1,6 @@
 # campasachamp — ErgoDox EZ Glow
 
-Personal QMK keymap for the ErgoDox EZ Glow. Home-row mods, layered shortcuts, per-layer RGB, and cross-platform Mac/Windows support via firmware (default) or Kanata (optional test mode).
+Personal QMK keymap for the ErgoDox EZ Glow. Home-row mods, layered shortcuts, per-layer RGB, and cross-platform Mac/Windows support via firmware OS detection.
 
 **Keyboard:** `ergodox_ez/glow`  
 **Keymap:** `campasachamp`
@@ -10,10 +10,8 @@ Personal QMK keymap for the ErgoDox EZ Glow. Home-row mods, layered shortcuts, p
 ## Build and flash
 
 ```bash
-qce          # compile (Mode A — default)
+qce          # compile
 qfe          # flash when ready
-
-KANATA_MODE=yes qce   # compile Mode B (Kanata test build)
 ```
 
 From the repo root you can also run:
@@ -34,10 +32,10 @@ qmk flash -kb ergodox_ez/glow -km campasachamp
 | **SYMBOLS** | Hold **C** or **comma** on base | Bracket pairs `{}` `()` `[]` `<>` on familiar finger positions |
 | **MEDIA** | Hold **Esc** on base (`LT(MEDIA,KC_ESC)`) | Play/pause, volume, F-keys, RGB controls |
 | **NUMBERS** | Toggle thumb key (`TT(NUMBERS)`) | Numpad on right hand; arrow keys on left |
-| **MOUSE** | Toggle thumb key (`TT(MOUSE)`) on base | Pointer, scroll, mouse buttons; OS toggle (Mode A) |
+| **MOUSE** | Toggle thumb key (`TT(MOUSE)`) on base | Pointer, scroll, mouse buttons; OS toggle |
 | **GAMING** | Toggle thumb key (`TG(GAMING)`) | Plain WASD layout without home-row mods |
 
-In **Mode A** (default flash), BASE / SHORTCUTS / GAMING exist as `_MAC` and `_WIN` pairs so shortcuts use the correct OS modifiers. SYMBOLS, MEDIA, NUMBERS, and MOUSE are shared.
+BASE / SHORTCUTS / GAMING exist as `_MAC` and `_WIN` pairs so shortcuts use the correct OS modifiers. SYMBOLS, MEDIA, NUMBERS, and MOUSE are shared.
 
 ---
 
@@ -206,30 +204,25 @@ Per-layer colors in `rgb_matrix_indicators_user` (LED indices in `key_indexes.h`
 | **MOUSE** | White pointer cluster; blue movement keys |
 | **GAMING** | Blue fill; white gaming layer indicator |
 
-**Mode A OS feedback:**
+**OS feedback:**
 
 - Full-keyboard flash: **white** = Mac, **blue** = Windows (~300 ms on detect/toggle)
 - Manual OS lock: white accent on base thumb cluster
 - MOUSE layer OS toggle key: white (Mac) or blue (Win)
 
-RGB animations are mostly disabled in `config.h` to save firmware space (~97% flash used in Mode A).
+RGB animations are mostly disabled in `config.h` to save firmware space.
 
 ---
 
 ## Cross-platform (Mac + Windows)
 
-This keymap is used across a MacBook (via USB-C dock) and a Windows PC through a USB switcher. Two approaches are supported — use **one at a time**:
-
-| | Mode A — Firmware (default) | Mode B — Kanata |
-|---|---|---|
-| Flash | `qce` | `KANATA_MODE=yes qce` |
-| OS switching | QMK auto-detect + MOUSE-layer toggle | Kanata `(mac?)` rules on the host |
-| macOS ErgoDox modifier swap | **Off** | **Off** |
+This keymap is used across a MacBook (via USB-C dock) and a Windows PC through a USB switcher. QMK auto-detects the host OS and selects paired `_MAC` / `_WIN` layers; a manual toggle on the MOUSE layer covers USB-switcher edge cases.
 
 **Before flashing:** reset ErgoDox modifier keys to defaults in macOS System Settings (do not use the per-device Ctrl↔Cmd swap).
 
-Full setup, testing, USB switcher notes, and pitfalls: **[CROSS_PLATFORM.md](CROSS_PLATFORM.md)**  
-Mode B Kanata reference: **[kanata.kbd](kanata.kbd)**
+Full setup, testing, and USB switcher notes: **[CROSS_PLATFORM.md](CROSS_PLATFORM.md)**
+
+Archived Kanata-based alternative (Mode B): git branch **`kanata-mode`** in this repo.
 
 ---
 
@@ -240,7 +233,7 @@ From `rules.mk`:
 - Tap dance, combos, leader, caps word
 - RGB matrix (per-key LEDs)
 - Mouse keys, NKRO
-- OS detection (Mode A)
+- OS detection
 
 From `config.h`:
 
@@ -257,11 +250,10 @@ From `config.h`:
 |------|---------|
 | `keymap.c` | Layers, tap dances, combos, OS detect, RGB, custom keycodes |
 | `config.h` | Tapping term, OS detection flags, RGB/mouse tuning |
-| `rules.mk` | Feature flags, `KANATA_MODE` build toggle |
+| `rules.mk` | Feature flags |
 | `key_indexes.h` | RGB LED index constants (`IDX_Q`, `IDX_L4`, …) |
 | `README.md` | This document |
-| `CROSS_PLATFORM.md` | Mac/Windows modes, migration, testing |
-| `kanata.kbd` | Mode B Kanata reference config |
+| `CROSS_PLATFORM.md` | Mac/Windows setup, migration, testing |
 
 ---
 
