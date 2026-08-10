@@ -234,10 +234,10 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  TD(TD_CAPS_BASIC),     MY_MEH_Z,   MY_HYPER_X, LT(SYMBOLS,KC_C),          KC_V,           KC_B,   LCMD(KC_SPACE),      KC_TILDE             , KC_N       , KC_M        , LT(SYMBOLS,KC_COMMA), MY_HYPER_DOT, MT(MOD_RCTL,KC_SLASH), TD(TD_CAPS_BASIC),
 TOGGLE_LAYER_COLOR,      _______,      _______,          _______, MO(SHORTCUTS_MAC),                                                                           TT(MOUSE)   , KC_LEFT             , KC_UP     , KC_DOWN              , KC_RIGHT          ,
 
-                                                                                 LALT(KC_SPACE), LCTL(LSFT(KC_1)),      _______             , TT(NUMBERS),
-                                                                                                 LCTL(LSFT(KC_2)),      _______             ,
+                                                                                 LALT(KC_SPACE), LCMD(LSFT(KC_1)),      _______             , TT(NUMBERS),
+                                                                                                 LCMD(LSFT(KC_2)),      _______             ,
   // Cmd+Ctrl+Space = emoji/special-char picker on Mac; Delete (not Bksp) = forward delete on Mac keyboards
-                                                                       KC_SPACE,      KC_DELETE, LCTL(LSFT(KC_5)),      LCMD(LCTL(KC_SPACE)), KC_ENTER   , KC_BSPC
+                                                                       KC_SPACE,      KC_DELETE, LCMD(LSFT(KC_5)),      LCMD(LCTL(KC_SPACE)), KC_ENTER   , KC_BSPC
 ),
 
 /*
