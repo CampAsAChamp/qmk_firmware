@@ -33,9 +33,9 @@ qmk flash -kb ergodox_ez/glow -km campasachamp
 | **MEDIA** | Hold **Esc** on base (`LT(MEDIA,KC_ESC)`) | Play/pause, volume, F-keys, RGB controls |
 | **NUMBERS** | Toggle thumb key (`TT(NUMBERS)`) | Numpad on right hand; arrow keys on left |
 | **MOUSE** | Toggle thumb key (`TT(MOUSE)`) on base | Pointer, scroll, mouse buttons; OS toggle |
-| **GAMING** | Toggle thumb key (`TG(GAMING)`) | Plain WASD layout without home-row mods |
+| **GAMING** | Toggle thumb key on **BASE_WIN** only (`TG(GAMING)`) | Plain WASD layout without home-row mods |
 
-BASE / SHORTCUTS / GAMING exist as `_MAC` and `_WIN` pairs so shortcuts use the correct OS modifiers. SYMBOLS, MEDIA, NUMBERS, and MOUSE are shared.
+BASE / SHORTCUTS exist as `_MAC` and `_WIN` pairs so shortcuts use the correct OS modifiers. GAMING is Windows-only on this board. SYMBOLS, MEDIA, NUMBERS, and MOUSE are shared.
 
 ---
 
@@ -69,9 +69,9 @@ Meh/Hyper sit on Z/X/period because those letters rarely conflict with double-ta
 ### Other base-layer highlights
 
 - **`[` / `]`** under **T** / **Y** — quick bracket access while coding
-- **`TD(TD_PIPE)`** on **P** — tap `\`, double-tap `\|` (pipe)
+- **`TD(TD_PIPE)`** on **P** — tap `\`, double-tap `|`
 - **`TD(TD_CAPS_BASIC)`** on outer pinkies — 1× shift, 2× caps word, 3× caps lock
-- **`LCTL(KC_SPACE)`** on **B** — Spotlight (Mac) / search-style chord
+- **`LCMD(KC_SPACE)`** on **B** (Mac) / **`LCTL(KC_SPACE)`** (Win) — Spotlight / search-style chord
 - **Arrow cluster** on right bottom row — one-handed navigation
 - **Thumb cluster** — Space, Delete, Enter, Backspace, IDE chords (`Ctrl+Shift+1/2/5`), gaming/numbers toggles
 
@@ -109,7 +109,7 @@ Hold **C** or **comma** on base. Bracket pairs mirror the physical keys you alre
 | C / V row | `[` `]` |
 | Comma / period row | `<` `>` |
 
-Tap-dance bracket keys on outer columns also provide `( ) { } [ ] < >` via multi-tap.
+Brackets are also available on the SYMBOLS layer (hold **C** or **comma** on base).
 
 ---
 
@@ -147,7 +147,7 @@ Toggle from base (`TT(MOUSE)`).
 
 ## GAMING layer
 
-Toggle from base (`TG(GAMING)`). Strips home-row mods for reliable key-down in games.
+Toggle from **BASE_WIN** thumb cluster (`TG(GAMING)`). Strips home-row mods for reliable key-down in games.
 
 - **WASD** on left, **JKL;** on right
 - **Space** on left thumb; **LT(SHORTCUTS, Space)** keeps chat/copy shortcuts reachable
@@ -160,14 +160,8 @@ Toggle from base (`TG(GAMING)`). Strips home-row mods for reliable key-down in g
 
 | Key | Taps | Output |
 |-----|------|--------|
-| **TD_DASH** | 1 / 2 | `-` / `_` |
-| **TD_PLUS** | 1 / 2 | `=` / `+` |
-| **TD_LBRACKET** | 1–4 | `(`, `{`, `[`, `<` |
-| **TD_RBRACKET** | 1–4 | `)`, `}`, `]`, `>` |
 | **TD_PIPE** (P) | 1 / 2 | `\` / `\|` |
-| **TD_CAPS_BASIC** | 1 / 2 / 3 | one-shot shift / caps word / caps lock |
-
-Bracket dances live on punctuation keys to avoid interfering with normal letter typing.
+| **TD_CAPS_BASIC** (outer pinkies) | 1 / 2 / 3 | one-shot shift / caps word / caps lock |
 
 ---
 
@@ -184,9 +178,7 @@ Bracket dances live on punctuation keys to avoid interfering with normal letter 
 | Keycode | Where | Behavior |
 |---------|-------|----------|
 | **SUPER_ALT_TAB** | SHORTCUTS | App switcher (Cmd+Tab / Ctrl+Tab) |
-| **COLON_EQUAL** | (available in keymap) | Types `:=` |
-| **MY_OS_TOGGLE** | MOUSE (Mode A) | Tap: lock Mac↔Win; hold: unlock + re-detect |
-| **RGB_SLD** | — | RGB solid mode |
+| **MY_OS_TOGGLE** | MOUSE | Tap: lock Mac↔Win; hold: unlock + re-detect |
 
 ---
 
@@ -230,7 +222,7 @@ Archived Kanata-based alternative (Mode B): git branch **`kanata-mode`** in this
 
 From `rules.mk`:
 
-- Tap dance, combos, leader, caps word
+- Tap dance, combos, caps word
 - RGB matrix (per-key LEDs)
 - Mouse keys, NKRO
 - OS detection
@@ -238,7 +230,6 @@ From `rules.mk`:
 From `config.h`:
 
 - `TAPPING_TERM 200`, `PERMISSIVE_HOLD`
-- Leader with no timeout
 - RGB timeout 15 minutes
 - Mouse wheel acceleration tuned for quick scrolling
 

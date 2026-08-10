@@ -24,8 +24,9 @@ Internal MacBook keyboard stays at defaults. If you use Kanata on the MacBook, k
 
 ### What it does
 
-- **Paired layers:** `BASE_MAC` / `BASE_WIN`, `SHORTCUTS_MAC` / `SHORTCUTS_WIN`, `GAMING_MAC` / `GAMING_WIN`
+- **Paired layers:** `BASE_MAC` / `BASE_WIN`, `SHORTCUTS_MAC` / `SHORTCUTS_WIN`
 - **Shared layers:** SYMBOLS, MEDIA, NUMBERS, MOUSE
+- **Gaming:** `GAMING` layer only (toggle from `BASE_WIN` thumb cluster)
 - **Auto-detect** on USB connect / switch (with USB-switcher reset flags in `config.h`)
 - **Manual toggle** on MOUSE layer if auto-detect fails
 
@@ -65,7 +66,7 @@ After toggling OS, firmware returns to the base layer for RGB feedback (purple M
 
 | Logical action | macOS | Windows | ErgoDox location |
 |---|---|---|---|
-| Word navigation | Option + Left/Right | Ctrl + Left/Right | Hold S + arrows on SHORTCUTS layer |
+| Word navigation | Option + Left/Right | Ctrl + Left/Right | Hold **S** on BASE + arrow keys (S = Alt on Mac, Ctrl on Win) |
 | Word delete | Option + Backspace | Ctrl + Backspace | Hold SHORTCUTS + thumb key (right cluster) |
 | Copy | Cmd + C | Ctrl + C | SHORTCUTS — C key |
 | Paste | Cmd + V | Ctrl + V | SHORTCUTS — V key |
