@@ -5,7 +5,7 @@
  *   BASE_MAC / BASE_WIN     — home row, layer keys, OS-specific command mod-taps
  *   SHORTCUTS_MAC / _WIN    — copy/paste, word-delete, app switcher (LGUI vs LCTL)
  *   SYMBOLS, MEDIA, NUMBERS, MOUSE — shared; TO_HOME returns to active OS base layer
- *   GAMING_MAC / GAMING_WIN — WASD gaming layout with OS-matched shortcut layer
+ *   GAMING — Windows WASD gaming layout (plain keys, no home-row mods)
  *
  * Cross-platform: see CROSS_PLATFORM.md — OS auto-detect, paired _MAC/_WIN layers,
  * manual toggle on MOUSE layer. Do not enable macOS System Settings Ctrl↔Cmd swap.
@@ -38,8 +38,7 @@ enum layers {
     MEDIA,
     NUMBERS,
     MOUSE, // MY_OS_TOGGLE lives here (manual Mac/Win override)
-    GAMING_MAC,
-    GAMING_WIN,
+    GAMING,
 };
 
 // Tap Dance index enum declarations
@@ -61,13 +60,7 @@ typedef struct {
 } td_tap_t;
 
 enum td_keycodes {
-    TD_DASH,
-    TD_PLUS,
-    TD_LBRACKET,
-    TD_RBRACKET,
     TD_PIPE,
-    TD_COPY,
-    TD_UNDO,
     TD_CAPS_BASIC,
     TD_CAPS_ADVANCED,
     X_CTL,
@@ -100,63 +93,9 @@ void dance_caps(tap_dance_state_t *state, void *user_data) {
     }
 }
 
-void dance_l_bracket(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1) {
-        // Left parenthesis -- (
-        register_code(KC_LSFT);
-        tap_code(KC_9);
-        unregister_code(KC_LSFT);
-    } else if (state->count == 2) {
-        // Left Curly Bracket -- {
-        register_code(KC_LSFT);
-        tap_code(KC_LEFT_BRACKET);
-        unregister_code(KC_LSFT);
-    } else if (state->count == 3) {
-        // Left Square Bracket -- [
-        tap_code(KC_LEFT_BRACKET);
-    } else if (state->count == 4) {
-        // Left Angle Bracket -- <
-        register_code(KC_LSFT);
-        tap_code(KC_COMMA);
-        unregister_code(KC_LSFT);
-    } else {
-        reset_tap_dance(state);
-    }
-}
-
-void dance_r_bracket(tap_dance_state_t *state, void *user_data) {
-    if (state->count == 1) {
-        // Right parenthesis -- )
-        register_code(KC_LSFT);
-        tap_code(KC_0);
-        unregister_code(KC_LSFT);
-    } else if (state->count == 2) {
-        // Right Curly Bracket -- }
-        register_code(KC_LSFT);
-        tap_code(KC_RIGHT_BRACKET);
-        unregister_code(KC_LSFT);
-    } else if (state->count == 3) {
-        // Right Square Bracket -- ]
-        tap_code(KC_RIGHT_BRACKET);
-    } else if (state->count == 4) {
-        // Right Angle Bracket -- >
-        register_code(KC_LSFT);
-        tap_code(KC_DOT);
-        unregister_code(KC_LSFT);
-    } else {
-        reset_tap_dance(state);
-    }
-}
-
 tap_dance_action_t tap_dance_actions[] = {
     // Tap dances on punctuation / outer keys — avoids letter-key double-tap conflicts (see cur_dance notes below)
-    [TD_DASH] = ACTION_TAP_DANCE_DOUBLE(KC_MINUS, KC_UNDS),
-    [TD_PLUS] = ACTION_TAP_DANCE_DOUBLE(KC_EQUAL, KC_PLUS),
-    [TD_LBRACKET] = ACTION_TAP_DANCE_FN(dance_l_bracket),
-    [TD_RBRACKET] = ACTION_TAP_DANCE_FN(dance_r_bracket),
     [TD_PIPE] = ACTION_TAP_DANCE_DOUBLE(KC_BACKSLASH, KC_PIPE), // on P: \ tap, | hold/double
-    [TD_COPY] = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_C), LGUI(KC_X)), // copy tap, cut double (legacy; shortcuts layer preferred)
-    [TD_UNDO] = ACTION_TAP_DANCE_DOUBLE(LGUI(KC_Z), LGUI(LSFT(KC_Z))),
     [TD_CAPS_BASIC] = ACTION_TAP_DANCE_FN(dance_caps), // 1=tap shift, 2=caps word, 3=caps lock
     [TD_CAPS_ADVANCED] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_caps_finished, dance_caps_reset)
 
@@ -289,13 +228,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
  * A/; = LCTL_T (terminal/emacs); D/K = LCMD_T (primary Mac shortcut modifier).
  */
 [BASE_MAC] = LAYOUT_ergodox_pretty(
-         KC_GRV,         KC_1,         KC_2,             KC_3,          KC_4,           KC_5,          KC_MINUS,     KC_EQUAL            , KC_6       , KC_7        , KC_8                , KC_9        , KC_0                 , KC_EQUAL         ,
+         KC_GRV,         KC_1,         KC_2,             KC_3,          KC_4,           KC_5,          KC_UNDS,      KC_PLUS             , KC_6       , KC_7        , KC_8                , KC_9        , KC_0                 , KC_EQUAL         ,
             KC_TAB,         KC_Q,         KC_W,             KC_E,          KC_R,           KC_T,          KC_LBRC,      KC_RBRC             , KC_Y       , KC_U        , KC_I                , KC_O        , KC_P                 , TD(TD_PIPE)      ,
   LT(MEDIA,KC_ESC), LCTL_T(KC_A), LALT_T(KC_S),     LCMD_T(KC_D),  LSFT_T(KC_F),           KC_G,                                              KC_H       , RSFT_T(KC_J), LCMD_T(KC_K)        , LALT_T(KC_L), LCTL_T(KC_SEMICOLON) , KC_QUOTE         ,
  TD(TD_CAPS_BASIC),     MY_MEH_Z,   MY_HYPER_X, LT(SYMBOLS,KC_C),          KC_V,           KC_B,   LCTL(KC_SPACE),      KC_TILDE             , KC_N       , KC_M        , LT(SYMBOLS,KC_COMMA), MY_HYPER_DOT, MT(MOD_RCTL,KC_SLASH), TD(TD_CAPS_BASIC),
 TOGGLE_LAYER_COLOR,      _______,      _______,          _______, MO(SHORTCUTS_MAC),                                                                           TT(MOUSE)   , KC_LEFT             , KC_UP     , KC_DOWN              , KC_RIGHT          ,
 
-                                                                                 LALT(KC_SPACE), LCTL(LSFT(KC_1)),      TG(GAMING_MAC)      , TT(NUMBERS),
+                                                                                 LALT(KC_SPACE), LCTL(LSFT(KC_1)),      _______             , TT(NUMBERS),
                                                                                                  LCTL(LSFT(KC_2)),      _______             ,
   // Cmd+Ctrl+Space = emoji/special-char picker on Mac; Delete (not Bksp) = forward delete on Mac keyboards
                                                                        KC_SPACE,      KC_DELETE, LCTL(LSFT(KC_5)),      LCMD(LCTL(KC_SPACE)), KC_ENTER   , KC_BSPC
@@ -306,13 +245,13 @@ TOGGLE_LAYER_COLOR,      _______,      _______,          _______, MO(SHORTCUTS_M
  * A/; = LGUI_T (Win key); D/K = LCTL_T (Ctrl shortcuts); S = LCTL_T for word-nav with SHORTCUTS arrows.
  */
 [BASE_WIN] = LAYOUT_ergodox_pretty(
-         KC_GRV,         KC_1,         KC_2,             KC_3,          KC_4,           KC_5,          KC_MINUS,     KC_EQUAL            , KC_6       , KC_7        , KC_8                , KC_9        , KC_0                 , KC_EQUAL         ,
+         KC_GRV,         KC_1,         KC_2,             KC_3,          KC_4,           KC_5,          KC_UNDS,      KC_PLUS             , KC_6       , KC_7        , KC_8                , KC_9        , KC_0                 , KC_EQUAL         ,
             KC_TAB,         KC_Q,         KC_W,             KC_E,          KC_R,           KC_T,          KC_LBRC,      KC_RBRC             , KC_Y       , KC_U        , KC_I                , KC_O        , KC_P                 , TD(TD_PIPE)      ,
   LT(MEDIA,KC_ESC), LGUI_T(KC_A), LCTL_T(KC_S),     LCTL_T(KC_D),  LSFT_T(KC_F),           KC_G,                                              KC_H       , RSFT_T(KC_J), LCTL_T(KC_K)        , LALT_T(KC_L), LGUI_T(KC_SEMICOLON) , KC_QUOTE         ,
  TD(TD_CAPS_BASIC),     MY_MEH_Z,   MY_HYPER_X, LT(SYMBOLS,KC_C),          KC_V,           KC_B,   LCTL(KC_SPACE),      KC_TILDE             , KC_N       , KC_M        , LT(SYMBOLS,KC_COMMA), MY_HYPER_DOT, MT(MOD_RCTL,KC_SLASH), TD(TD_CAPS_BASIC),
 TOGGLE_LAYER_COLOR,      _______,      _______,          _______, MO(SHORTCUTS_WIN),                                                                           TT(MOUSE)   , KC_LEFT             , KC_UP     , KC_DOWN              , KC_RIGHT          ,
 
-                                                                                 LALT(KC_SPACE), LCTL(LSFT(KC_1)),      TG(GAMING_WIN)      , TT(NUMBERS),
+                                                                                 LALT(KC_SPACE), LCTL(LSFT(KC_1)),      TG(GAMING)          , TT(NUMBERS),
                                                                                                  LCTL(LSFT(KC_2)),      _______             ,
                                                                        KC_SPACE,      KC_DELETE, LCTL(LSFT(KC_5)),      LGUI(KC_S), KC_ENTER   , KC_BSPC
 ),
@@ -407,20 +346,8 @@ _______, _______, _______, _______, MS_BTN1,                                    
                                     MS_BTN2, MS_BTN3, MY_OS_TOGGLE,      _______, _______, _______
 ),
 
-// GAMING_* differ only in TO() / LT(SHORTCUTS_*) targets — bottom row uses native OS GUI/Win keys
-[GAMING_MAC] = LAYOUT_ergodox_pretty(
-KC_TILDE, _______, _______, _______,  _______, _______,     _______,      _______, _______, _______, _______, _______, _______     , TO(BASE_MAC),
- _______, _______, _______, _______,  _______, _______,     _______,      _______, _______, _______, _______, _______, _______     , _______ ,
- LT(MEDIA,KC_ESC),    KC_A,    KC_S,    KC_D,     KC_F, _______,                            _______, KC_J   , KC_K   , KC_L   , KC_SEMICOLON, _______ ,
- KC_LSFT, _______, _______, _______,  _______, _______, MO(SYMBOLS),      _______, _______, _______, _______, _______, _______     , KC_RSFT ,
- KC_LCTL, KC_LALT, KC_LGUI, XXXXXXX, KC_SPACE,                                              _______, KC_LEFT, KC_UP  , KC_DOWN     , KC_RIGHT,
-
-                                               _______,     _______,      _______, XXXXXXX,
-                                               KC_VOLU,      _______,
-                                      LT(SHORTCUTS_MAC,KC_SPACE), _______, KC_VOLD,      _______, _______, _______
-),
-
-[GAMING_WIN] = LAYOUT_ergodox_pretty(
+// Windows-only gaming layer — plain WASD, LWIN bottom row, SHORTCUTS_WIN on space hold
+[GAMING] = LAYOUT_ergodox_pretty(
 KC_TILDE, _______, _______, _______,  _______, _______,     _______,      _______, _______, _______, _______, _______, _______     , TO(BASE_WIN),
  _______, _______, _______, _______,  _______, _______,     _______,      _______, _______, _______, _______, _______, _______     , _______ ,
  LT(MEDIA,KC_ESC),    KC_A,    KC_S,    KC_D,     KC_F, _______,                            _______, KC_J   , KC_K   , KC_L   , KC_SEMICOLON, _______ ,
@@ -611,8 +538,7 @@ bool rgb_matrix_indicators_user(void) {
             rgb_matrix_set_color(IDX_R2, os_is_mac ? 255 : 0, os_is_mac ? 255 : 0, os_is_mac ? 255 : 255);
             break;
 
-        case GAMING_MAC:
-        case GAMING_WIN:
+        case GAMING:
             rgb_indicators_gaming();
             break;
 
@@ -634,7 +560,7 @@ bool caps_word_press_user(uint16_t keycode) {
             add_weak_mods(MOD_BIT(KC_LSFT));
             return true;
 
-        // Continue Caps Word without shifting (underscore is on TD_DASH double-tap).
+        // Continue Caps Word without shifting.
         case KC_1 ... KC_0:
         case KC_BSPC:
         case KC_DEL:
