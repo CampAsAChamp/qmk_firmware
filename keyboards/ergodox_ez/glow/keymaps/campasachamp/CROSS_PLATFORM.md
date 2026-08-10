@@ -62,6 +62,8 @@ Hold **MOUSE** (`TT(MOUSE)` on base), press the thumb key mapped to **MY_OS_TOGG
 
 MOUSE layer RGB on the OS toggle key: **white** = Mac locked, **blue** = Windows locked.
 
+After toggling OS, firmware returns to the base layer for RGB feedback (purple Mac / blue Win) even if the MOUSE access key is still held; release that key to use MOUSE again.
+
 ### Kanata setup (Mode A)
 
 Kanata should **not** remap the ErgoDox. Keep your existing MacBook `defsrc` only. Example — exclude ErgoDox by name in your main config, or simply do not add ErgoDox-specific rules.
@@ -108,6 +110,7 @@ Keep Mode A firmware and Mode B Kanata aligned to this table:
 
 | Logical action | macOS | Windows | ErgoDox location |
 |---|---|---|---|
+| Word navigation | Option + Left/Right | Ctrl + Left/Right | Hold S + arrows on SHORTCUTS layer |
 | Word delete | Option + Backspace | Ctrl + Backspace | Hold SHORTCUTS + thumb key (right cluster) |
 | Copy | Cmd + C | Ctrl + C | SHORTCUTS — C key |
 | Paste | Cmd + V | Ctrl + V | SHORTCUTS — V key |

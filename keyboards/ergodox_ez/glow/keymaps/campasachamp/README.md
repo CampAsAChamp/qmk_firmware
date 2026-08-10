@@ -50,7 +50,8 @@ Tapping term: **200 ms** with **permissive hold** (`config.h`).
 | Key | Tap | Hold (Mac) | Hold (Win) |
 |-----|-----|------------|------------|
 | **A** / **;** | Letter | Ctrl | Win |
-| **S** / **L** | Letter | Alt | Alt |
+| **S** | Letter | Alt | Ctrl |
+| **L** | Letter | Alt | Alt |
 | **D** / **K** | Letter | Cmd | Ctrl |
 | **F** / **J** | Letter | Shift | Shift |
 | **Esc** (left pinky) | Esc | MEDIA layer | MEDIA layer |

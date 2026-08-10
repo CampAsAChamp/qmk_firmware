@@ -203,6 +203,7 @@ bool     os_is_mac         = false;
 uint16_t os_toggle_timer   = 0;
 uint16_t os_rgb_timer      = 0;
 bool     os_rgb_active     = false;
+static bool suppress_mouse_layer = false;
 
 typedef union {
     uint32_t raw;
@@ -245,6 +246,9 @@ static void flash_os_rgb(bool mac) {
 // Switch default layer to BASE_MAC or BASE_WIN and persist choice
 static void apply_os_layer(bool mac) {
     os_is_mac = mac;
+    if (layer_state_is(MOUSE)) {
+        suppress_mouse_layer = true;
+    }
     layer_clear();
     set_single_persistent_default_layer(mac ? BASE_MAC : BASE_WIN);
     flash_os_rgb(mac);
@@ -268,6 +272,13 @@ bool process_detected_host_os_user(os_variant_t detected_os) {
     }
     apply_os_layer(detected_os == OS_MACOS || detected_os == OS_IOS);
     return true;
+}
+
+layer_state_t layer_state_set_user(layer_state_t state) {
+    if (suppress_mouse_layer) {
+        state &= ~((layer_state_t)1 << MOUSE);
+    }
+    return state;
 }
 #endif // KANATA_MODE
 
@@ -440,13 +451,12 @@ KC_TILDE, _______, _______, _______,  _______, _______,     _______,      ______
 /*
  * BASE_MAC — Mac default layer (selected by OS detect or manual toggle)
  * Same physical layout as BASE_WIN; only OS-specific modifiers and layer targets differ.
- * A/; use LCMD_T because Cmd is the primary Mac shortcut modifier (vs Ctrl on Windows).
+ * A/; = LCTL_T (terminal/emacs); D/K = LCMD_T (primary Mac shortcut modifier).
  */
 [BASE_MAC] = LAYOUT_ergodox_pretty(
          KC_GRV,         KC_1,         KC_2,             KC_3,          KC_4,           KC_5,          KC_MINUS,     KC_EQUAL            , KC_6       , KC_7        , KC_8                , KC_9        , KC_0                 , KC_EQUAL         ,
             KC_TAB,         KC_Q,         KC_W,             KC_E,          KC_R,           KC_T,          KC_LBRC,      KC_RBRC             , KC_Y       , KC_U        , KC_I                , KC_O        , KC_P                 , TD(TD_PIPE)      ,
-  // LCMD_T on A/; for Cmd shortcuts; D/K stay LCTL_T for terminal/emacs-style bindings
-  LT(MEDIA,KC_ESC), LCMD_T(KC_A), LALT_T(KC_S),     LCTL_T(KC_D),  LSFT_T(KC_F),           KC_G,                                              KC_H       , RSFT_T(KC_J), LCTL_T(KC_K)        , LALT_T(KC_L), LCMD_T(KC_SEMICOLON) , KC_QUOTE         ,
+  LT(MEDIA,KC_ESC), LCTL_T(KC_A), LALT_T(KC_S),     LCMD_T(KC_D),  LSFT_T(KC_F),           KC_G,                                              KC_H       , RSFT_T(KC_J), LCMD_T(KC_K)        , LALT_T(KC_L), LCTL_T(KC_SEMICOLON) , KC_QUOTE         ,
  TD(TD_CAPS_BASIC),     MY_MEH_Z,   MY_HYPER_X, LT(SYMBOLS,KC_C),          KC_V,           KC_B,   LCTL(KC_SPACE),      KC_TILDE             , KC_N       , KC_M        , LT(SYMBOLS,KC_COMMA), MY_HYPER_DOT, MT(MOD_RCTL,KC_SLASH), TD(TD_CAPS_BASIC),
 TOGGLE_LAYER_COLOR,      _______,      _______,          _______, MO(SHORTCUTS_MAC),                                                                           TT(MOUSE)   , KC_LEFT             , KC_UP     , KC_DOWN              , KC_RIGHT          ,
 
@@ -458,12 +468,12 @@ TOGGLE_LAYER_COLOR,      _______,      _______,          _______, MO(SHORTCUTS_M
 
 /*
  * BASE_WIN — Windows default layer
- * Mirror of BASE_MAC: LCTL_T on A/; for Ctrl shortcuts; Win+S on thumb for system search.
+ * A/; = LGUI_T (Win key); D/K = LCTL_T (Ctrl shortcuts); S = LCTL_T for word-nav with SHORTCUTS arrows.
  */
 [BASE_WIN] = LAYOUT_ergodox_pretty(
          KC_GRV,         KC_1,         KC_2,             KC_3,          KC_4,           KC_5,          KC_MINUS,     KC_EQUAL            , KC_6       , KC_7        , KC_8                , KC_9        , KC_0                 , KC_EQUAL         ,
             KC_TAB,         KC_Q,         KC_W,             KC_E,          KC_R,           KC_T,          KC_LBRC,      KC_RBRC             , KC_Y       , KC_U        , KC_I                , KC_O        , KC_P                 , TD(TD_PIPE)      ,
-  LT(MEDIA,KC_ESC), LCTL_T(KC_A), LALT_T(KC_S),     LCTL_T(KC_D),  LSFT_T(KC_F),           KC_G,                                              KC_H       , RSFT_T(KC_J), LCTL_T(KC_K)        , LALT_T(KC_L), LCTL_T(KC_SEMICOLON) , KC_QUOTE         ,
+  LT(MEDIA,KC_ESC), LGUI_T(KC_A), LCTL_T(KC_S),     LCTL_T(KC_D),  LSFT_T(KC_F),           KC_G,                                              KC_H       , RSFT_T(KC_J), LCTL_T(KC_K)        , LALT_T(KC_L), LGUI_T(KC_SEMICOLON) , KC_QUOTE         ,
  TD(TD_CAPS_BASIC),     MY_MEH_Z,   MY_HYPER_X, LT(SYMBOLS,KC_C),          KC_V,           KC_B,   LCTL(KC_SPACE),      KC_TILDE             , KC_N       , KC_M        , LT(SYMBOLS,KC_COMMA), MY_HYPER_DOT, MT(MOD_RCTL,KC_SLASH), TD(TD_CAPS_BASIC),
 TOGGLE_LAYER_COLOR,      _______,      _______,          _______, MO(SHORTCUTS_WIN),                                                                           TT(MOUSE)   , KC_LEFT             , KC_UP     , KC_DOWN              , KC_RIGHT          ,
 
@@ -833,6 +843,14 @@ bool caps_word_press_user(uint16_t keycode) {
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+#ifndef KANATA_MODE
+    if (IS_QK_LAYER_TAP_TOGGLE(keycode) && QK_LAYER_TAP_TOGGLE_GET_LAYER(keycode) == MOUSE) {
+        if (!record->event.pressed) {
+            suppress_mouse_layer = false;
+        }
+    }
+#endif
+
     switch (keycode) {
         case RGB_SLD:
             if (record->event.pressed)
