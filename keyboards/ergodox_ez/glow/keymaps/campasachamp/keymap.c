@@ -197,7 +197,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
          KC_GRV,         KC_1,         KC_2,             KC_3,          KC_4,           KC_5,          KC_UNDS,      KC_PLUS             , KC_6       , KC_7        , KC_8                , KC_9        , KC_0                 , KC_EQUAL         ,
             KC_TAB,         KC_Q,         KC_W,             KC_E,          KC_R,           KC_T,          KC_LBRC,      KC_RBRC             , KC_Y       , KC_U        , KC_I                , KC_O        , KC_P                 , TD(TD_PIPE)      ,
   LT(MEDIA,KC_ESC), LCTL_T(KC_A), LALT_T(KC_S),     LCMD_T(KC_D),  LSFT_T(KC_F),           KC_G,                                              KC_H       , RSFT_T(KC_J), LCMD_T(KC_K)        , LALT_T(KC_L), LCTL_T(KC_SEMICOLON) , KC_QUOTE         ,
- TD(TD_CAPS_BASIC),     MY_MEH_Z,   MY_HYPER_X, LT(SYMBOLS,KC_C),          KC_V,           KC_B,   LCMD(KC_SPACE),      KC_TILDE             , KC_N       , KC_M        , LT(SYMBOLS,KC_COMMA), MY_HYPER_DOT, MT(MOD_RCTL,KC_SLASH), TD(TD_CAPS_BASIC),
+ TD(TD_CAPS_BASIC),     MY_MEH_Z,   MY_HYPER_X, LT(SYMBOLS,KC_C),          KC_V,           KC_B,   LCMD(KC_SPACE),      KC_TILDE             , KC_N       , KC_M        , LT(SYMBOLS,KC_COMMA), MY_HYPER_DOT, MT(MOD_RGUI,KC_SLASH), TD(TD_CAPS_BASIC),
 TOGGLE_LAYER_COLOR,      _______,      _______,          _______, MO(SHORTCUTS_MAC),                                                                           TT(MOUSE)   , KC_LEFT             , KC_UP     , KC_DOWN              , KC_RIGHT          ,
 
                                                                                  LALT(KC_SPACE), LCMD(LSFT(KC_1)),      _______             , TT(NUMBERS),
@@ -214,7 +214,7 @@ TOGGLE_LAYER_COLOR,      _______,      _______,          _______, MO(SHORTCUTS_M
          KC_GRV,         KC_1,         KC_2,             KC_3,          KC_4,           KC_5,          KC_UNDS,      KC_PLUS             , KC_6       , KC_7        , KC_8                , KC_9        , KC_0                 , KC_EQUAL         ,
             KC_TAB,         KC_Q,         KC_W,             KC_E,          KC_R,           KC_T,          KC_LBRC,      KC_RBRC             , KC_Y       , KC_U        , KC_I                , KC_O        , KC_P                 , TD(TD_PIPE)      ,
   LT(MEDIA,KC_ESC), LGUI_T(KC_A), LCTL_T(KC_S),     LCTL_T(KC_D),  LSFT_T(KC_F),           KC_G,                                              KC_H       , RSFT_T(KC_J), LCTL_T(KC_K)        , LALT_T(KC_L), LGUI_T(KC_SEMICOLON) , KC_QUOTE         ,
- TD(TD_CAPS_BASIC),     MY_MEH_Z,   MY_HYPER_X, LT(SYMBOLS,KC_C),          KC_V,           KC_B,   LCTL(KC_SPACE),      KC_TILDE             , KC_N       , KC_M        , LT(SYMBOLS,KC_COMMA), MY_HYPER_DOT, MT(MOD_RCTL,KC_SLASH), TD(TD_CAPS_BASIC),
+ TD(TD_CAPS_BASIC),     MY_MEH_Z,   MY_HYPER_X, LT(SYMBOLS,KC_C),          KC_V,           KC_B,   LCTL(KC_SPACE),      KC_TILDE             , KC_N       , KC_M        , LT(SYMBOLS,KC_COMMA), MY_HYPER_DOT, MT(MOD_RGUI,KC_SLASH), TD(TD_CAPS_BASIC),
 TOGGLE_LAYER_COLOR,      _______,      _______,          _______, MO(SHORTCUTS_WIN),                                                                           TT(MOUSE)   , KC_LEFT             , KC_UP     , KC_DOWN              , KC_RIGHT          ,
 
                                                                                  LALT(KC_SPACE), LCTL(LSFT(KC_1)),      TG(GAMING)          , TT(NUMBERS),
