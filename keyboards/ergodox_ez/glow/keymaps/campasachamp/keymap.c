@@ -19,10 +19,10 @@
 // Modifier chord aliases (Hyper = Shift+Ctrl+Alt+Cmd, Meh = Shift+Ctrl+Alt)
 // Placed on Z/X/. because they are rarely double-tapped in normal prose
 #define MY_HYPER S(G(C(KC_LALT)))
-#define MY_MEH S(G(KC_LALT))
+#define MY_MEH S(C(KC_LALT))
 
 #define MY_HYPER_X MT(MOD_LSFT | MOD_LGUI | MOD_LCTL | MOD_LALT, KC_X)
-#define MY_MEH_Z MT(MOD_LSFT | MOD_LGUI | MOD_LALT, KC_Z)
+#define MY_MEH_Z MT(MOD_LSFT | MOD_LCTL | MOD_LALT, KC_Z)
 // Z / X / period: tap = letter, hold = Meh or Hyper (shared across OS modes)
 #define MY_HYPER_DOT MT(MOD_LSFT | MOD_LGUI | MOD_LCTL | MOD_LALT, KC_DOT)
 
