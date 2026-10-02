@@ -49,7 +49,7 @@ RGB flash on detect/toggle:
 
 ### Manual OS toggle (MOUSE layer)
 
-Hold **MOUSE** (`TT(MOUSE)` on base), press the thumb key mapped to **MY_OS_TOGGLE** (left thumb cluster).
+Hold **MOUSE** (`TT(MOUSE)` on base), press the Tab key, which is mapped to **MY_OS_TOGGLE** on that layer.
 
 | Action | Result |
 |---|---|

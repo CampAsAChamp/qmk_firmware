@@ -296,20 +296,20 @@ _______, _______, _______, _______,  _______,                                   
 ),
 
 /*
- * MOUSE — same as Mode B, plus MY_OS_TOGGLE on left thumb
+ * MOUSE — same as Mode B, plus MY_OS_TOGGLE on the Tab key
  * Infrequent layer = safe place for OS override (tap flip Mac/Win, hold re-detect).
  * See CROSS_PLATFORM.md for USB switcher fallback behavior.
  */
 [MOUSE] = LAYOUT_ergodox_pretty(
 _______, MS_ACL0, MS_ACL1, MS_ACL2, _______, _______, _______,      _______, _______, _______, _______, _______, _______, _______,
-_______, _______, MS_WHLU,   MS_UP, MS_WHLD, _______, _______,      _______, _______, _______, _______, _______, _______, QK_BOOT,
+MY_OS_TOGGLE, _______, MS_WHLU,   MS_UP, MS_WHLD, _______, _______,      _______, _______, _______, _______, _______, _______, QK_BOOT,
 _______, MS_WHLL, MS_LEFT, MS_DOWN, MS_RGHT, MS_WHLL,                        _______, _______, _______, _______, _______, _______,
 MS_BTN4, _______, _______, _______, _______, _______, _______,      _______, _______, _______, _______, _______, _______, MS_BTN5,
 _______, _______, _______, _______, MS_BTN1,                                          _______, _______, _______, _______, _______,
 
                                              _______, _______,      _______, _______,
                                                       _______,      _______,
-                                    MS_BTN2, MS_BTN3, MY_OS_TOGGLE,      _______, _______, _______
+                                    MS_BTN2, MS_BTN3, _______,      _______, _______, _______
 ),
 
 // Windows-only gaming layer — plain WASD, LWIN bottom row, SHORTCUTS_WIN on space hold

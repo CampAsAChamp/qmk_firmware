@@ -141,7 +141,7 @@ Toggle from base (`TT(MOUSE)`).
 - **Top row** — mouse acceleration presets
 - **Outer columns** — mouse buttons 4/5 (e.g. browser back/forward)
 - **Top-right** — `QK_BOOT` (enter bootloader to reflash)
-- **Left thumb (Mode A only)** — **MY_OS_TOGGLE** — manual Mac/Win override (see [CROSS_PLATFORM.md](CROSS_PLATFORM.md))
+- **Tab key** — **MY_OS_TOGGLE** — manual Mac/Win override (see [CROSS_PLATFORM.md](CROSS_PLATFORM.md))
 
 ---
 
