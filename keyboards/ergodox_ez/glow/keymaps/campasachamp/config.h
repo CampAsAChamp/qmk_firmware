@@ -54,6 +54,8 @@
 // For home row mods
 #define TAPPING_TERM 200
 #define PERMISSIVE_HOLD
+// Same-hand rolls stay taps; opposite-hand chords still hold.
+#define CHORDAL_HOLD
 // #define HOLD_ON_OTHER_KEY_PRESS
 
 // Remove RGB animations to save firmware space
