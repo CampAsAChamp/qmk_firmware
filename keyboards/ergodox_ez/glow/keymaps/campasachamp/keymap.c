@@ -545,7 +545,7 @@ bool get_chordal_hold(uint16_t tap_hold_keycode, keyrecord_t *tap_hold_record, u
     switch (tap_hold_keycode) {
         case LCMD_T(KC_D): // BASE_MAC
         case LCTL_T(KC_D): // BASE_WIN
-            if (other_keycode == KC_W || other_keycode == KC_R) {
+            if (other_keycode == KC_Q || other_keycode == KC_W || other_keycode == KC_R) {
                 return true;
             }
             break;
