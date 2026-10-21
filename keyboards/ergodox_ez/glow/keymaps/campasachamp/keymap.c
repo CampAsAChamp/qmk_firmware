@@ -539,8 +539,8 @@ bool caps_word_press_user(uint16_t keycode) {
     }
 }
 
-// Chordal Hold keeps same-hand rolls as taps. Allow D+W and D+R so a quick
-// left-hand chord still sends Cmd+W/R on Mac and Ctrl+W/R on Windows.
+// Chordal Hold keeps same-hand rolls as taps. Allow D+Q/W/R so a quick
+// left-hand chord still sends Cmd+Q/W/R on Mac and Ctrl+Q/W/R on Windows.
 bool get_chordal_hold(uint16_t tap_hold_keycode, keyrecord_t *tap_hold_record, uint16_t other_keycode, keyrecord_t *other_record) {
     switch (tap_hold_keycode) {
         case LCMD_T(KC_D): // BASE_MAC
