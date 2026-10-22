@@ -541,6 +541,11 @@ bool caps_word_press_user(uint16_t keycode) {
 
 // Chordal Hold keeps same-hand rolls as taps. Allow D+Q/W/R so a quick
 // left-hand chord still sends Cmd+Q/W/R on Mac and Ctrl+Q/W/R on Windows.
+//
+// Known issue: typing "like" rolls K (LCMD_T on BASE_MAC) into E on the
+// other hand. Chordal Hold plus PERMISSIVE_HOLD settles K as Command, so
+// the host receives Cmd+E (iMessage treats that as a command). Fix later
+// by returning false here for LCMD_T(KC_K) when the other key is KC_E.
 bool get_chordal_hold(uint16_t tap_hold_keycode, keyrecord_t *tap_hold_record, uint16_t other_keycode, keyrecord_t *other_record) {
     switch (tap_hold_keycode) {
         case LCMD_T(KC_D): // BASE_MAC
