@@ -317,7 +317,7 @@ _______, _______, _______, _______, MS_BTN1,                                    
 KC_TILDE, _______, _______, _______,  _______, _______,     _______,      _______, _______, _______, _______, _______, _______     , TO(BASE_WIN),
  _______, _______, _______, _______,  _______, _______,     _______,      _______, _______, _______, _______, _______, _______     , _______ ,
  LT(MEDIA,KC_ESC),    KC_A,    KC_S,    KC_D,     KC_F, _______,                            _______, KC_J   , KC_K   , KC_L   , KC_SEMICOLON, _______ ,
- KC_LSFT, _______, _______, _______,  _______, _______, MO(SYMBOLS),      _______, _______, _______, _______, _______, _______     , KC_RSFT ,
+ KC_LSFT, KC_Z, KC_X, KC_C,  KC_V, KC_B, MO(SYMBOLS),      _______, _______, _______, KC_COMMA, KC_DOT, KC_SLASH     , KC_RSFT ,
  KC_LCTL, KC_LALT, KC_LWIN, XXXXXXX, KC_SPACE,                                              _______, KC_LEFT, KC_UP  , KC_DOWN     , KC_RIGHT,
 
                                                _______,     _______,      _______, XXXXXXX,
@@ -410,7 +410,7 @@ static void rgb_indicators_shortcuts(void) {
 }
 
 static void rgb_indicators_gaming(void) {
-    rgb_matrix_set_color_all(0, 0, 255);
+    rgb_matrix_set_color_all(255, 192, 203);
     rgb_matrix_set_color(IDX_L4, 255, 255, 255);
 }
 
